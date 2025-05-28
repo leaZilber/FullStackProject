@@ -1,0 +1,303 @@
+<!-- <form (ngSubmit)="onRegister()">
+  <label>UserName:</label>
+  <input [(ngModel)]="registerData.userName" name="userName" required />
+
+  <label>Email:</label>
+  <input [(ngModel)]="registerData.userEmail" name="userEmail" required type="email" />
+
+  <label>Password:</label>
+  <input [(ngModel)]="registerData.userEncryptedPassword" name="userEncryptedPassword" required type="password" />
+
+  <label>Phone:</label>
+  <input [(ngModel)]="registerData.userPhone" name="userPhone" required />
+
+  <label>Address:</label>
+  <input [(ngModel)]="registerData.userAddress" name="userAddress" required />
+
+  <label>Birth Date:</label>
+  <input [(ngModel)]="registerData.userBirth" name="userBirth" type="date" required />
+
+  <label>Role:</label>
+  <input [(ngModel)]="registerData.userRole" name="userRole" readonly />
+
+  <button type="submit">Register</button>
+
+  <div *ngIf="successMessage" style="color: green;">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+</form> -->
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="register-container">
+  <mat-card class="register-card">
+    <mat-card-header>
+      <mat-card-title class="register-title">
+        <mat-icon>person_add</mat-icon>
+        Create Account
+      </mat-card-title>
+      <mat-card-subtitle>Join us today and get started</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm" class="register-form">
+ 
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput 
+                 [(ngModel)]="registerData.userName" 
+                 name="userName" 
+                 required 
+                 #userName="ngModel">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="userName.invalid && userName.touched">
+            Full name is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput 
+                 [(ngModel)]="registerData.userEmail" 
+                 name="userEmail" 
+                 type="email" 
+                 required 
+                 #userEmail="ngModel"
+                 email>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="userEmail.invalid && userEmail.touched">
+            <span *ngIf="userEmail.errors?.['required']">Email is required</span>
+            <span *ngIf="userEmail.errors?.['email']">Please enter a valid email</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput 
+                 [(ngModel)]="registerData.userEncryptedPassword" 
+                 name="userEncryptedPassword" 
+                 [type]="hidePassword ? 'password' : 'text'"
+                 required 
+                 #userPassword="ngModel"
+                 minlength="6">
+          <button type="button" 
+                  mat-icon-button 
+                  matSuffix 
+                  (click)="togglePasswordVisibility()"
+                  [attr.aria-label]="'Hide password'" 
+                  [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="userPassword.invalid && userPassword.touched">
+            <span *ngIf="userPassword.errors?.['required']">Password is required</span>
+            <span *ngIf="userPassword.errors?.['minlength']">Password must be at least 6 characters</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput 
+                 [(ngModel)]="registerData.userPhone" 
+                 name="userPhone" 
+                 required 
+                 #userPhone="ngModel">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="userPhone.invalid && userPhone.touched">
+            Phone number is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput 
+                 [(ngModel)]="registerData.userAddress" 
+                 name="userAddress" 
+                 required 
+                 #userAddress="ngModel">
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-error *ngIf="userAddress.invalid && userAddress.touched">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Birth Date</mat-label>
+          <input matInput 
+                 [matDatepicker]="picker"
+                 [(ngModel)]="registerData.userBirth" 
+                 name="userBirth" 
+                 required 
+                 #userBirth="ngModel">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="userBirth.invalid && userBirth.touched">
+            Birth date is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="registerData.userRole" 
+                     name="userRole" 
+                     disabled>
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="User">User</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>admin_panel_settings</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button 
+                type="submit" 
+                class="register-button full-width"
+                [disabled]="!registerForm.form.valid">
+          <mat-icon>person_add</mat-icon>
+          Create Account
+        </button>
+
+        <div class="login-link">
+          <p>Already have an account? 
+            <a mat-button 
+               class="login-link-button" 
+               routerLink="/login">
+              Sign In
+            </a>
+          </p>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+
+
+
+
+
+
+
+
+<div class="register-container">
+  <mat-card class="register-card">
+    <!-- Card Header -->
+    <div class="card-header">
+      <mat-card-header>
+        <mat-card-title class="register-title">
+          <mat-icon>person_add</mat-icon>
+          Create Account
+        </mat-card-title>
+        <mat-card-subtitle>Join us today and get started</mat-card-subtitle>
+      </mat-card-header>
+    </div>
+
+    <mat-card-content>
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm" class="register-form">
+
+        <!-- User Name Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Full Name</mat-label>
+          <input matInput [(ngModel)]="registerData.UserName" name="userName" required #userName="ngModel">
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="userName.invalid && userName.touched">
+            Full name is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email Address</mat-label>
+          <input matInput [(ngModel)]="registerData.UserEmail" name="userEmail" type="email" required
+            #userEmail="ngModel" email>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="userEmail.invalid && userEmail.touched">
+            <span *ngIf="userEmail.errors?.['required']">Email is required</span>
+            <span *ngIf="userEmail.errors?.['email']">Please enter a valid email</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Password Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input matInput [(ngModel)]="registerData.UserEncryptedPassword" name="userEncryptedPassword"
+            [type]="hidePassword ? 'password' : 'text'" required #userPassword="ngModel" minlength="6">
+          <button type="button" mat-icon-button matSuffix class="password-toggle-btn"
+            (click)="togglePasswordVisibility()" [attr.aria-label]="'Toggle password visibility'"
+            [attr.aria-pressed]="!hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="userPassword.invalid && userPassword.touched">
+            <span *ngIf="userPassword.errors?.['required']">Password is required</span>
+            <span *ngIf="userPassword.errors?.['minlength']">Password must be at least 6 characters</span>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Phone Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input matInput [(ngModel)]="registerData.UserPhone" name="userPhone" required #userPhone="ngModel">
+          <mat-icon matSuffix>phone</mat-icon>
+          <mat-error *ngIf="userPhone.invalid && userPhone.touched">
+            Phone number is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Address Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Address</mat-label>
+          <input matInput [(ngModel)]="registerData.UserAddress" name="userAddress" required #userAddress="ngModel">
+          <mat-icon matSuffix>home</mat-icon>
+          <mat-error *ngIf="userAddress.invalid && userAddress.touched">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Birth Date Field -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Birth Date</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="registerData.UserBirth" name="userBirth" required
+            #userBirth="ngModel">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="userBirth.invalid && userBirth.touched">
+            Birth date is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Role Field (readonly) -->
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Role</mat-label>
+          <mat-select [(ngModel)]="registerData.UserRole" name="userRole" disabled>
+            <mat-option value="Admin">Admin</mat-option>
+            <mat-option value="User">User</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>admin_panel_settings</mat-icon>
+        </mat-form-field>
+
+        <!-- Submit Button -->
+        <button mat-raised-button type="submit" class="register-button full-width" [disabled]="!registerForm.form.valid"
+          [class.loading]="isLoading">
+          <mat-icon *ngIf="!isLoading">person_add</mat-icon>
+          <mat-icon *ngIf="isLoading">refresh</mat-icon>
+          {{isLoading ? 'Creating Account...' : 'Create Account'}}
+        </button>
+
+        <!-- Login Link -->
+        <div class="login-link">
+          <p>Already have an account?</p>
+          <button type="button" mat-raised-button class="login-link-button" routerLink="/loginAdmin">
+            <mat-icon>login</mat-icon>
+            Sign In
+          </button>
+        </div>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

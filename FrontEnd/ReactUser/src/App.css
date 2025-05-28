@@ -1,0 +1,335 @@
+/* #root {
+  max-width: 100vh;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  overflow-x: hidden;
+} */
+#root {
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+#headerContainer {
+  position: fixed;
+  /* מקבע את הדיב בראש הדף */
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* רוחב מלא של המסך */
+  height: 70px;
+  /* ניתן לשנות לפי הצורך */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* אפשר לשנות לפי הצורך */
+  z-index: 1000;
+  /* מבטיח שהתפריט יהיה מעל שאר האלמנטים */
+}
+
+#backgroundHome {
+  position: absolute;
+  /* ממקם את התמונה ביחס לדף */
+  top: 60px;
+  /* גובה ה-header (עדכן לפי הצורך) */
+  left: 0;
+  width: 100vw;
+  /* רוחב מלא של המסך */
+  height: calc(100vh - 60px);
+  /* גובה מלא של המסך פחות ה-header */
+  object-fit: cover;
+  /* מבטיח שהתמונה תמלא את כל השטח בלי לעוות */
+  opacity: 0.85;
+  /* שקיפות נמוכה (ניתן להגדיל/להקטין) */
+  z-index: -1;
+  /* שולח את התמונה לרקע, מאחורי כל האלמנטים */
+  position: fixed;
+}
+
+
+/* העיגול */
+#roundLogin {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background-color: rgb(148, 195, 195);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* כשהעכבר עובר על העיגול הוא גדל */
+#roundLogin:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* עיצוב הכפתורים */
+button {
+  border: none;
+  background-color: white;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+button:hover {
+  opacity: 0.7;
+}
+
+#informarioncontainer {
+  width: 60%;
+  position: absolute;
+  right: 65px;
+  top: 180px;
+  direction: rtl;
+  text-align: right;
+  overflow-x: hidden;
+}
+
+.infoTitle {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  right: 0;
+  background-color: white;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.infoText {
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.backgroundAboutUs {
+  opacity: 0.25;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  object-fit: cover;
+  margin: 0;
+}
+
+.aboutUsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 20px;
+  margin-top: 120px; /* Ensures content starts below the header */
+}
+
+.sidebarInfo {
+  width: 55%;
+  text-align: left; /* Changed to left for left-to-right text direction */
+  padding: 20px;
+  font-size: 18px; /* Increased font size for better readability */
+  line-height: 1.6; /* Increases the space between lines for clarity */
+}
+
+#galery {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  /* Centers images horizontally */
+  margin-top: 20px; /* Ensures gallery starts below content */
+  position: relative;
+}
+
+.imgGalery {
+  width: 100%;
+  max-width: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out; 
+}
+
+.imgGalery:hover {
+  transform: scale(1.05); 
+}
+
+.chat-container {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.chat-box {
+  width: 100%;
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.message {
+  max-width: 80%;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  display: inline-block;
+  word-wrap: break-word;
+}
+
+.patient {
+  background-color: #0078ff;
+  color: white;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.doctor {
+  background-color: #34c759;
+  color: white;
+  text-align: left;
+  align-self: flex-start;
+}
+
+.user {
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.personal-area-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 30%;
+  background-color: #2f3b52;
+  padding: 20px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 15px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: #3a4d6a;
+}
+
+.main-content {
+  width: 70%;
+  padding: 30px;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 36px;
+  color: #333;
+}
+
+.content {
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  min-height: 70vh;
+}
+
+.content h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 18px;
+  color: #666;
+}
+

@@ -1,0 +1,166 @@
+<!-- <div class="user-dialog-container">
+    <div class="dialog-header">
+      <h2 mat-dialog-title>
+        <mat-icon class="dialog-icon">{{ isEdit ? 'edit' : 'person_add' }}</mat-icon>
+        {{ isEdit ? 'עריכת משתמש' : 'הוספת משתמש חדש' }}
+      </h2>
+      <button mat-icon-button 
+              mat-dialog-close 
+              class="close-button">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  
+   
+    <mat-dialog-content class="dialog-content">
+      <form [formGroup]="userForm" class="user-form">
+        
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>person</mat-icon>
+            פרטים אישיים
+          </h3>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>שם משתמש</mat-label>
+              <mat-icon matPrefix>account_circle</mat-icon>
+              <input matInput 
+                     formControlName="userName"
+                     placeholder="הכנס שם משתמש">
+              <mat-error *ngIf="userForm.get('userName')?.touched && userForm.get('userName')?.invalid">
+                {{ getErrorMessage('userName') }}
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>כתובת אימייל</mat-label>
+              <mat-icon matPrefix>email</mat-icon>
+              <input matInput 
+                     formControlName="userEmail"
+                     type="email"
+                     placeholder="example@email.com">
+              <mat-error *ngIf="userForm.get('userEmail')?.touched && userForm.get('userEmail')?.invalid">
+                {{ getErrorMessage('userEmail') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>מספר טלפון</mat-label>
+              <mat-icon matPrefix>phone</mat-icon>
+              <input matInput 
+                     formControlName="userPhone"
+                     placeholder="050-1234567">
+              <mat-error *ngIf="userForm.get('userPhone')?.touched && userForm.get('userPhone')?.invalid">
+                {{ getErrorMessage('userPhone') }}
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>תאריך לידה</mat-label>
+              <mat-icon matPrefix>cake</mat-icon>
+              <input matInput 
+                     [matDatepicker]="birthPicker"
+                     formControlName="userBirth"
+                     readonly>
+              <mat-datepicker-toggle matSuffix [for]="birthPicker"></mat-datepicker-toggle>
+              <mat-datepicker #birthPicker></mat-datepicker>
+              <mat-error *ngIf="userForm.get('userBirth')?.touched && userForm.get('userBirth')?.invalid">
+                {{ getErrorMessage('userBirth') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <mat-form-field appearance="outline" class="form-field full-width">
+            <mat-label>כתובת מגורים</mat-label>
+            <mat-icon matPrefix>home</mat-icon>
+            <textarea matInput 
+                      formControlName="userAddress"
+                      rows="2"
+                      placeholder="הכנס כתובת מלאה"></textarea>
+            <mat-error *ngIf="userForm.get('userAddress')?.touched && userForm.get('userAddress')?.invalid">
+              {{ getErrorMessage('userAddress') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>security</mat-icon>
+            פרטי אבטחה והרשאות
+          </h3>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>{{ isEdit ? 'סיסמה חדשה (אופציונלי)' : 'סיסמה' }}</mat-label>
+              <mat-icon matPrefix>lock</mat-icon>
+              <input matInput 
+                     [type]="hidePassword ? 'password' : 'text'"
+                     formControlName="userEncryptedPassword"
+                     [placeholder]="isEdit ? 'השאר ריק לשמירת הסיסמה הקיימת' : 'הכנס סיסמה'">
+              <button mat-icon-button 
+                      matSuffix 
+                      type="button"
+                      (click)="togglePasswordVisibility()">
+                <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="userForm.get('userEncryptedPassword')?.touched && userForm.get('userEncryptedPassword')?.invalid">
+                {{ getErrorMessage('userEncryptedPassword') }}
+              </mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline" class="form-field">
+              <mat-label>תפקיד במערכת</mat-label>
+              <mat-icon matPrefix>admin_panel_settings</mat-icon>
+              <mat-select formControlName="userRole">
+                <mat-option *ngFor="let role of userRoles" [value]="role.value">
+                  <div class="role-option">
+                    <mat-icon>{{ role.value === 'admin' ? 'admin_panel_settings' : 'person' }}</mat-icon>
+                    <span>{{ role.label }}</span>
+                  </div>
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="userForm.get('userRole')?.touched && userForm.get('userRole')?.invalid">
+                {{ getErrorMessage('userRole') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+  
+        <div class="role-info-card" *ngIf="userForm.get('userRole')?.value">
+          <mat-icon class="info-icon">info</mat-icon>
+          <div class="info-content">
+            <h4>{{ userForm.get('userRole')?.value === 'admin' ? 'הרשאות מנהל' : 'הרשאות משתמש' }}</h4>
+            <p *ngIf="userForm.get('userRole')?.value === 'admin'">
+              המשתמש יקבל הרשאות מלאות לניהול המערכת, כולל ניהול משתמשים ופעולות ניהוליות.
+            </p>
+            <p *ngIf="userForm.get('userRole')?.value === 'user'">
+              המשתמש יקבל הרשאות בסיסיות לשימוש במערכת בלבד.
+            </p>
+          </div>
+        </div>
+      </form>
+    </mat-dialog-content>
+  
+    <mat-dialog-actions class="dialog-actions">
+      <button mat-stroked-button 
+              type="button"
+              (click)="onCancel()"
+              class="cancel-button">
+        <mat-icon>cancel</mat-icon>
+        ביטול
+      </button>
+      
+      <button mat-raised-button 
+              color="primary"
+              type="button"
+              (click)="onSubmit()"
+              [disabled]="userForm.invalid"
+              class="save-button">
+        <mat-icon>{{ isEdit ? 'save' : 'add' }}</mat-icon>
+        {{ isEdit ? 'שמור שינויים' : 'הוסף משתמש' }}
+      </button>
+    </mat-dialog-actions>
+  </div> -->

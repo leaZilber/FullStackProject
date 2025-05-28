@@ -1,0 +1,558 @@
+/*Center the form on the page
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 400px;  /* Set a max-width to avoid stretching too wide 
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background color 
+    border: 1px solid #ccc; /* Light gray border 
+    border-radius: 8px; /* Rounded corners 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth 
+  }
+  
+  /* Style the labels 
+  form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;  /* Darker text color 
+    text-align: left;
+    width: 100%;
+  }
+  
+  /* Style the input fields 
+  form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Style the submit button 
+  form button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  /* Hover effect for the submit button 
+  form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Style success and error messages 
+  form div {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  form div.success {
+    color: green;
+  }
+  
+  form div.error {
+    color: red;
+  }
+  */
+
+
+
+
+
+
+
+
+
+
+  /* Color Palette Variables 
+:root {
+  --primary-teal: #00B5B8;
+  --secondary-coral: #C8736D;
+  --white: #FFFFFF;
+  --light-gray: #F5F5F5;
+  --dark-gray: #333333;
+  --medium-gray: #666666;
+}
+
+
+.register-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-teal) 0%, var(--secondary-coral) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--white);
+  border-radius: 16px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+  overflow: hidden;
+}
+
+.register-card .mat-mdc-card-header {
+  background: linear-gradient(45deg, var(--primary-teal), var(--secondary-coral));
+  color: var(--white);
+  padding: 24px;
+  text-align: center;
+}
+
+.register-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+  color: var(--white) !important;
+}
+
+.register-title mat-icon {
+  font-size: 32px;
+  height: 32px;
+  width: 32px;
+}
+
+.mat-mdc-card-subtitle {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 16px !important;
+  margin-top: 8px !important;
+}
+
+.mat-mdc-card-content {
+  padding: 32px !important;
+  background: var(--light-gray);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  --mdc-filled-text-field-active-indicator-color: var(--primary-teal);
+  --mdc-filled-text-field-focus-active-indicator-color: var(--primary-teal);
+  --mdc-outlined-text-field-outline-color: var(--medium-gray);
+  --mdc-outlined-text-field-focus-outline-color: var(--primary-teal);
+  --mdc-outlined-text-field-hover-outline-color: var(--secondary-coral);
+}
+
+.mat-mdc-text-field-wrapper {
+  background: var(--white) !important;
+  border-radius: 8px !important;
+}
+
+.mat-mdc-form-field-label {
+  color: var(--dark-gray) !important;
+}
+
+.mat-mdc-input-element {
+  color: var(--dark-gray) !important;
+}
+
+.mat-mdc-form-field .mat-mdc-form-field-icon-suffix mat-icon {
+  color: var(--medium-gray);
+  transition: color 0.3s ease;
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-form-field-icon-suffix mat-icon {
+  color: var(--primary-teal);
+}
+
+.register-button {
+  --mdc-protected-button-container-color: var(--primary-teal);
+  --mdc-protected-button-label-text-color: var(--white);
+  height: 56px !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  border-radius: 12px !important;
+  margin-top: 16px;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 181, 184, 0.3) !important;
+}
+
+.register-button:hover:not(:disabled) {
+  --mdc-protected-button-container-color: var(--secondary-coral);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(200, 115, 109, 0.4) !important;
+}
+
+.register-button:disabled {
+  --mdc-protected-button-container-color: var(--medium-gray);
+  --mdc-protected-button-label-text-color: var(--white);
+  opacity: 0.6;
+}
+
+.register-button mat-icon {
+  margin-left: -8px;
+  margin-right: 8px;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.login-link p {
+  color: var(--dark-gray);
+  margin: 0;
+  font-size: 16px;
+}
+
+.login-link-button {
+  --mdc-text-button-label-text-color: var(--primary-teal);
+  font-weight: 600 !important;
+  text-decoration: none;
+}
+
+.login-link-button:hover {
+  --mdc-text-button-label-text-color: var(--secondary-coral);
+}
+
+.mat-mdc-form-field-error {
+  color: #f44336 !important;
+  font-size: 12px;
+}
+
+::ng-deep .success-snackbar {
+  --mdc-snackbar-container-color: var(--primary-teal);
+  --mdc-snackbar-supporting-text-color: var(--white);
+}
+
+::ng-deep .error-snackbar {
+  --mdc-snackbar-container-color: #f44336;
+  --mdc-snackbar-supporting-text-color: var(--white);
+}
+
+.mat-mdc-form-field .mat-datepicker-toggle {
+  color: var(--medium-gray);
+}
+
+.mat-mdc-form-field.mat-focused .mat-datepicker-toggle {
+  color: var(--primary-teal);
+}
+
+.mat-mdc-select-arrow {
+  color: var(--medium-gray);
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow {
+  color: var(--primary-teal);
+}
+
+@media (max-width: 600px) {
+  .register-container {
+    padding: 10px;
+  }
+  
+  .mat-mdc-card-content {
+    padding: 24px 20px !important;
+  }
+  
+  .register-title {
+    font-size: 24px !important;
+  }
+  
+  .register-button {
+    height: 48px !important;
+    font-size: 16px !important;
+  }
+}
+
+.register-card {
+  animation: slideInUp 0.6s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mat-mdc-form-field:not(.mat-form-field-disabled).mat-focused {
+  .mat-mdc-text-field-wrapper {
+    box-shadow: 0 0 0 2px rgba(0, 181, 184, 0.2);
+  }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Register Container */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.register-card {
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border: 1px solid #F5F5F5;
+}
+
+/* Card Header Styling */
+.card-header {
+  background: linear-gradient(135deg, #00B5B8 0%, #C8736D 100%);
+  color: #FFFFFF;
+  padding: 24px !important;
+  margin: -24px -24px 24px -24px;
+  text-align: center;
+}
+
+.register-title {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: #FFFFFF !important;
+  margin-bottom: 8px !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.register-title mat-icon {
+  font-size: 28px !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+mat-card-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 14px;
+}
+
+/* Form Styling */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Form Field Customization */
+.mat-mdc-form-field {
+  margin-bottom: 16px;
+}
+
+mat-icon[matSuffix] {
+  color: #666666;
+}
+
+/* Input Field Focus Colors */
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #00B5B8 !important;
+  color: #00B5B8 !important;
+}
+
+/* Input Error Colors */
+::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-form-field-invalid .mdc-notched-outline__trailing {
+  border-color: #C8736D !important;
+}
+
+::ng-deep .mat-mdc-form-field-error {
+  color: #C8736D !important;
+}
+
+/* Input Text Color */
+::ng-deep .mat-mdc-input-element {
+  color: #333333 !important;
+}
+
+/* Placeholder Color */
+::ng-deep .mat-mdc-input-element::placeholder {
+  color: #666666 !important;
+}
+
+/* Register Button */
+.register-button {
+  background: linear-gradient(45deg, #00B5B8, #C8736D) !important;
+  color: #FFFFFF !important;
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 8px;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.register-button:hover:not(:disabled) {
+  background: linear-gradient(45deg, #008a8d, #b5645f) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 181, 184, 0.3);
+}
+
+.register-button:disabled {
+  background: #F5F5F5 !important;
+  color: #666666 !important;
+}
+
+.register-button mat-icon {
+  margin-right: 8px;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+
+/* Login Link Section */
+.login-link {
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #F5F5F5;
+}
+
+.login-link p {
+  margin: 0 0 15px 0;
+  color: #666666;
+  font-size: 14px;
+}
+
+.login-link-button {
+  background-color: #00B5B8 !important;
+  color: #FFFFFF !important;
+  font-size: 14px;
+  height: 40px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 160px;
+}
+
+.login-link-button:hover {
+  background-color: #008a8d !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 181, 184, 0.3);
+}
+
+.login-link-button mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Success and Error Snackbar Styles */
+::ng-deep .success-snackbar {
+  background-color: #00B5B8 !important;
+  color: #FFFFFF !important;
+}
+
+::ng-deep .error-snackbar {
+  background-color: #C8736D !important;
+  color: #FFFFFF !important;
+}
+
+/* Password Toggle Button */
+.password-toggle-btn {
+  border: none !important;
+  background: transparent !important;
+  color: #666666 !important;
+  transition: color 0.3s ease;
+}
+
+.password-toggle-btn:hover {
+  color: #00B5B8 !important;
+}
+
+/* Loading Animation */
+.loading mat-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 10px;
+  }
+  
+  .register-card {
+    margin: 0 10px;
+  }
+  
+  .register-title {
+    font-size: 20px !important;
+  }
+
+  .register-form {
+    gap: 16px;
+  }
+}
+
+/* RTL Support for Hebrew */
+[dir="rtl"] .register-title {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .login-link-button {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .register-button mat-icon {
+  margin-right: 0;
+  margin-left: 8px;
+}

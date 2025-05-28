@@ -1,0 +1,301 @@
+/* .admin-dashboard {
+  direction: rtl;
+  font-family: 'Rubik', 'Segoe UI', sans-serif;
+  padding: 20px;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* כותרת וסטטיסטיקות */
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.dashboard-header h1:after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: #3498db;
+  bottom: 0;
+  right: 0;
+}
+
+.dashboard-stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #7f8c8d;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* פילטרים */
+.filters-section {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.filters-section h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.filters-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.btn {
+  padding: 9px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  color: #666;
+}
+
+.btn-outline:hover {
+  background-color: #f5f5f5;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9;
+}
+
+/* תרשימים */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.chart-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.chart-card.large {
+  grid-column: span 2;
+}
+
+.chart-card h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.chart-container {
+  height: 300px;
+  position: relative;
+}
+
+/* טבלאות נתונים */
+.data-tables-section {
+  margin-bottom: 30px;
+}
+
+.table-card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.table-header h3 {
+  font-size: 16px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.heat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.heat-table th {
+  text-align: right;
+  padding: 12px 16px;
+  border-bottom: 2px solid #eee;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.heat-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.heat-cell {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* טעינה */
+.loading-overlay {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* תמיכה במובייל */
+@media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-card.large {
+    grid-column: span 1;
+  }
+  
+  .stat-card {
+    min-width: 100%;
+  }
+  
+  .filter-group {
+    min-width: 100%;
+  }
+}
+
+/* תמיכה בדפדפנים */
+::placeholder {
+  color: #aaa;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #999;
+} */

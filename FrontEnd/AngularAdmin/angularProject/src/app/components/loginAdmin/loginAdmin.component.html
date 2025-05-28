@@ -1,0 +1,238 @@
+<!-- <div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title class="login-title">Welcome Back Admin</mat-card-title>
+      <mat-card-subtitle>Please sign in to your account</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserName" 
+            name="userName" 
+            required
+            #userNameInput="ngModel"
+            placeholder="Enter your username">
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="userNameInput.invalid && userNameInput.touched">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserEncryptedPassword" 
+            name="password" 
+            required
+            #passwordInput="ngModel"
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Enter your password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button 
+            mat-icon-button 
+            matSuffix 
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          type="submit"
+          class="login-button full-width"
+          [disabled]="loginForm.invalid || isLoading">
+          <mat-icon *ngIf="isLoading">refresh</mat-icon>
+          {{isLoading ? 'Signing in...' : 'Sign In'}}
+        </button>
+
+      </form>
+      <button (click)="goToLoginPage()" class="btn btn-secondary back-button">
+        <i class="fa fa-arrow-right"></i> יציאה מהתחברות מנהלים
+    </button>
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+
+<!-- 
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title class="login-title">Welcome Back Admin</mat-card-title>
+      <mat-card-subtitle>Please sign in to your account</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserName" 
+            name="userName" 
+            required
+            #userNameInput="ngModel"
+            placeholder="Enter your username">
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="userNameInput.invalid && userNameInput.touched">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserEncryptedPassword" 
+            name="password" 
+            required
+            #passwordInput="ngModel"
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Enter your password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button 
+            mat-icon-button 
+            matSuffix 
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          type="submit"
+          class="login-button full-width"
+          [disabled]="loginForm.invalid || isLoading">
+          <mat-icon *ngIf="isLoading">refresh</mat-icon>
+          {{isLoading ? 'Signing in...' : 'Sign In'}}
+        </button>
+
+      </form>
+  
+      <div class="exit-button-container">
+        <button 
+          mat-stroked-button 
+          (click)="goToLoginPage()" 
+          class="exit-button">
+          <mat-icon class="exit-icon">exit_to_app</mat-icon>
+          יציאה מהתחברות מנהלים
+        </button>
+      </div>
+      
+    </mat-card-content>
+  </mat-card>
+</div> -->
+
+
+
+
+
+
+
+
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header class="card-header">
+      <mat-card-title class="login-title">Welcome Back Admin</mat-card-title>
+      <mat-card-subtitle>Please sign in to your account</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+        
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Username</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserName" 
+            name="userName" 
+            required
+            #userNameInput="ngModel"
+            placeholder="Enter your username">
+          <mat-icon matPrefix>person</mat-icon>
+          <mat-error *ngIf="userNameInput.invalid && userNameInput.touched">
+            Username is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Password</mat-label>
+          <input 
+            matInput 
+            [(ngModel)]="UserEncryptedPassword" 
+            name="password" 
+            required
+            #passwordInput="ngModel"
+            [type]="hidePassword ? 'password' : 'text'"
+            placeholder="Enter your password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <button 
+            mat-icon-button 
+            matSuffix 
+            type="button"
+            (click)="togglePasswordVisibility()"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+            Password is required
+          </mat-error>
+        </mat-form-field>
+
+        <button 
+          mat-raised-button 
+          type="submit"
+          class="login-button full-width"
+          [disabled]="loginForm.invalid || isLoading">
+          <mat-icon *ngIf="isLoading">refresh</mat-icon>
+          {{isLoading ? 'Signing in...' : 'Sign In'}}
+        </button>
+
+      </form>
+      
+      <!-- Styled Exit Button -->
+      <div class="exit-button-container">
+        <button 
+          mat-stroked-button 
+          (click)="goToLoginPage()" 
+          class="exit-button">
+          <mat-icon class="exit-icon">exit_to_app</mat-icon>
+          יציאה מהתחברות מנהלים
+        </button>
+      </div>
+      
+      <!-- Registration Link -->
+      <div class="registration-container">
+        <p class="registration-text">אין לך עדיין חשבון מנהל?</p>
+        <button 
+          mat-flat-button 
+          (click)="goToRegisterPage()" 
+          class="register-button">
+          <mat-icon>person_add</mat-icon>
+          הרשמה כמנהל
+        </button>
+      </div>
+      
+    </mat-card-content>
+  </mat-card>
+</div>
