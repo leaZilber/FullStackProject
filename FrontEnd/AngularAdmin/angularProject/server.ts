@@ -3,16 +3,13 @@ import express from 'express';
 import { join } from 'path';
 
 import AppServerModule from './src/main.server';
-import { ngExpressEngine } from '@nguniversal/express-engine';
 
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/angular-project/browser');
   const indexHtml = 'index.html';
 
-  server.engine('html', ngExpressEngine({
-    bootstrap: AppServerModule,
-  }));
+ 
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
