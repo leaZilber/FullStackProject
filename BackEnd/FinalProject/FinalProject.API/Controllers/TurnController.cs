@@ -19,11 +19,13 @@ namespace FinalProject.API.Controllers
     {
         private readonly ITurnService _turnService;
         private readonly IMapper _mapper;
+        private readonly DataContext _dataContext;
 
-        public TurnController(ITurnService turnService, IMapper mapper)
+        public TurnController(ITurnService turnService, IMapper mapper, DataContext dataContext)
         {
             _turnService = turnService;
             _mapper = mapper;
+            _dataContext = dataContext;
         }
         // GET: api/<TurnController>
         [HttpGet]
@@ -82,6 +84,38 @@ namespace FinalProject.API.Controllers
         //        }
         //    }
         [HttpPost]
+        //public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)
+        //{
+        //    if (newTurn == null)
+        //    {
+        //        return BadRequest("❌ נתוני התור חסרים.");
+        //    }
+
+        //    using (var context = new DataContext())
+        //    {
+        //        // בדיקה האם הרופא קיים (רשות, לא חובה)
+        //        var doctorExists = context.doctorList.Any(d => d.DoctorName == newTurn.DoctorName);
+        //        if (!doctorExists)
+        //        {
+        //            return NotFound("❌ לא נמצא רופא עם השם הנתון.");
+        //        }
+
+        //        var turn = new Turn
+        //        (
+        //           newTurn.UserId,
+        //           newTurn.DoctorName,
+        //           newTurn.DateTurn,
+        //           newTurn.TurnLocate,
+        //           newTurn.Hour,
+        //           newTurn.ArrivalConfirmation
+        //        );
+
+        //        context.turnList.Add(turn);
+        //        await context.SaveChangesAsync();
+
+        //        return Ok("✅ התור נוסף בהצלחה!");
+        //    }
+        //}
         public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)
         {
             if (newTurn == null)
@@ -89,30 +123,27 @@ namespace FinalProject.API.Controllers
                 return BadRequest("❌ נתוני התור חסרים.");
             }
 
-            using (var context = new DataContext())
+            // שימוש ב־_context שקיבלנו דרך DI
+            var doctorExists = _dataContext.doctorList.Any(d => d.DoctorName == newTurn.DoctorName);
+            if (!doctorExists)
             {
-                // בדיקה האם הרופא קיים (רשות, לא חובה)
-                var doctorExists = context.doctorList.Any(d => d.DoctorName == newTurn.DoctorName);
-                if (!doctorExists)
-                {
-                    return NotFound("❌ לא נמצא רופא עם השם הנתון.");
-                }
-
-                var turn = new Turn
-                (
-                   newTurn.UserId,
-                   newTurn.DoctorName,
-                   newTurn.DateTurn,
-                   newTurn.TurnLocate,
-                   newTurn.Hour,
-                   newTurn.ArrivalConfirmation
-                );
-
-                context.turnList.Add(turn);
-                await context.SaveChangesAsync();
-
-                return Ok("✅ התור נוסף בהצלחה!");
+                return NotFound("❌ לא נמצא רופא עם השם הנתון.");
             }
+
+            var turn = new Turn
+            (
+                newTurn.UserId,
+                newTurn.DoctorName,
+                newTurn.DateTurn,
+                newTurn.TurnLocate,
+                newTurn.Hour,
+                newTurn.ArrivalConfirmation
+            );
+
+            _dataContext.turnList.Add(turn);
+            await _dataContext.SaveChangesAsync();
+
+            return Ok("✅ התור נוסף בהצלחה!");
         }
 
 
