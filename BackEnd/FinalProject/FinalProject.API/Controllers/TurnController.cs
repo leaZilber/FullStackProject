@@ -99,14 +99,14 @@ namespace FinalProject.API.Controllers
                 }
 
                 var turn = new Turn
-                {
-                    UserId = newTurn.UserId,
-                    DoctorName = newTurn.DoctorName,
-                    DateTurn = newTurn.DateTurn,
-                    TurnLocate = newTurn.TurnLocate,
-                    Hour = newTurn.Hour,
-                    ArrivalConfirmation = newTurn.ArrivalConfirmation
-                };
+                (
+                   newTurn.UserId,
+                   newTurn.DoctorName,
+                   newTurn.DateTurn,
+                   newTurn.TurnLocate,
+                   newTurn.Hour,
+                   newTurn.ArrivalConfirmation
+                );
 
                 context.turnList.Add(turn);
                 await context.SaveChangesAsync();

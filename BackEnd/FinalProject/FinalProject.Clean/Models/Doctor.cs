@@ -16,5 +16,19 @@ namespace FinalProject.Core.Models
         public string FieldOfSpecialization { get; set; }
         public int LicenseNumber { get; set; }
 
+        public Doctor(int doctorId, string doctorName, string fieldOfSpecialization, int licenseNumber)
+        {
+            DoctorId = doctorId;
+            DoctorName = doctorName;
+            FieldOfSpecialization = fieldOfSpecialization;
+            LicenseNumber = licenseNumber;
+        }
+
+        public Doctor(string doctorName, string fieldOfSpecialization, int licenseNumber)
+        {
+            DoctorName = doctorName;
+            FieldOfSpecialization = fieldOfSpecialization;
+            LicenseNumber = licenseNumber;
+        }
     }
 }

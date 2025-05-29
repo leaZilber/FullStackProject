@@ -27,7 +27,7 @@ namespace FinalProject.API.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var messages =await _messageService.GetAllMessagesAsync();
+            var messages = await _messageService.GetAllMessagesAsync();
             return Ok(messages);
         }
 
@@ -44,15 +44,13 @@ namespace FinalProject.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] MessagePostModel value)
         {
-            var messagePost = new Message()
-            {
-                SenderId = value.SenderId,
-                UserId = value.UserId,
-                MessageContent = value.MessageContent,
-                MessageDate= DateTime.Now,
-               
-               
-            };
+            var messagePost = new Message
+            (
+                value.UserId,
+               value.SenderId,
+               value.MessageContent,
+               DateTime.Now
+            );
             var newMessage = await _messageService.AddAsync(messagePost);
             return Ok(newMessage);
         }

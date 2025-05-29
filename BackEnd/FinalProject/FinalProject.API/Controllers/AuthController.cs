@@ -439,7 +439,7 @@ namespace FinalProject.API.Controllers
                     new Claim("UserId", user.UserId.ToString())
                 };
 
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var tokenOptions = new JwtSecurityToken(
@@ -512,8 +512,7 @@ namespace FinalProject.API.Controllers
                     new Claim(ClaimTypes.Role, user.UserRole),
                     new Claim("UserId", user.UserId.ToString())
                 };
-
-                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]!));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var tokenOptions = new JwtSecurityToken(

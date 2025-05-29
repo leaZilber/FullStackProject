@@ -50,14 +50,11 @@ namespace FinalProject.API.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Post([FromBody] DoctorPostModel value)
         {
-            var doctorPost = new Doctor()
-            {
-
-                //ScheduleId = value.ScheduleId,
-                DoctorName = value.DoctorName,
-                FieldOfSpecialization = value.FieldOfSpecialization,
-                LicenseNumber = value.LicenseNumber,
-            };
+            var doctorPost = new Doctor(
+                value.DoctorName,
+                value.FieldOfSpecialization,
+                value.LicenseNumber   
+            );
             var newDoctor = await _doctorService.AddAsync(doctorPost);
             return Ok(newDoctor);
         }

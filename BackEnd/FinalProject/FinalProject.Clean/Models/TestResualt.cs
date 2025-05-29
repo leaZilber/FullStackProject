@@ -17,5 +17,22 @@ namespace FinalProject.Core.Models
         public DateTime TestDate { get; set; }
         public string ImgURL {  get; set; }
         public string Summary { get; set; }
+
+        public TestResualt(int testId, int userId, DateTime testDate, string imgURL, string summary)
+        {
+            TestId = testId;
+            UserId = userId;
+            TestDate = testDate;
+            ImgURL = imgURL;
+            Summary = summary;
+        }
+
+        public TestResualt(int userId, DateTime testDate, string imgURL, string summary)
+        {
+            UserId = userId;
+            TestDate = testDate;
+            ImgURL = imgURL;
+            Summary = summary;
+        }
     }
 }

@@ -13,5 +13,14 @@ namespace FinalProject.Core.DTOs
         public DateTime TestDate { get; set; }
         public string ImgURL { get; set; }
         public string Summary { get; set; }
+
+        public TestResaultDTO(int testId, DateTime testDate, string imgURL, string summary)
+        {
+            TestId = testId;
+            TestDate = testDate;
+            ImgURL = imgURL;
+            Summary = summary;
+        }
+
     }
 }

@@ -41,7 +41,7 @@ namespace FinalProject.Service.Services
             _userRepository.Delete(id);
         }
 
-       public async Task<List<UserStatsPerDay>> GetUserStatsOverTime()
+        public async Task<List<UserStatsPerDay>> GetUserStatsOverTime()
         {
             var startDate = DateTime.Today.AddDays(-30);
             var endDate = DateTime.Today;
@@ -54,11 +54,11 @@ namespace FinalProject.Service.Services
                 var totalUsers = await _userRepository.CountTotalUsersUntilDate(date);
 
                 result.Add(new UserStatsPerDay
-                {
-                    Date = date,
-                    NewUsers = newUsers,
-                    TotalUsers = totalUsers
-                });
+                (
+                    date,
+                   newUsers,
+                   totalUsers
+                ));
             }
 
             return result;

@@ -142,14 +142,24 @@ public class UploadController : ControllerBase
                 !string.IsNullOrEmpty(_openAiApiKey));
 
             string imageUrl;
+            //try
+            //{
+            //    using (var stream = image.OpenReadStream())
+            //    {
+            //        imageUrl = await _s3Service.UploadAsync(fileName, stream, image.ContentType);
+            //    }
+            //    _logger.LogInformation("Image uploaded to S3: {ImageUrl}", imageUrl);
+            //}
             try
             {
                 using (var stream = image.OpenReadStream())
                 {
-                    imageUrl = await _s3Service.UploadAsync(fileName, stream, image.ContentType);
+                    string contentType = image.ContentType ?? "application/octet-stream"; // fallback if null
+                    imageUrl = await _s3Service.UploadAsync(fileName, stream, contentType);
                 }
                 _logger.LogInformation("Image uploaded to S3: {ImageUrl}", imageUrl);
             }
+
             catch (Exception s3Ex)
             {
                 _logger.LogError(s3Ex, "S3 Upload failed for file: {FileName}", fileName);
@@ -184,7 +194,7 @@ public class UploadController : ControllerBase
                     success = false,
                     details = isDevelopment ? visionEx.Message : "Vision analysis error",
                     stackTrace = isDevelopment ? visionEx.StackTrace : null,
-                    imageUrl = imageUrl 
+                    imageUrl = imageUrl
                 });
             }
 
@@ -215,12 +225,12 @@ public class UploadController : ControllerBase
                 try
                 {
                     var testResult = new TestResualt
-                    {
-                        UserId = userId.Value,
-                        TestDate = DateTime.UtcNow,
-                        ImgURL = imageUrl,
-                        Summary = medicalAssessment
-                    };
+                    (
+                       userId.Value,
+                        DateTime.UtcNow,
+                       imageUrl,
+                        medicalAssessment
+                    );
                     await _testResultService.AddAsync(testResult);
                     _logger.LogInformation("Test result saved for user: {UserId}", userId.Value);
                 }

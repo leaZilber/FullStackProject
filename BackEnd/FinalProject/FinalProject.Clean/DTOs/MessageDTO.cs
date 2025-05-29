@@ -13,5 +13,13 @@ namespace FinalProject.Core.DTOs
         public int SenderId { get; set; }
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
+
+        public MessageDTO(int messageId, int senderId, string messageContent, DateTime messageDate)
+        {
+            MessageId = messageId;
+            SenderId = senderId;
+            MessageContent = messageContent;
+            MessageDate = messageDate;
+        }
     }
 }

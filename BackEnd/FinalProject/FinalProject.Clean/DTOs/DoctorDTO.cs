@@ -14,5 +14,15 @@ namespace FinalProject.Core.DTOs
         public string DoctorName { get; set; }
         public string FieldOfSpecialization { get; set; }
         public int LicenseNumber { get; set; }
+
+        public DoctorDTO(int doctorId, string doctorName, string fieldOfSpecialization, int licenseNumber)
+        {
+            DoctorId = doctorId;
+            DoctorName = doctorName;
+            FieldOfSpecialization = fieldOfSpecialization;
+            LicenseNumber = licenseNumber;
+        }
+
+      
     }
 }

@@ -325,10 +325,20 @@ Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add environment variables to configuration
+//// Add environment variables to configuration
+//foreach (System.Collections.DictionaryEntry envVar in Environment.GetEnvironmentVariables())
+//{
+//    builder.Configuration[envVar.Key.ToString()] = envVar.Value?.ToString();
+//}
 foreach (System.Collections.DictionaryEntry envVar in Environment.GetEnvironmentVariables())
 {
-    builder.Configuration[envVar.Key.ToString()] = envVar.Value?.ToString();
+    if (envVar.Key != null)
+    {
+        string key = envVar.Key.ToString()!;
+        string? value = envVar.Value?.ToString();
+
+        builder.Configuration[key] = value ?? string.Empty;
+    }
 }
 
 // Add services to the container
@@ -469,4 +479,5 @@ app.UseRouting();
 // app.UseAuthorization();
 
 app.MapControllers();
+app.MapGet("/", () => "final project is runing");
 app.Run();

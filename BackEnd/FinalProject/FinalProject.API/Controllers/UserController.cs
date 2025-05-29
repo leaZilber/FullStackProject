@@ -46,16 +46,16 @@ namespace FinalProject.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] UserPostModel value)
         {
-            var userPost = new User()
-            {
-                UserName = value.UserName,
-                UserEmail = value.UserEmail,
-                UserEncryptedPassword = value.UserEncryptedPassword,
-                UserPhone = value.UserPhone,
-                UserAddress = value.UserAddress,
-                UserBirth = value.UserBirth,
-                UserRole = value.UserRole,
-            };
+            var userPost = new User
+            (
+                 value.UserName,
+                 value.UserEmail,
+                 value.UserEncryptedPassword
+                 , value.UserRole,
+                 value.UserPhone,
+                 value.UserAddress,
+                 value.UserBirth
+            );
             var newUser = await _userService.AddAsync(userPost);
             return Ok(newUser);
         }

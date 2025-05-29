@@ -17,5 +17,16 @@ namespace FinalProject.Core.DTOs
         public string TurnLocate { get; set; }
         public string Hour { get; set; }
         public bool ArrivalConfirmation { get; set; }
+
+        public TurnDTO(int turnId, int? userId, string doctorName, DateTime dateTurn, string turnLocate, string hour, bool arrivalConfirmation)
+        {
+            TurnId = turnId;
+            UserId = userId;
+            DoctorName = doctorName;
+            DateTurn = dateTurn;
+            TurnLocate = turnLocate;
+            Hour = hour;
+            ArrivalConfirmation = arrivalConfirmation;
+        }
     }
 }

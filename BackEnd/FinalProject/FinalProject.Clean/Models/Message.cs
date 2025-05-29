@@ -18,5 +18,21 @@ namespace FinalProject.Core.Models
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
 
+        public Message(int messageId, int userId, int senderId, string messageContent, DateTime messageDate)
+        {
+            MessageId = messageId;
+            UserId = userId;
+            SenderId = senderId;
+            MessageContent = messageContent;
+            MessageDate = messageDate;
+        }
+
+        public Message(int userId, int senderId, string messageContent, DateTime messageDate)
+        {
+            UserId = userId;
+            SenderId = senderId;
+            MessageContent = messageContent;
+            MessageDate = messageDate;
+        }
     }
 }

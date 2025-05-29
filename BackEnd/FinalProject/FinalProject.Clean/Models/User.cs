@@ -20,5 +20,29 @@ namespace FinalProject.Core.Models
         public string UserAddress { get; set; }
         public DateTime UserBirth { get; set; }
         public DateTime UserCreateDate { get; set; }
+
+        public User(int userId, string userName, string userEmail, string userEncryptedPassword, string userRole, string userPhone, string userAddress, DateTime userBirth, DateTime userCreateDate)
+        {
+            UserId = userId;
+            UserName = userName;
+            UserEmail = userEmail;
+            UserEncryptedPassword = userEncryptedPassword;
+            UserRole = userRole;
+            UserPhone = userPhone;
+            UserAddress = userAddress;
+            UserBirth = userBirth;
+            UserCreateDate = userCreateDate;
+        }
+
+        public User(string userName, string userEmail, string userEncryptedPassword, string userRole, string userPhone, string userAddress, DateTime userBirth)
+        {
+            UserName = userName;
+            UserEmail = userEmail;
+            UserEncryptedPassword = userEncryptedPassword;
+            UserRole = userRole;
+            UserPhone = userPhone;
+            UserAddress = userAddress;
+            UserBirth = userBirth;
+        }
     }
 }

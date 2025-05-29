@@ -22,10 +22,14 @@ namespace FinalProject.Data.Repositories
             return await _context.userList.ToListAsync();
         }
 
-        public User? GetById(int id)
+        public User GetById(int id)
         {
-            return _context.userList.FirstOrDefault(item => item.UserId == id);
+            var user = _context.userList.FirstOrDefault(item => item.UserId == id);
+            if (user == null)
+                throw new InvalidOperationException($"User with id {id} not found.");
+            return user;
         }
+
 
         public async Task<User> AddAsync(User newUser)
         {
