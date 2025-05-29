@@ -61,16 +61,16 @@
 //   try {
 //     const formData = new FormData();
 //     formData.append('image', file);
-    
+
 //     const response = await fetch(`${API_BASE_URL}/Upload/Upload`, {
 //       method: 'POST',
 //       body: formData,
 //     });
-    
+
 //     if (!response.ok) {
 //       throw new Error(`HTTP error! status: ${response.status}`);
 //     }
-    
+
 //     const result = await response.json();
 //     return result;
 //   } catch (error) {
@@ -82,18 +82,18 @@
 // const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
 //   try {
 //     const response = await fetch(`${API_BASE_URL}/TestResualt`, {
-      
+
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',
 //       },
 //       body: JSON.stringify(testResult),
 //     });
-    
+
 //     if (!response.ok) {
 //       throw new Error(`HTTP error! status: ${response.status}`);
 //     }
-    
+
 //     return await response.json();
 //   } catch (error) {
 //     console.error('Save test result failed:', error);
@@ -105,7 +105,7 @@
 //   if (userId === GUEST_USER_ID) {
 //     return [];
 //   }
-  
+
 //   try {
 //     const response = await fetch(`${API_BASE_URL}/TestResualt/${userId}`, {
 //       method: 'GET',
@@ -113,11 +113,11 @@
 //         'Content-Type': 'application/json',
 //       },
 //     });
-    
+
 //     if (!response.ok) {
 //       throw new Error(`HTTP error! status: ${response.status}`);
 //     }
-    
+
 //     return await response.json();
 //   } catch (error) {
 //     console.error('Get test history failed:', error);
@@ -204,10 +204,10 @@
 //       try {
 //         const currentUserId = getCurrentUserId();
 //         setUserId(currentUserId);
-        
+
 //         const isUserLoggedIn = currentUserId !== GUEST_USER_ID;
 //         setIsLoggedIn(isUserLoggedIn);
-        
+
 //         console.log("Login status:", isUserLoggedIn ? "Logged in" : "Guest");
 
 //         if (isUserLoggedIn) {
@@ -273,7 +273,7 @@
 //     try {
 //       const result = await checkSkinCancer(imageFile);
 //       setFeedback(result.summary);
-      
+
 //       if (result.visionAnalysis) {
 //         setVisionAnalysis(result.visionAnalysis);
 //       }
@@ -326,7 +326,7 @@
 //         default: return 'info';
 //       }
 //     }
-    
+
 //     // Fallback to text analysis
 //     if (summary.includes("חשש כבד") || summary.includes("דחוף")) return 'error';
 //     if (summary.includes("מומלץ לבדוק")) return 'warning';
@@ -379,7 +379,7 @@
 //               className="text-3xl font-bold"
 //               style={{ color: theme.textPrimary }}
 //             >
-              
+
 //             </h1>
 //           </div>
 
@@ -491,7 +491,7 @@
 //                   <div>
 //                     <h3 className="font-semibold mb-2">תוצאות הבדיקה מ-AI:</h3>
 //                     <p className="mb-3">{feedback}</p>
-                    
+
 //                     {visionAnalysis && (
 //                       <div className="mt-3 pt-3 border-t" style={{ borderColor: theme.textSecondary + '40' }}>
 //                         <h4 className="font-medium mb-2">ניתוח מפורט:</h4>
@@ -546,7 +546,7 @@
 //             className="rounded-xl shadow-lg p-6"
 //             style={{ backgroundColor: theme.surface }}
 //           >
-         
+
 //           </div>
 //         )}
 
@@ -621,7 +621,7 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
   <div className="p-8 text-center">
     <h2 className="text-2xl font-bold mb-4">קביעת תור לרופא עור</h2>
     <p className="mb-4">כאן תוכל לקבוע תור לרופא עור מומחה</p>
-    <button 
+    <button
       onClick={onBack}
       className="px-4 py-2 bg-blue-500 text-white rounded"
     >
@@ -642,18 +642,18 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   try {
     const formData = new FormData();
     formData.append('image', file);
-    
+
     const response = await fetch(`${API_BASE_URL}/Upload/upload`, {
       method: 'POST',
       body: formData,
     });
-    
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
       const errorMessage = errorData?.error || `שגיאת שרת: ${response.status}`;
       throw new Error(errorMessage);
     }
-    
+
     const result = await response.json();
     return result;
   } catch (error) {
@@ -665,18 +665,18 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
     const response = await fetch(`${API_BASE_URL}/TestResualt`, {
-      
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(testResult),
     });
-    
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Save test result failed:', error);
@@ -687,7 +687,7 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
 // Components
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-8">
-    <div 
+    <div
       className="animate-spin rounded-full h-12 w-12 border-b-2 mb-4"
       style={{ borderColor: theme.primary }}
     ></div>
@@ -702,7 +702,7 @@ const LoadingSpinner = () => (
 
 const AlertBox = ({ type, children }: { type: 'success' | 'error' | 'warning' | 'info', children: React.ReactNode }) => {
   const getColors = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'success':
         return { bg: '#f0fdf4', border: '#bbf7d0', text: theme.textPrimary };
       case 'error':
@@ -719,16 +719,16 @@ const AlertBox = ({ type, children }: { type: 'success' | 'error' | 'warning' | 
   const colors = getColors(type);
 
   return (
-    <div 
+    <div
       className="border rounded-lg p-4"
-      style={{ 
-        backgroundColor: colors.bg, 
+      style={{
+        backgroundColor: colors.bg,
         borderColor: colors.border,
         color: colors.text
       }}
     >
       <div className="flex items-start">
-        <div 
+        <div
           className="flex-shrink-0 ml-3"
           style={{ color: theme.primary }}
         >
@@ -756,7 +756,7 @@ export default function CheckPicture() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState<string>("");
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
- 
+
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -799,7 +799,7 @@ export default function CheckPicture() {
 
     try {
       const result = await checkSkinCancer(imageFile);
-      
+
       if (result.success) {
         setFeedback(result.summary);
         setAnalysisComplete(true);
@@ -825,9 +825,9 @@ export default function CheckPicture() {
           setCurrentTestResult(newTestResult);
         }
 
-        if (result.summary.includes("חשש כבד") || 
-            result.summary.includes("יש לפנות מיד") ||
-            result.summary.includes("מומלץ לבדוק")) {
+        if (result.summary.includes("חשש כבד") ||
+          result.summary.includes("יש לפנות מיד") ||
+          result.summary.includes("מומלץ לבדוק")) {
           setShouldShowAppointment(true);
         }
       } else {
@@ -871,53 +871,52 @@ export default function CheckPicture() {
   }
 
   return (
-    <div 
-      dir="rtl" 
+    <div
+      dir="rtl"
       className="min-h-screen py-8"
       style={{ backgroundColor: theme.background }}
     >
       <div className="max-w-4xl mx-auto px-4">
         {/* Header */}
-        <div 
+        <div
           className="rounded-xl shadow-lg p-6 mb-8"
           style={{ backgroundColor: theme.surface }}
         >
           <div className="flex items-center justify-center mb-4">
-            <div 
+            <div
               className="p-3 rounded-full ml-3"
               style={{ backgroundColor: `${theme.primary}20` }}
             >
               <span style={{ color: theme.primary }} className="text-2xl">🩺</span>
             </div>
-            <h1 
+            <h1
               className="text-3xl font-bold"
               style={{ color: theme.textPrimary }}
             >
-              בדיקת סרטן עור מתקדמת
-            </h1>
+              גילוי מוקדם מציל חיים – התחילו עכשיו בבדיקה            </h1>
           </div>
-  
+
           <AlertBox type={isLoggedIn ? "success" : "info"}>
             <div className="flex items-center">
               <span className="ml-2">
                 {/* {isLoggedIn ? "👤" : "👥"} */}
               </span>
               <strong>מצב משתמש: </strong>
-              {isLoggedIn ? 
-                "מחובר - התוצאות יישמרו בהיסטוריה האישית שלך" : 
+              {isLoggedIn ?
+                "מחובר - התוצאות יישמרו בהיסטוריה האישית שלך" :
                 "אורח - התוצאות לא יישמרו בהיסטוריה"}
             </div>
           </AlertBox>
         </div>
-  
+
         {/* Main Upload Section */}
-        <div 
+        <div
           className="rounded-xl shadow-lg p-6 mb-8"
           style={{ backgroundColor: theme.surface }}
         >
-          <div 
+          <div
             className="rounded-lg p-6 border"
-            style={{ 
+            style={{
               background: `linear-gradient(135deg, ${theme.primary}10, ${theme.secondary}10)`,
               borderColor: theme.primary + '40'
             }}
@@ -930,10 +929,10 @@ export default function CheckPicture() {
                 type="file"
                 onChange={handleImageChange}
               />
-              <label 
+              <label
                 htmlFor="upload-image-button"
                 className="inline-block font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer"
-                style={{ 
+                style={{
                   backgroundColor: theme.primary,
                   color: theme.surface
                 }}
@@ -944,17 +943,17 @@ export default function CheckPicture() {
                   e.currentTarget.style.backgroundColor = theme.primary;
                 }}
               >
-               להעלאת תמונה
+                להעלאת תמונה
               </label>
             </div>
-  
-            <div 
+
+            <div
               className="text-center text-sm mb-4"
               style={{ color: theme.textSecondary }}
             >
               המערכת משתמשת בבינה מלאכותית מתקדמת לזיהוי אזורים חשודים
             </div>
-  
+
             {/* Error Display */}
             {error && (
               <div className="mb-6">
@@ -963,7 +962,7 @@ export default function CheckPicture() {
                 </AlertBox>
               </div>
             )}
-  
+
             {/* Image Preview */}
             {image && !loading && (
               <div className="mb-6">
@@ -995,10 +994,10 @@ export default function CheckPicture() {
                 </div>
               </div>
             )}
-  
+
             {/* Loading State */}
             {loading && <LoadingSpinner />}
-  
+
             {/* Results Display */}
             {feedback && analysisComplete && !loading && (
               <div className="mb-6">
@@ -1018,7 +1017,7 @@ export default function CheckPicture() {
                     )}
                   </div>
                 </AlertBox>
-  
+
                 {/* Appointment Scheduling Button */}
                 {shouldShowAppointment && (
                   <div className="mt-6 text-center">
@@ -1041,7 +1040,7 @@ export default function CheckPicture() {
                             e.currentTarget.style.backgroundColor = theme.warning;
                           }}
                         >
-                           קביעת תור לרופא עור
+                          קביעת תור לרופא עור
                         </button>
                       </div>
                     </AlertBox>
@@ -1051,29 +1050,29 @@ export default function CheckPicture() {
             )}
           </div>
         </div>
-  
+
         {/* Test History Section */}
         {isLoggedIn && testHistory.length > 0 && (
-          <div 
+          <div
             className="rounded-xl shadow-lg p-6"
             style={{ backgroundColor: theme.surface }}
           >
             <div className="flex items-center mb-6">
               <span className="text-2xl ml-3">📋</span>
-              <h2 
+              <h2
                 className="text-2xl font-bold"
                 style={{ color: theme.textPrimary }}
               >
                 היסטוריית בדיקות
               </h2>
             </div>
-  
+
             <div className="space-y-4">
               {testHistory.slice(0, 5).map((test, index) => (
-                <div 
+                <div
                   key={test.TestId || index}
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow duration-200"
-                  style={{ 
+                  style={{
                     borderColor: theme.primary + '30',
                     backgroundColor: theme.background
                   }}
@@ -1084,31 +1083,30 @@ export default function CheckPicture() {
                         <span className="text-sm font-medium" style={{ color: theme.textSecondary }}>
                           {formatDate(test.TestDate)}
                         </span>
-                        <div 
-                          className={`mr-3 px-2 py-1 rounded-full text-xs font-medium ${
-                            getSeverityType(test.Summary) === 'success' ? 'bg-green-100 text-green-800' :
-                            getSeverityType(test.Summary) === 'warning' ? 'bg-yellow-100 text-yellow-800' :
-                            getSeverityType(test.Summary) === 'error' ? 'bg-red-100 text-red-800' :
-                            'bg-blue-100 text-blue-800'
-                          }`}
+                        <div
+                          className={`mr-3 px-2 py-1 rounded-full text-xs font-medium ${getSeverityType(test.Summary) === 'success' ? 'bg-green-100 text-green-800' :
+                              getSeverityType(test.Summary) === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+                                getSeverityType(test.Summary) === 'error' ? 'bg-red-100 text-red-800' :
+                                  'bg-blue-100 text-blue-800'
+                            }`}
                         >
                           {getSeverityType(test.Summary) === 'success' ? '✓ תקין' :
-                           getSeverityType(test.Summary) === 'warning' ? '⚠ לבדיקה' :
-                           getSeverityType(test.Summary) === 'error' ? '🚨 דחוף' : 'ℹ מידע'}
+                            getSeverityType(test.Summary) === 'warning' ? '⚠ לבדיקה' :
+                              getSeverityType(test.Summary) === 'error' ? '🚨 דחוף' : 'ℹ מידע'}
                         </div>
                       </div>
-                      <p 
+                      <p
                         className="text-sm leading-relaxed"
                         style={{ color: theme.textPrimary }}
                       >
-                        {test.Summary.length > 150 ? 
-                          `${test.Summary.substring(0, 150)}...` : 
+                        {test.Summary.length > 150 ?
+                          `${test.Summary.substring(0, 150)}...` :
                           test.Summary}
                       </p>
                     </div>
                     {test.ImgURL && (
                       <div className="mr-4 flex-shrink-0">
-                        <img 
+                        <img
                           src={test.ImgURL}
                           alt="תמונת הבדיקה"
                           className="w-16 h-16 object-cover rounded-lg shadow-sm"
@@ -1119,13 +1117,13 @@ export default function CheckPicture() {
                 </div>
               ))}
             </div>
-  
-       
+
+
           </div>
         )}
-  
+
         {/* Instructions Section */}
-        <div 
+        <div
           className="rounded-xl shadow-lg p-6 mt-8"
           style={{ backgroundColor: theme.surface }}
         >
