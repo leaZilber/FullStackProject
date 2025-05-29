@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 // import { UserService } from '../services/user.service';
 import { RegisterPostModel } from '../../models/registerDTO';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -201,18 +201,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 //         new Date(user.userCreateDate || '').toLocaleDateString('he-IL')
 //       ].map(field => `"${field}"`).join(','))
 //     ];
-    
+
 //     return csvContent.join('\n');
 //   }
 // }
 
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -222,6 +215,13 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { MatChipsModule } from '@angular/material/chips';
+
 
 // Fixed interfaces - consistent naming
 export interface UserModel {
@@ -261,11 +261,9 @@ export interface UserUpdateModel {
   selector: 'app-user-management',
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -273,25 +271,15 @@ export interface UserUpdateModel {
     MatDatepickerModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    ReactiveFormsModule,
+    MatChipsModule
   ],
   standalone: true,
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'userName', 'userEmail', 'userPhone', 'userRole', 'userCreateDate', 'actions'];
-  dataSource = new MatTableDataSource<UserModel>();
-  isLoading = false;
-  totalUsers = 0;
-  showUserForm = false;
-  isEditMode = false;
-  userForm: FormGroup;
-  hidePassword = true;
-  currentUserId?: number;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private userService: UserService,
@@ -302,6 +290,20 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.initializeForm();
   }
 
+  displayedColumns: string[] = ['id', 'userName', 'userEmail', 'userPhone', 'userRole', 'userCreateDate', 'actions'];
+  dataSource = new MatTableDataSource<UserModel>();
+  isLoading = false;
+  totalUsers = 0;
+  showUserForm = false;
+  isEditMode = false;
+  userForm!: FormGroup;
+  hidePassword = true;
+  currentUserId?: number;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+ 
   ngOnInit(): void {
     this.loadUsers();
   }
@@ -322,11 +324,47 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userRole: ['user', [Validators.required]]
     });
   }
+  // Add this interface to match what your service actually returns
+
+
+  // Add this mapping function to your component
+  private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
+    return registerData.map(item => ({
+      // id: item.id,
+      userName: item.UserName || '', // Map from RegisterPostModel properties
+      userEmail: item.UserEmail || '', // Map from RegisterPostModel properties  
+      userRole: item.UserRole || 'user', // Map from RegisterPostModel properties
+      userPhone: item.UserPhone,
+      userAddress: item.UserAddress,
+      userBirth: item.UserBirth,
+      userCreateDate: item.UserCreateDate
+    }));
+  }
+
+  // loadUsers(): void {
+  //   this.isLoading = true;
+  //   this.userService.getAllUsers().subscribe({
+  //     next: (users: UserModel[]) => {
+  //       this.dataSource.data = users;
+  //       this.totalUsers = users.length;
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('שגיאה בטעינת המשתמשים:', error);
+  //       this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
+
+
+
 
   loadUsers(): void {
     this.isLoading = true;
     this.userService.getAllUsers().subscribe({
-      next: (users: UserModel[]) => {
+      next: (registerData: RegisterPostModel[]) => {
+        const users = this.mapRegisterToUser(registerData);
         this.dataSource.data = users;
         this.totalUsers = users.length;
         this.isLoading = false;
@@ -338,7 +376,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -359,7 +396,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.isEditMode = true;
     this.showUserForm = true;
     this.currentUserId = user.id;
-    
+
     // Fill form with user data - consistent property names
     this.userForm.patchValue({
       userName: user.userName,
@@ -369,7 +406,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userBirth: user.userBirth,
       userRole: user.userRole
     });
-    
+
     // Make password optional for edit
     this.userForm.get('userEncryptedPassword')?.clearValidators();
     this.userForm.get('userEncryptedPassword')?.updateValueAndValidity();
@@ -449,7 +486,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   confirmDeleteUser(user: UserModel): void {
     const confirmed = confirm(`האם אתה בטוח שברצונך למחוק את המשתמש "${user.userName}"?`);
-    
+
     if (confirmed && user.id) {
       this.deleteUser(user.id);
     }
@@ -515,7 +552,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         user.userCreateDate ? new Date(user.userCreateDate).toLocaleDateString('he-IL') : ''
       ].map(field => `"${field}"`).join(','))
     ];
-    
+
     return csvContent.join('\n');
   }
 

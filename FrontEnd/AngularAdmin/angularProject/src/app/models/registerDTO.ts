@@ -1,5 +1,6 @@
 export class RegisterPostModel {
     constructor(
+        public id?: number,
         public UserName: string = "",
         public UserEmail: string = "",
         public UserEncryptedPassword: string = "",
@@ -7,6 +8,6 @@ export class RegisterPostModel {
         public UserPhone: string = "",
         public UserAddress: string = "",
         public UserBirth: Date = new Date(),
-        public UserCreateDate:Date=new Date()
+        public UserCreateDate: Date = new Date()
     ) { }
 }

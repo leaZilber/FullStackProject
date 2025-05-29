@@ -147,294 +147,254 @@
   </div> -->
 
 
-  <div class="user-management-container">
-    <!-- Header Section -->
-    <mat-card class="header-card">
-      <mat-card-header>
-        <div class="header-content">
-          <div class="title-section">
-            <button mat-icon-button 
-                    color="primary" 
-                    (click)="goBack()" 
-                    class="back-button">
-              <mat-icon>arrow_back</mat-icon>
-            </button>
-            <mat-icon class="header-icon">people</mat-icon>
-            <h1>ניהול משתמשים</h1>
-            <mat-chip class="user-count-chip">{{ totalUsers }} משתמשים</mat-chip>
-          </div>
-          
-          <div class="action-buttons">
-            <button mat-raised-button 
-                    color="primary" 
-                    class="add-user-btn"
-                    (click)="showAddUserForm()">
-              <mat-icon>person_add</mat-icon>
-              הוסף משתמש חדש
-            </button>
-            
-            <button mat-stroked-button 
-                    class="export-btn"
-                    (click)="exportToCSV()">
-              <mat-icon>download</mat-icon>
-              ייצא לאקסל
-            </button>
-          </div>
+
+
+
+
+
+
+
+
+<div class="user-management-container">
+
+  <mat-card class="header-card">
+    <mat-card-header>
+      <div class="header-content">
+        <div class="title-section">
+          <button mat-icon-button color="primary" (click)="goBack()" class="back-button">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <mat-icon class="header-icon">people</mat-icon>
+          <h1>ניהול משתמשים</h1>
+          <mat-chip class="user-count-chip">{{ totalUsers }} משתמשים</mat-chip>
         </div>
-      </mat-card-header>
-    </mat-card>
 
-    <!-- Add/Edit User Form -->
-    <mat-card *ngIf="showUserForm" class="form-card">
-      <mat-card-header>
-        <mat-card-title>
-          <mat-icon>{{ isEditMode ? 'edit' : 'person_add' }}</mat-icon>
-          {{ isEditMode ? 'עריכת משתמש' : 'הוספת משתמש חדש' }}
-        </mat-card-title>
-      </mat-card-header>
-      
-      <mat-card-content>
-        <form [formGroup]="userForm" class="user-form">
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>שם משתמש</mat-label>
-              <mat-icon matPrefix>person</mat-icon>
-              <input matInput formControlName="userName" placeholder="הכנס שם משתמש">
-              <mat-error *ngIf="userForm.get('userName')?.hasError('required')">
-                שם משתמש הוא שדה חובה
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>אימייל</mat-label>
-              <mat-icon matPrefix>email</mat-icon>
-              <input matInput formControlName="userEmail" type="email" placeholder="הכנס כתובת אימייל">
-              <mat-error *ngIf="userForm.get('userEmail')?.hasError('required')">
-                אימייל הוא שדה חובה
-              </mat-error>
-              <mat-error *ngIf="userForm.get('userEmail')?.hasError('email')">
-                כתובת אימייל לא תקינה
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>סיסמה</mat-label>
-              <mat-icon matPrefix>lock</mat-icon>
-              <input matInput formControlName="userEncryptedPassword" 
-                     [type]="hidePassword ? 'password' : 'text'" 
-                     placeholder="הכנס סיסמה">
-              <button mat-icon-button 
-                      matSuffix 
-                      (click)="hidePassword = !hidePassword" 
-                      type="button">
-                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-              </button>
-              <mat-error *ngIf="userForm.get('userEncryptedPassword')?.hasError('required')">
-                סיסמה היא שדה חובה
-              </mat-error>
-              <mat-error *ngIf="userForm.get('userEncryptedPassword')?.hasError('minlength')">
-                סיסמה חייבת להכיל לפחות 6 תווים
-              </mat-error>
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>טלפון</mat-label>
-              <mat-icon matPrefix>phone</mat-icon>
-              <input matInput formControlName="userPhone" placeholder="הכנס מספר טלפון">
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>כתובת</mat-label>
-              <mat-icon matPrefix>location_on</mat-icon>
-              <input matInput formControlName="userAddress" placeholder="הכנס כתובת">
-            </mat-form-field>
-
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>תאריך לידה</mat-label>
-              <mat-icon matPrefix>cake</mat-icon>
-              <input matInput formControlName="userBirth" 
-                     [matDatepicker]="picker" 
-                     placeholder="בחר תאריך לידה">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
-
-          <div class="form-row">
-            <mat-form-field appearance="outline" class="form-field">
-              <mat-label>תפקיד</mat-label>
-              <mat-icon matPrefix>admin_panel_settings</mat-icon>
-              <mat-select formControlName="userRole">
-                <mat-option value="user">משתמש רגיל</mat-option>
-                <mat-option value="admin">מנהל</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="form-actions">
-            <button mat-raised-button 
-                    color="primary" 
-                    type="button"
-                    [disabled]="userForm.invalid || isLoading"
-                    (click)="saveUser()">
-              <mat-icon>save</mat-icon>
-              {{ isEditMode ? 'עדכן' : 'הוסף' }}
-            </button>
-            
-            <button mat-stroked-button 
-                    type="button"
-                    (click)="cancelForm()">
-              <mat-icon>cancel</mat-icon>
-              ביטול
-            </button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Search Section -->
-    <mat-card class="search-card" *ngIf="!showUserForm">
-      <mat-card-content>
-        <mat-form-field class="search-field" appearance="outline">
-          <mat-label>חיפוש משתמשים</mat-label>
-          <mat-icon matPrefix>search</mat-icon>
-          <input matInput 
-                 (keyup)="applyFilter($event)" 
-                 placeholder="הכנס שם משתמש, אימייל או תפקיד">
-        </mat-form-field>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Loading Indicator -->
-    <div *ngIf="isLoading" class="loading-container">
-      <mat-spinner diameter="50" color="primary"></mat-spinner>
-      <p>טוען נתונים...</p>
-    </div>
-
-    <!-- Data Table -->
-    <mat-card class="table-card" *ngIf="!isLoading && !showUserForm">
-      <mat-card-content>
-        <div class="table-container">
-          <mat-table [dataSource]="dataSource" 
-                     matSort 
-                     class="users-table">
-            
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>מזהה</mat-header-cell>
-              <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
-            </ng-container>
-
-            <!-- Username Column -->
-            <ng-container matColumnDef="userName">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <div class="user-info">
-                  <mat-icon class="user-avatar">account_circle</mat-icon>
-                  <span class="username">{{ user.userName }}</span>
-                </div>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Email Column -->
-            <ng-container matColumnDef="userEmail">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <a [href]="'mailto:' + user.userEmail" class="email-link">
-                  {{ user.userEmail }}
-                </a>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Phone Column -->
-            <ng-container matColumnDef="userPhone">
-              <mat-header-cell *matHeaderCellDef>טלפון</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <span class="phone-number">{{ user.userPhone || 'לא צוין' }}</span>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Role Column -->
-            <ng-container matColumnDef="userRole">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>תפקיד</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <mat-chip [class]="getRoleBadgeClass(user.userRole)">
-                  <mat-icon class="role-icon">
-                    {{ user.userRole === 'admin' ? 'admin_panel_settings' : 'person' }}
-                  </mat-icon>
-                  {{ user.userRole === 'admin' ? 'מנהל' : 'משתמש' }}
-                </mat-chip>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Create Date Column -->
-            <ng-container matColumnDef="userCreateDate">
-              <mat-header-cell *matHeaderCellDef mat-sort-header>תאריך יצירה</mat-header-cell>
-              <mat-cell *matCellDef="let user">
-                <span class="create-date">
-                  {{ user.userCreateDate | date:'dd/MM/yyyy HH:mm' }}
-                </span>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-              <mat-header-cell *matHeaderCellDef class="actions-header">פעולות</mat-header-cell>
-              <mat-cell *matCellDef="let user" class="actions-cell">
-                <div class="action-buttons">
-                  <button mat-icon-button 
-                          color="primary"
-                          matTooltip="ערוך משתמש"
-                          (click)="editUser(user)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  
-                  <button mat-icon-button 
-                          color="warn"
-                          matTooltip="מחק משתמש"
-                          (click)="confirmDeleteUser(user)"
-                          [disabled]="user.userRole === 'admin'">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </div>
-              </mat-cell>
-            </ng-container>
-
-            <!-- Table Header and Rows -->
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" 
-                     class="table-row"
-                     [ngClass]="{'admin-row': row.userRole === 'admin'}"></mat-row>
-          </mat-table>
-
-          <!-- Paginator -->
-          <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"
-                         [pageSize]="10"
-                         showFirstLastButtons
-                         class="table-paginator">
-          </mat-paginator>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Empty State -->
-    <mat-card class="empty-state-card" *ngIf="!isLoading && !showUserForm && dataSource.data.length === 0">
-      <mat-card-content>
-        <div class="empty-state">
-          <mat-icon class="empty-icon">people_outline</mat-icon>
-          <h3>אין משתמשים במערכת</h3>
-          <p>לחץ על "הוסף משתמש חדש" כדי להתחיל</p>
-          <button mat-raised-button 
-                  color="primary"
-                  (click)="showAddUserForm()">
+        <div class="action-buttons">
+          <button mat-raised-button color="primary" class="add-user-btn" (click)="showAddUserForm()">
             <mat-icon>person_add</mat-icon>
-            הוסף משתמש ראשון
+            הוסף משתמש חדש
+          </button>
+
+          <button mat-stroked-button class="export-btn" (click)="exportToCSV()">
+            <mat-icon>download</mat-icon>
+            ייצא לאקסל
           </button>
         </div>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card *ngIf="showUserForm" class="form-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>{{ isEditMode ? 'edit' : 'person_add' }}</mat-icon>
+        {{ isEditMode ? 'עריכת משתמש' : 'הוספת משתמש חדש' }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="userForm" class="user-form">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>שם משתמש</mat-label>
+            <mat-icon matPrefix>person</mat-icon>
+            <input matInput formControlName="userName" placeholder="הכנס שם משתמש">
+            <mat-error *ngIf="userForm.get('userName')?.hasError('required')">
+              שם משתמש הוא שדה חובה
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>אימייל</mat-label>
+            <mat-icon matPrefix>email</mat-icon>
+            <input matInput formControlName="userEmail" type="email" placeholder="הכנס כתובת אימייל">
+            <mat-error *ngIf="userForm.get('userEmail')?.hasError('required')">
+              אימייל הוא שדה חובה
+            </mat-error>
+            <mat-error *ngIf="userForm.get('userEmail')?.hasError('email')">
+              כתובת אימייל לא תקינה
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>סיסמה</mat-label>
+            <mat-icon matPrefix>lock</mat-icon>
+            <input matInput formControlName="userEncryptedPassword" [type]="hidePassword ? 'password' : 'text'"
+              placeholder="הכנס סיסמה">
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="userForm.get('userEncryptedPassword')?.hasError('required')">
+              סיסמה היא שדה חובה
+            </mat-error>
+            <mat-error *ngIf="userForm.get('userEncryptedPassword')?.hasError('minlength')">
+              סיסמה חייבת להכיל לפחות 6 תווים
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>טלפון</mat-label>
+            <mat-icon matPrefix>phone</mat-icon>
+            <input matInput formControlName="userPhone" placeholder="הכנס מספר טלפון">
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>כתובת</mat-label>
+            <mat-icon matPrefix>location_on</mat-icon>
+            <input matInput formControlName="userAddress" placeholder="הכנס כתובת">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>תאריך לידה</mat-label>
+            <mat-icon matPrefix>cake</mat-icon>
+            <input matInput formControlName="userBirth" [matDatepicker]="picker" placeholder="בחר תאריך לידה">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>תפקיד</mat-label>
+            <mat-icon matPrefix>admin_panel_settings</mat-icon>
+            <mat-select formControlName="userRole">
+              <mat-option value="user">משתמש רגיל</mat-option>
+              <mat-option value="admin">מנהל</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="button" [disabled]="userForm.invalid || isLoading"
+            (click)="saveUser()">
+            <mat-icon>save</mat-icon>
+            {{ isEditMode ? 'עדכן' : 'הוסף' }}
+          </button>
+
+          <button mat-stroked-button type="button" (click)="cancelForm()">
+            <mat-icon>cancel</mat-icon>
+            ביטול
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="search-card" *ngIf="!showUserForm">
+    <mat-card-content>
+      <mat-form-field class="search-field" appearance="outline">
+        <mat-label>חיפוש משתמשים</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput (keyup)="applyFilter($event)" placeholder="הכנס שם משתמש, אימייל או תפקיד">
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50" color="primary"></mat-spinner>
+    <p>טוען נתונים...</p>
   </div>
+
+  <mat-card class="table-card" *ngIf="!isLoading && !showUserForm">
+    <mat-card-content>
+      <div class="table-container">
+        <mat-table [dataSource]="dataSource" matSort class="users-table">
+
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>מזהה</mat-header-cell>
+            <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <div class="user-info">
+                <mat-icon class="user-avatar">account_circle</mat-icon>
+                <span class="username">{{ user.userName }}</span>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userEmail">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <a [href]="'mailto:' + user.userEmail" class="email-link">
+                {{ user.userEmail }}
+              </a>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userPhone">
+            <mat-header-cell *matHeaderCellDef>טלפון</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <span class="phone-number">{{ user.userPhone || 'לא צוין' }}</span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userRole">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>תפקיד</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <mat-chip [class]="getRoleBadgeClass(user.userRole)">
+                <mat-icon class="role-icon">
+                  {{ user.userRole === 'admin' ? 'admin_panel_settings' : 'person' }}
+                </mat-icon>
+                {{ user.userRole === 'admin' ? 'מנהל' : 'משתמש' }}
+              </mat-chip>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="userCreateDate">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>תאריך יצירה</mat-header-cell>
+            <mat-cell *matCellDef="let user">
+              <span class="create-date">
+                {{ user.userCreateDate | date:'dd/MM/yyyy HH:mm' }}
+              </span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef class="actions-header">פעולות</mat-header-cell>
+            <mat-cell *matCellDef="let user" class="actions-cell">
+              <div class="action-buttons">
+                <button mat-icon-button color="primary" matTooltip="ערוך משתמש" (click)="editUser(user)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button color="warn" matTooltip="מחק משתמש" (click)="confirmDeleteUser(user)"
+                  [disabled]="user.userRole === 'admin'">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"
+            [ngClass]="{'admin-row': row.userRole === 'admin'}"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons
+          class="table-paginator">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="empty-state-card" *ngIf="!isLoading && !showUserForm && dataSource.data.length === 0">
+    <mat-card-content>
+      <div class="empty-state">
+        <mat-icon class="empty-icon">people_outline</mat-icon>
+        <h3>אין משתמשים במערכת</h3>
+        <p>לחץ על "הוסף משתמש חדש" כדי להתחיל</p>
+        <button mat-raised-button color="primary" (click)="showAddUserForm()">
+          <mat-icon>person_add</mat-icon>
+          הוסף משתמש ראשון
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
