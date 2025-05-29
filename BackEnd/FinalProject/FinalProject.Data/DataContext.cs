@@ -13,6 +13,12 @@ namespace FinalProject.Data
         public DbSet<Message> messagesList { get; set; }
         //public DbSet<Schedule> scheduleList { get; set; }
         public DbSet<TestResualt> testResaultList { get; set; }
+
+        public DataContext(DbContextOptions<DataContext> options) : base(options)
+        {
+        }
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=my_db");
