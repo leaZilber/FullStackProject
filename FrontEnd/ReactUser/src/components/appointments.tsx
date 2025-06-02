@@ -433,8 +433,6 @@ import {
   Card,
   CardContent,
   Snackbar,
-  IconButton,
-  Divider
 } from "@mui/material";
 import {
 //   Calendar as CalendarIcon,
@@ -443,7 +441,6 @@ import {
   LocationOn as LocationIcon,
   NotificationsActive as BellIcon,
   CheckCircle as CheckCircleIcon,
-  Close as CloseIcon,
   Email as EmailIcon
 } from "@mui/icons-material";
 import React from "react";
