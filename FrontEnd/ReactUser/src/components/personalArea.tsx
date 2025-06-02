@@ -428,17 +428,17 @@ export const PersonalArea = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleLogout = () => {
-    // מחיקת כל הנתונים מה-sessionStorage
-    sessionStorage.removeItem("token");
-    sessionStorage.removeItem("userName");
-    sessionStorage.removeItem("userId");
-    sessionStorage.removeItem("email");
-    sessionStorage.removeItem("role");
+  // const handleLogout = () => {
+  //   // מחיקת כל הנתונים מה-sessionStorage
+  //   sessionStorage.removeItem("token");
+  //   sessionStorage.removeItem("userName");
+  //   sessionStorage.removeItem("userId");
+  //   sessionStorage.removeItem("email");
+  //   sessionStorage.removeItem("role");
 
-    // העברה לדף הכניסה
-    navigate("/login");
-  };
+  //   // העברה לדף הכניסה
+  //   navigate("/login");
+  // };
 
   // מיפוי בין שמות מקטעים לכותרות
   const sectionTitles = {

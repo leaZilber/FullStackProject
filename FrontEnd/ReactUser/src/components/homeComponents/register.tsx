@@ -178,26 +178,63 @@ const RegisterComp = () => {
             } else {
                 throw new Error(`Unexpected status code: ${response.status}`);
             }
-        } catch (error) {
+        }
+        // catch (error) {
+        //     console.error("Registration failed - Full error:", error);
+
+        //     if (error.response) {
+        //         // Server responded with error status
+        //         console.error("Error response data:", error.response.data);
+        //         console.error("Error response status:", error.response.status);
+        //         console.error("Error response headers:", error.response.headers);
+
+        //         const errorMessage = error.response.data?.message ||
+        //             error.response.data?.title ||
+        //             `Server error: ${error.response.status}`;
+        //         setRegisterError(`הרשמה נכשלה: ${errorMessage}`);
+        //     } else if (error.request) {
+        //         // Network error
+        //         console.error("Network error:", error.request);
+        //         setRegisterError("שגיאת רשת. בדוק את החיבור לאינטרנט.");
+        //     } else {
+        //         // Other error
+        //         console.error("Error message:", error.message);
+        //         setRegisterError("הרשמה נכשלה. נסה שוב.");
+        //     }
+        // } finally {
+        //     setLoading(false);
+        // }}
+        catch (error) {
             console.error("Registration failed - Full error:", error);
 
-            if (error.response) {
-                // Server responded with error status
-                console.error("Error response data:", error.response.data);
-                console.error("Error response status:", error.response.status);
-                console.error("Error response headers:", error.response.headers);
+            // Type guard to check if error is an axios error
+            if (axios.isAxiosError(error)) {
+                if (error.response) {
+                    // Server responded with error status
+                    console.error("Error response data:", error.response.data);
+                    console.error("Error response status:", error.response.status);
+                    console.error("Error response headers:", error.response.headers);
 
-                const errorMessage = error.response.data?.message ||
-                    error.response.data?.title ||
-                    `Server error: ${error.response.status}`;
-                setRegisterError(`הרשמה נכשלה: ${errorMessage}`);
-            } else if (error.request) {
-                // Network error
-                console.error("Network error:", error.request);
-                setRegisterError("שגיאת רשת. בדוק את החיבור לאינטרנט.");
-            } else {
-                // Other error
+                    const errorMessage = error.response.data?.message ||
+                        error.response.data?.title ||
+                        `Server error: ${error.response.status}`;
+                    setRegisterError(`הרשמה נכשלה: ${errorMessage}`);
+                } else if (error.request) {
+                    // Network error
+                    console.error("Network error:", error.request);
+                    setRegisterError("שגיאת רשת. בדוק את החיבור לאינטרנט.");
+                } else {
+                    // Other axios error
+                    console.error("Axios error message:", error.message);
+                    setRegisterError("הרשמה נכשלה. נסה שוב.");
+                }
+            } else if (error instanceof Error) {
+                // Standard JavaScript Error
                 console.error("Error message:", error.message);
+                setRegisterError(`הרשמה נכשלה: ${error.message}`);
+            } else {
+                // Unknown error type
+                console.error("Unknown error:", error);
                 setRegisterError("הרשמה נכשלה. נסה שוב.");
             }
         } finally {
@@ -219,7 +256,7 @@ const RegisterComp = () => {
                 <HeaderPage />
                 <Box
                     sx={{
-                        minHeight: "calc(100vh - 64px)", 
+                        minHeight: "calc(100vh - 64px)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
