@@ -459,7 +459,7 @@ const LoginComp = () => {
     }
   }, [navigate]);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data:any) => {
     setLoginError("");
     setLoading(true);
     try {

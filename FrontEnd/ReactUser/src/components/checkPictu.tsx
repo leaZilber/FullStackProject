@@ -753,7 +753,7 @@ export default function CheckPicture() {
   const [showSchedulePage, setShowSchedulePage] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [testHistory, setTestHistory] = useState<TestResult[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
   const [error, setError] = useState<string>("");
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
 

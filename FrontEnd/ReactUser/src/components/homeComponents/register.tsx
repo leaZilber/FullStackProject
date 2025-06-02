@@ -127,7 +127,7 @@ const RegisterComp = () => {
     //         setLoading(false);
     //     }
     // };
-    const onSubmit = async (data) => {
+    const onSubmit = async (data:any) => {
         setRegisterError('');
         setRegisterSuccess('');
         setLoading(true);
