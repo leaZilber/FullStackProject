@@ -21,20 +21,20 @@ function App() {
     // <SchedulePage/>
     // <Appointments/>
     // <MedicalHistory/>
-    <PersonalArea />
+    // <PersonalArea />
     // <CheckPicture/>
     // <SchedulePage/>
-    //  <Routes>
-    //     <Route path="/" element={<HomePage />} />
-    //     <Route path="/homePage" element={<HomePage />} />
-    //     <Route path="/informationArea" element={<InformationPage />} />
-    //     {/* <Router path="/Schedule" element={<SchedulePage/>}/> */}
-    //     <Route path="/aboutUs" element={<AboutUs />} />
-    //     <Route path="/login" element={<LoginComp />} />
-    //     <Route path="/register" element={<RegisterComp />} />
-    //     <Route path='/personalArea' element={<PersonalArea />} />
-    //     <Route path="*" element={<HomePage />} />
-    //   </Routes> 
+     <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/homePage" element={<HomePage />} />
+        <Route path="/informationArea" element={<InformationPage />} />
+        {/* <Router path="/Schedule" element={<SchedulePage/>}/> */}
+        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/login" element={<LoginComp />} />
+        <Route path="/register" element={<RegisterComp />} />
+        <Route path='/personalArea' element={<PersonalArea />} />
+        <Route path="*" element={<HomePage />} />
+      </Routes> 
   )
 }
 

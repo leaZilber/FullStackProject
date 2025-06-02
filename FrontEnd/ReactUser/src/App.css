@@ -1,10 +1,10 @@
-/* #root {
+#root {
   max-width: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   overflow-x: hidden;
-} */
+} 
 #root {
   width: 80%;
   margin: 0 auto;
@@ -54,43 +54,32 @@
 
 #headerContainer {
   position: fixed;
-  /* מקבע את הדיב בראש הדף */
   top: 0;
   left: 0;
   width: 100%;
-  /* רוחב מלא של המסך */
   height: 70px;
-  /* ניתן לשנות לפי הצורך */
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* אפשר לשנות לפי הצורך */
   z-index: 1000;
-  /* מבטיח שהתפריט יהיה מעל שאר האלמנטים */
 }
 
 #backgroundHome {
   position: absolute;
-  /* ממקם את התמונה ביחס לדף */
   top: 60px;
-  /* גובה ה-header (עדכן לפי הצורך) */
   left: 0;
   width: 100vw;
-  /* רוחב מלא של המסך */
   height: calc(100vh - 60px);
-  /* גובה מלא של המסך פחות ה-header */
   object-fit: cover;
-  /* מבטיח שהתמונה תמלא את כל השטח בלי לעוות */
   opacity: 0.85;
-  /* שקיפות נמוכה (ניתן להגדיל/להקטין) */
   z-index: -1;
-  /* שולח את התמונה לרקע, מאחורי כל האלמנטים */
+ 
   position: fixed;
 }
 
 
-/* העיגול */
+
 #roundLogin {
   width: 160px;
   height: 160px;
@@ -111,12 +100,10 @@
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* כשהעכבר עובר על העיגול הוא גדל */
 #roundLogin:hover {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* עיצוב הכפתורים */
 button {
   border: none;
   background-color: white;
@@ -186,15 +173,15 @@ button:hover {
   justify-content: space-between;
   gap: 40px;
   padding: 20px;
-  margin-top: 120px; /* Ensures content starts below the header */
+  margin-top: 120px; 
 }
 
 .sidebarInfo {
   width: 55%;
-  text-align: left; /* Changed to left for left-to-right text direction */
+  text-align: left; 
   padding: 20px;
-  font-size: 18px; /* Increased font size for better readability */
-  line-height: 1.6; /* Increases the space between lines for clarity */
+  font-size: 18px; 
+  line-height: 1.6; 
 }
 
 #galery {
@@ -203,8 +190,7 @@ button:hover {
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  /* Centers images horizontally */
-  margin-top: 20px; /* Ensures gallery starts below content */
+  margin-top: 20px; 
   position: relative;
 }
 
@@ -332,4 +318,132 @@ input {
   font-size: 18px;
   color: #666;
 }
+ 
 
+
+
+
+
+
+
+
+
+/* .css-1ag7bok-MuiPaper-root::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #00B5B8;
+}
+.css-1ag7bok-MuiPaper-root::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #00B5B8;
+}
+style attribute {
+    --Paper-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+}
+.css-1ag7bok-MuiPaper-root {
+    background-color: #FFFFFF;
+    color: #333333;
+    -webkit-transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 4px;
+    box-shadow: var(--Paper-shadow);
+    background-image: var(--Paper-overlay);
+    border-radius: 8px;
+    padding: 32px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    position: relative;
+    width: fit-content;
+}
+* {
+    line-height: 4;
+}
+.css-148l0fn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex
+;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    min-height: 100vh;
+    direction: rtl;
+}
+#root {
+    width: 80%;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+}
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+}

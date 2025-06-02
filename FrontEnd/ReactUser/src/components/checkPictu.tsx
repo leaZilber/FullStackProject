@@ -893,7 +893,7 @@ export default function CheckPicture() {
               className="text-3xl font-bold"
               style={{ color: theme.textPrimary }}
             >
-              גילוי מוקדם מציל חיים – התחילו עכשיו בבדיקה            </h1>
+             temp           </h1>
           </div>
 
           <AlertBox type={isLoggedIn ? "success" : "info"}>
