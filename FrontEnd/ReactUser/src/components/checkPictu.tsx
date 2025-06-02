@@ -579,7 +579,7 @@
 
 
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import React from "react";
 
 // Custom theme colors
@@ -631,12 +631,12 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
 );
 
 // Utility Functions
-const getCurrentUserId = (): number => {
-  // Using in-memory simulation instead of localStorage
-  const mockUserId = Math.random() > 0.5 ? 123 : GUEST_USER_ID;
-  console.log(mockUserId === GUEST_USER_ID ? "Guest user mode" : `User logged in with ID: ${mockUserId}`);
-  return mockUserId;
-};
+// const getCurrentUserId = (): number => {
+//   // Using in-memory simulation instead of localStorage
+//   const mockUserId = Math.random() > 0.5 ? 123 : GUEST_USER_ID;
+//   console.log(mockUserId === GUEST_USER_ID ? "Guest user mode" : `User logged in with ID: ${mockUserId}`);
+//   return mockUserId;
+// };
 
 const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   try {
@@ -747,7 +747,7 @@ export default function CheckPicture() {
   const [image, setImage] = useState<string>("");
   const [feedback, setFeedback] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [userId, setUserId] = useState<number>(GUEST_USER_ID);
+  const [userId] = useState<number>(GUEST_USER_ID);
   const [currentTestResult, setCurrentTestResult] = useState<TestResult | null>(null);
   const [shouldShowAppointment, setShouldShowAppointment] = useState(false);
   const [showSchedulePage, setShowSchedulePage] = useState(false);

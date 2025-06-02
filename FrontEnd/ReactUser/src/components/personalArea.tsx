@@ -287,7 +287,7 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   CloudUpload as UploadIcon,
-  History as HistoryIcon,
+  // History as HistoryIcon,
   CalendarMonth as CalendarIcon,
   Menu as MenuIcon,
   ExitToApp as LogoutIcon,
@@ -296,10 +296,10 @@ import {
   Home as HomeIcon
 } from "@mui/icons-material";
 import axios from "axios";
-import  Appointments from "./appointments";
+import Appointments from "./appointments";
 import MedicalHistory from "./medicalHistory";
 import React from "react";
-import  CheckPicture from "./checkPictu";
+import CheckPicture from "./checkPictu";
 
 // הגדרת ערכת הצבעים החדשה
 const theme = createTheme({
@@ -408,14 +408,18 @@ export const PersonalArea = () => {
         sessionStorage.setItem("userName", displayName);
       }
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log('Unknown error:', error);
+      }
       setError("שגיאה בטעינת פרטי משתמש");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleNavigation = (section) => {
+  const handleNavigation = (section: any) => {
     setActiveSection(section);
     if (isMobile) setMobileOpen(false);
   };
