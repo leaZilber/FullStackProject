@@ -6,12 +6,8 @@ using FinalProject.Data.Repositories;
 using FinalProject.Service.Services;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
 
 // Load environment variables from .env file
 Env.Load();
@@ -68,7 +64,8 @@ builder.Services.AddCors(options =>
                 "https://localhost:3000",
                 "http://localhost:5174",
                 "http://localhost:4200",
-                "https://localhost:4200"
+                "https://localhost:4200",
+                "https://fullstackprojectfrontendreact.onrender.com/"
               )
               .AllowAnyMethod()
               .AllowAnyHeader()
