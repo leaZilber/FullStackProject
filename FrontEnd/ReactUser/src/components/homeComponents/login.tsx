@@ -381,7 +381,7 @@ import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
 import HeaderPage from "./header";
-import React from "react";
+import * as React from 'react';
 
 // יצירת ערכת נושא מותאמת אישות עם הצבעים שציינת
 const theme = createTheme({

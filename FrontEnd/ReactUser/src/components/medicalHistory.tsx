@@ -503,7 +503,7 @@
 import { useEffect, useState } from "react"
 import { Box, Typography, Paper, CircularProgress, Chip } from "@mui/material"
 import { Stethoscope, Calendar, User, FileText, AlertTriangle, ImageIcon } from "lucide-react"
-import React from "react"
+import * as React from 'react';
 
 interface MedicalRecord {
   id: string

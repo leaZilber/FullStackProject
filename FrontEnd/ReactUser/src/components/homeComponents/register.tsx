@@ -27,7 +27,7 @@ import {
     HowToReg
 } from '@mui/icons-material';
 import HeaderPage from './header';
-import React from 'react';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom'; // נוסף לניתוב
 
 // Define custom theme based on the provided palette

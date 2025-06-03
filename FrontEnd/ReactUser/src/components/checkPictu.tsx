@@ -580,7 +580,7 @@
 
 
 import { useState} from "react";
-import React from "react";
+import * as React from 'react';
 
 // Custom theme colors
 const theme = {

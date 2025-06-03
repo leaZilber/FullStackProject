@@ -443,8 +443,9 @@ import {
   CheckCircle as CheckCircleIcon,
   Email as EmailIcon
 } from "@mui/icons-material";
-import React from "react";
+// import React from "react";
 import { CalendarIcon } from "lucide-react";
+import * as React from 'react';
 
 // Updated appointment interface to match the new model
 interface Appointment {
