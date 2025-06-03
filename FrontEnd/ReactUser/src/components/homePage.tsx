@@ -203,7 +203,7 @@ export const HomePage = () => {
             <HeaderPage />
             {showHomePage && (
                 <>
-                    <img src="./src/images/good-clinic.jpg" id="backgroundHome" alt="home background" />
+                    <img src="/images/good-clinic.jpg" id="backgroundHome" alt="home background" />
                     <div id="roundLogin">
                         <button className="login-btn" onClick={() => { setShowLogin(true); setShowRegister(false); setShowHomePage(false) }}>כניסה</button>
                         <button className="signup-btn" onClick={() => { setShowRegister(true); setShowLogin(false); setShowHomePage(false) }}>הרשמה</button>

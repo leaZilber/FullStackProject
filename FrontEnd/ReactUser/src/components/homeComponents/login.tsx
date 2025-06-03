@@ -192,7 +192,7 @@ const LoginComp = () => {
   return (
     <ThemeProvider theme={theme}>
       <HeaderPage />
-      <img src="../src/images/gray.jpg" className="backgroundAboutUs" alt="hospital img" />
+      <img src="/images/gray.jpg" className="backgroundAboutUs" alt="hospital img" />
       <Container maxWidth="xs">
         <Fade in={true} timeout={800}>
           <Paper
