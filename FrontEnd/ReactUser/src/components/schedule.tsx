@@ -639,8 +639,6 @@
 
 
 
-
-import * as React from 'react';
 import { useState, useEffect } from "react"
 
 // Define the Turn interface

@@ -297,7 +297,6 @@ import {
 import axios from "axios";
 import Appointments from "./appointments";
 import MedicalHistory from "./medicalHistory";
-import * as React from 'react';
 import CheckPicture from "./checkPictu";
 
 // הגדרת ערכת הצבעים החדשה

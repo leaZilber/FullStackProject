@@ -191,7 +191,6 @@ import { useState } from "react";
 import HeaderPage from "./homeComponents/header";
 import LoginComp from "./homeComponents/login";
 import RegisterComp from "./homeComponents/register";
-import * as React from 'react';
 
 
 export const HomePage = () => {

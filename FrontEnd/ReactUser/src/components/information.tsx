@@ -1,4 +1,3 @@
-import * as React from 'react';
 import HeaderPage from "./homeComponents/header";
 import { 
   Container, 
@@ -13,7 +12,6 @@ import {
   ListItemText,
   Card,
   CardContent,
-  useTheme,
   createTheme,
   ThemeProvider
 } from '@mui/material';
