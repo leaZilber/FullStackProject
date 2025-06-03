@@ -287,7 +287,6 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import {
   CloudUpload as UploadIcon,
-  // History as HistoryIcon,
   CalendarMonth as CalendarIcon,
   Menu as MenuIcon,
   ExitToApp as LogoutIcon,

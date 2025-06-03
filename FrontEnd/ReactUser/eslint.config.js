@@ -73,7 +73,7 @@ export default tseslint.config(
             // ולכן אין צורך ב-"react/react-in-jsx-scope": "off"
             // אלא אם כן את עדיין מקבלת שגיאות ספציפיות אלה.
             // כלל "react/jsx-uses-react" גם הוא מטופל אוטומטית.
-
+            "react/react-in-jsx-scope": "off",
             ...reactHooks.configs.recommended.rules,
             'react-refresh/only-export-components': [
                 'warn',
