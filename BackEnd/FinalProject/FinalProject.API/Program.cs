@@ -65,7 +65,7 @@ builder.Services.AddCors(options =>
                 "http://localhost:5174",
                 "http://localhost:4200",
                 "https://localhost:4200",
-                "https://fullstackprojectfrontendreact.onrender.com/"
+                "https://fullstackprojectfrontendreact.onrender.com"
               )
               .AllowAnyMethod()
               .AllowAnyHeader()
@@ -154,7 +154,7 @@ if (app.Environment.IsDevelopment())
 // Global exception handler middleware (אם קיים)
 // app.UseMiddleware<GlobalExceptionMiddleware>();
 
-app.UseCors("AllowAllDevClients");
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseRouting();

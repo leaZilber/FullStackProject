@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = 'https://localhost:7245/api';
+  baseUrl = 'https://fullstackproject-5070.onrender.com/api';
   constructor(private http: HttpClient) {}
 
   register(data: any) {
