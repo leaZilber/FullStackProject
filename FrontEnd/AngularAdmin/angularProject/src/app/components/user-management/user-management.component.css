@@ -1,4 +1,4 @@
-/* .user-management-container {
+.user-management-container {
   padding: 24px;
   background-color: #F5F5F5;
   min-height: 100vh;
@@ -187,7 +187,6 @@ h1 {
   background-color: #F5F5F5;
 }
 
-/* Material Theme Overrides 
 ::ng-deep .mat-mdc-raised-button.mat-primary {
   background-color: #00B5B8;
 }
@@ -228,4 +227,4 @@ h1 {
   .action-buttons {
     justify-content: center;
   }
-} */
+}

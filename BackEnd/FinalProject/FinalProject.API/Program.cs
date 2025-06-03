@@ -151,9 +151,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Global exception handler middleware (אם קיים)
-// app.UseMiddleware<GlobalExceptionMiddleware>();
-
 app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();

@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://your-production-url.com' // שנה לכתובת ההפקה
+    apiUrl: 'https://fullstackproject-5070.onrender.com' 
   };
   
