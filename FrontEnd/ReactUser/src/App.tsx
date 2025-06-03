@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css'
 import { PersonalArea } from './components/personalArea'
 import { HomePage } from './components/homePage'
-import { InformationPage } from './components/information'
+import  InformationPage  from './components/information'
 import { AboutUs } from './components/aboutUs'
 import LoginComp from './components/homeComponents/login'
 import RegisterComp from './components/homeComponents/register'

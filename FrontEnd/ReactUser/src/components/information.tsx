@@ -460,7 +460,7 @@ type ContentKey =
 const Information = () => {
     const [expandedPanel, setExpandedPanel] = useState<string | false>(false);
 
-    const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    const handleChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpandedPanel(isExpanded ? panel : false);
     };
 

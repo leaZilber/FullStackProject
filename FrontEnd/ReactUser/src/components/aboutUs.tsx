@@ -31,39 +31,39 @@ import {
 import HeaderPage from "./homeComponents/header";
 
 // יצירת תבנית עם צבעים מותאמים אישית
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: "#00B0B9", // טורקיז
-        },
-        secondary: {
-            main: "#C8736D", // R:200, G:115, B:109
-        },
-        background: {
-            default: "#FFFFFF", // לבן
-            paper: "#F5F5F5", // אפור בהיר
-        },
-        text: {
-            primary: "#333333", // אפור כהה לטקסט
-            secondary: "#666666", // אפור בינוני לטקסט משני
-        },
-    },
-    typography: {
-        fontFamily: "'Assistant', 'Roboto', 'Arial', sans-serif",
-        h3: {
-            fontWeight: 700,
-        },
-        h4: {
-            fontWeight: 600,
-            color: "#00B0B9", // כותרות בטורקיז
-        },
-        h5: {
-            fontWeight: 600,
-            color: "#C8736D", // R:200, G:115, B:109 לכותרות משניות
-            marginTop: "1.5rem",
-        },
-    },
-});
+// const theme = createTheme({
+//     palette: {
+//         primary: {
+//             main: "#00B0B9", // טורקיז
+//         },
+//         secondary: {
+//             main: "#C8736D", // R:200, G:115, B:109
+//         },
+//         background: {
+//             default: "#FFFFFF", // לבן
+//             paper: "#F5F5F5", // אפור בהיר
+//         },
+//         text: {
+//             primary: "#333333", // אפור כהה לטקסט
+//             secondary: "#666666", // אפור בינוני לטקסט משני
+//         },
+//     },
+//     typography: {
+//         fontFamily: "'Assistant', 'Roboto', 'Arial', sans-serif",
+//         h3: {
+//             fontWeight: 700,
+//         },
+//         h4: {
+//             fontWeight: 600,
+//             color: "#00B0B9", // כותרות בטורקיז
+//         },
+//         h5: {
+//             fontWeight: 600,
+//             color: "#C8736D", // R:200, G:115, B:109 לכותרות משניות
+//             marginTop: "1.5rem",
+//         },
+//     },
+// });
 
 // סגנון מותאם לכרטיסי תמונה בגלריה
 const ImageCard = styled(Card)(({ theme }) => ({
