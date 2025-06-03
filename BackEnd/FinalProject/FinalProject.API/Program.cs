@@ -55,7 +55,7 @@ builder.Services.AddScoped<S3Service>();
 // CORS Configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllDevClients", policy =>
+    options.AddPolicy("AllowAll", policy =>
     {
         policy.WithOrigins(
                 "http://localhost:5173",
@@ -154,7 +154,7 @@ if (app.Environment.IsDevelopment())
 // Global exception handler middleware (אם קיים)
 // app.UseMiddleware<GlobalExceptionMiddleware>();
 
-app.UseCors("AllowFrontend");
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 app.UseRouting();
