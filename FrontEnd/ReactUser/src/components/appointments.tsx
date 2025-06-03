@@ -567,7 +567,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         setLoading(true);
         
         // Fetch appointments from the server
-        const response = await fetch('https://localhost:7245/api/Turn', {
+        const response = await fetch('https://fullstackproject-5070.onrender.com/api/Turn', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -617,7 +617,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
   const handleConfirmArrival = async (appointment: Appointment) => {
     try {
       // API call to update arrival confirmation - adjust the endpoint as needed
-      const response = await fetch(`https://localhost:7245/api/Turn/${appointment.turnId}/ConfirmArrival`, {
+      const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn/${appointment.turnId}/ConfirmArrival`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

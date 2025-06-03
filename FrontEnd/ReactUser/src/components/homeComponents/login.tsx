@@ -100,7 +100,7 @@ const LoginComp = () => {
       // Add some debugging
       console.log("Sending login request with data:", data);
 
-      const response = await axios.post("https://localhost:7245/api/Auth/login", {
+      const response = await axios.post("https://fullstackproject-5070.onrender.com/api/Auth/login", {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });

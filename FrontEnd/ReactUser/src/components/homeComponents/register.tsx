@@ -148,7 +148,7 @@ const RegisterComp = () => {
 
         try {
             // Try the actual URL your API is running on
-            const response = await axios.post("https://localhost:7245/api/User", requestPayload, {
+            const response = await axios.post("https://fullstackproject-5070.onrender.com/api/User", requestPayload, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

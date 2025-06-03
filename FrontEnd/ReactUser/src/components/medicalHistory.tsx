@@ -283,7 +283,7 @@ const MedicalHistory = () => {
         const userId = getCurrentUserId()
         setCurrentUserId(userId)
 
-        const response = await fetch(`https://localhost:7245/api/TestResualt?userId=${userId}`)
+        const response = await fetch(`https://fullstackprojectfrontendangular.onrender.com/api/TestResualt?userId=${userId}`)
 
         if (response.ok) {
           const data = await response.json()

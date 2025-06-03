@@ -214,7 +214,7 @@ export const HomePage = () => {
                         <button 
                             className="admin-login-btn" 
                             onClick={() => { 
-                                window.location.href = ' http://localhost:4200/'; 
+                                window.location.href = 'https://fullstackprojectfrontendangular.onrender.com/'; 
                             }}
                         >
                             כניסת מנהלים

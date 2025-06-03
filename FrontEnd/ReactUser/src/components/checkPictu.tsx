@@ -16,7 +16,7 @@ const theme = {
 };
 
 // API Configuration
-const API_BASE_URL = "https://localhost:7245/api";
+const API_BASE_URL = "https://fullstackproject-5070.onrender.com/api";
 const GUEST_USER_ID = -1;
 
 // Interfaces

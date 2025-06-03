@@ -677,7 +677,7 @@ const SchedulePage = () => {
   const currentUserId = 1;
 
   // API base URL
-  const API_BASE = 'https://localhost:7245/api';
+  const API_BASE = 'https://fullstackprojectfrontendangular.onrender.com/api';
 
   // Fetch all turns from API
   const fetchTurns = async (): Promise<Turn[]> => {

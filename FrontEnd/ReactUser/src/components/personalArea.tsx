@@ -840,7 +840,7 @@ export const PersonalArea = () => {
       }
 
       const token = sessionStorage.getItem("token");
-      const response = await axios.get(`https://localhost:7245/api/User/${userId}`, {
+      const response = await axios.get(`https://fullstackprojectfrontendangular.onrender.com/api/User/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
