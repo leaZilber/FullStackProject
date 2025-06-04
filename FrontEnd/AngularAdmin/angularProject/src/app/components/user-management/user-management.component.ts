@@ -2,15 +2,11 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { UserService } from '../services/user.service';
 import { RegisterPostModel } from '../../models/registerDTO';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
-
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,7 +20,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { MatChipsModule } from '@angular/material/chips';
 
 
