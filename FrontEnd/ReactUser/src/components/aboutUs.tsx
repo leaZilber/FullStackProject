@@ -1,6 +1,3 @@
-
-
-
 import {
     Box,
     Container,
@@ -32,6 +29,8 @@ import {
     MenuBookOutlined
 } from "@mui/icons-material";
 import HeaderPage from "./homeComponents/header";
+import React from 'react';
+void React;
 
 // יצירת תבנית עם צבעים מותאמים אישית
 const theme = createTheme({

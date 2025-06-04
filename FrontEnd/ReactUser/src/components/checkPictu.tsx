@@ -1,7 +1,7 @@
 
 import { useState} from "react";
-
-// Custom theme colors
+import React from 'react';
+void React;
 const theme = {
   primary: "#00B5B8",
   secondary: "#C8736D",

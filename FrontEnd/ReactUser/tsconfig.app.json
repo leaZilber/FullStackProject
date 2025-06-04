@@ -8,6 +8,7 @@
     "skipLibCheck": true,
     "noEmitOnError": false,
     "strict": false,
+    "types": [ "react", "react-dom" ],
 
     /* Bundler mode */
     "moduleResolution": "node",

@@ -1,6 +1,6 @@
 import {
   MatFormFieldModule
-} from "./chunk-IUCTBXPI.js";
+} from "./chunk-DRZ5QAWR.js";
 import {
   MAT_ERROR,
   MAT_FORM_FIELD,
@@ -17,19 +17,20 @@ import {
   getMatFormFieldDuplicatedHintError,
   getMatFormFieldMissingControlError,
   getMatFormFieldPlaceholderConflictError
-} from "./chunk-RX6B5V3C.js";
-import "./chunk-FQT7XOUW.js";
-import "./chunk-JXBCBRYI.js";
-import "./chunk-2O4WY5GE.js";
-import "./chunk-3EIRIAIS.js";
-import "./chunk-2LLJXN35.js";
-import "./chunk-N7ZASF3F.js";
-import "./chunk-Y7O5HRRX.js";
-import "./chunk-AYJF6LTC.js";
-import "./chunk-CHB3OLLE.js";
-import "./chunk-3XXDZILO.js";
+} from "./chunk-4MGGW32L.js";
+import "./chunk-27SSTMFI.js";
+import "./chunk-DB7JXD3L.js";
+import "./chunk-DSJSQTSJ.js";
+import "./chunk-Q7FQSQDB.js";
+import "./chunk-KK2OPI6M.js";
+import "./chunk-LUVLDI3W.js";
+import "./chunk-G4ODBV2O.js";
+import "./chunk-DGF3KSA3.js";
+import "./chunk-A6FEM56D.js";
+import "./chunk-UNV6TYUP.js";
+import "./chunk-WDMUDEB6.js";
 
-// node_modules/@angular/material/fesm2022/form-field.mjs
+// ../node_modules/@angular/material/fesm2022/form-field.mjs
 var matFormFieldAnimations = {
   // Represents:
   // trigger('transitionMessages', [

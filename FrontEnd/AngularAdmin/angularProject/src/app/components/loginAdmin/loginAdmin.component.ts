@@ -84,6 +84,6 @@ export class LoginAdminComponent {
     }
 
     goToRegisterPage() {
-        this.router.navigate(['/register'], { replaceUrl: true });
+        this.router.navigate(['/poral-manage'], { replaceUrl: true });
     }
 }

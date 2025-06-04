@@ -1,8 +1,12 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  DateAdapter,
+  MAT_DATE_FORMATS
+} from "./chunk-6LCRIBQO.js";
+import {
   MAT_INPUT_VALUE_ACCESSOR
-} from "./chunk-MFFEN237.js";
-import "./chunk-IEKDUPL3.js";
+} from "./chunk-P6GERIMB.js";
+import "./chunk-MYMGN4MI.js";
 import {
   CdkPortalOutlet,
   ComponentPortal,
@@ -12,42 +16,29 @@ import {
   OverlayModule,
   PortalModule,
   TemplatePortal
-} from "./chunk-C2S7EP5Q.js";
-import {
-  ErrorStateMatcher,
-  _ErrorStateTracker
-} from "./chunk-PY62Q3RW.js";
-import {
-  MAT_FORM_FIELD,
-  MatFormFieldControl
-} from "./chunk-EIRQYXMU.js";
-import {
-  CdkScrollableModule
-} from "./chunk-5PJKMBZD.js";
-import {
-  ControlContainer,
-  FormGroupDirective,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  NgForm,
-  Validators
-} from "./chunk-4LSOM7AI.js";
+} from "./chunk-EAXQRGW4.js";
 import {
   MatButton,
   MatButtonModule,
   MatIconButton
-} from "./chunk-POJNZJRK.js";
-import "./chunk-LRE6XUN3.js";
-import "./chunk-NYRBAJTG.js";
+} from "./chunk-R5FXEPS5.js";
+import "./chunk-AWQZWVRT.js";
+import "./chunk-TKKG5FIT.js";
 import {
   _StructuralStylesLoader
-} from "./chunk-37MAMAF6.js";
-import "./chunk-L34BHGF3.js";
+} from "./chunk-23S4GWBS.js";
+import {
+  MAT_FORM_FIELD,
+  MatFormFieldControl
+} from "./chunk-QEXO2256.js";
+import {
+  ErrorStateMatcher,
+  _ErrorStateTracker
+} from "./chunk-BWQEJOH4.js";
+import "./chunk-PULQSDZ7.js";
 import {
   coerceStringArray
-} from "./chunk-C5HDTQAM.js";
-import "./chunk-JME5XKN5.js";
+} from "./chunk-CKG7QJNW.js";
 import {
   A11yModule,
   BACKSPACE,
@@ -69,23 +60,36 @@ import {
   _VisuallyHiddenLoader,
   _getFocusedElementPierceShadowDom,
   hasModifierKey
-} from "./chunk-VRHCBNIK.js";
+} from "./chunk-OYQSHKSG.js";
+import {
+  ControlContainer,
+  FormGroupDirective,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  NgForm,
+  Validators
+} from "./chunk-SKGUPNN5.js";
+import {
+  CdkScrollableModule
+} from "./chunk-BEOLO7LQ.js";
+import "./chunk-OWRRUJSK.js";
 import {
   Directionality
-} from "./chunk-CZRR42AC.js";
+} from "./chunk-VDZAIN4V.js";
 import {
   _CdkPrivateStyleLoader,
   _bindEventWithOptions
-} from "./chunk-GL6Q746A.js";
+} from "./chunk-POKKN43X.js";
 import {
   Platform
-} from "./chunk-T44RZNVM.js";
+} from "./chunk-QFKXNGSZ.js";
 import {
   NgClass
-} from "./chunk-XKU4W7O3.js";
+} from "./chunk-3TQ7DEZ7.js";
 import {
   DOCUMENT
-} from "./chunk-UMQWUUBM.js";
+} from "./chunk-5XUOUJBL.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -100,7 +104,6 @@ import {
   InjectionToken,
   Injector,
   Input,
-  LOCALE_ID,
   NgModule,
   NgZone,
   Optional,
@@ -164,190 +167,13 @@ import {
   ɵɵtwoWayListener,
   ɵɵtwoWayProperty,
   ɵɵviewQuery
-} from "./chunk-PXXRCHXC.js";
+} from "./chunk-NEB46DED.js";
 import {
   __toESM
 } from "./chunk-YHCV7DAQ.js";
 
-// node_modules/@angular/material/fesm2022/datepicker.mjs
-var import_rxjs2 = __toESM(require_cjs(), 1);
-
-// node_modules/@angular/material/fesm2022/date-formats-K6TQue-Y.mjs
+// ../node_modules/@angular/material/fesm2022/datepicker.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
-var MAT_DATE_LOCALE = new InjectionToken("MAT_DATE_LOCALE", {
-  providedIn: "root",
-  factory: MAT_DATE_LOCALE_FACTORY
-});
-function MAT_DATE_LOCALE_FACTORY() {
-  return inject(LOCALE_ID);
-}
-var NOT_IMPLEMENTED = "Method not implemented";
-var DateAdapter = class {
-  /** The locale to use for all dates. */
-  locale;
-  _localeChanges = new import_rxjs.Subject();
-  /** A stream that emits when the locale changes. */
-  localeChanges = this._localeChanges;
-  /**
-   * Sets the time of one date to the time of another.
-   * @param target Date whose time will be set.
-   * @param hours New hours to set on the date object.
-   * @param minutes New minutes to set on the date object.
-   * @param seconds New seconds to set on the date object.
-   */
-  setTime(target, hours, minutes, seconds) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Gets the hours component of the given date.
-   * @param date The date to extract the hours from.
-   */
-  getHours(date) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Gets the minutes component of the given date.
-   * @param date The date to extract the minutes from.
-   */
-  getMinutes(date) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Gets the seconds component of the given date.
-   * @param date The date to extract the seconds from.
-   */
-  getSeconds(date) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Parses a date with a specific time from a user-provided value.
-   * @param value The value to parse.
-   * @param parseFormat The expected format of the value being parsed
-   *     (type is implementation-dependent).
-   */
-  parseTime(value, parseFormat) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Adds an amount of seconds to the specified date.
-   * @param date Date to which to add the seconds.
-   * @param amount Amount of seconds to add to the date.
-   */
-  addSeconds(date, amount) {
-    throw new Error(NOT_IMPLEMENTED);
-  }
-  /**
-   * Given a potential date object, returns that same date object if it is
-   * a valid date, or `null` if it's not a valid date.
-   * @param obj The object to check.
-   * @returns A date or `null`.
-   */
-  getValidDateOrNull(obj) {
-    return this.isDateInstance(obj) && this.isValid(obj) ? obj : null;
-  }
-  /**
-   * Attempts to deserialize a value to a valid date object. This is different from parsing in that
-   * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
-   * string). The default implementation does not allow any deserialization, it simply checks that
-   * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
-   * method on all of its `@Input()` properties that accept dates. It is therefore possible to
-   * support passing values from your backend directly to these properties by overriding this method
-   * to also deserialize the format used by your backend.
-   * @param value The value to be deserialized into a date object.
-   * @returns The deserialized date object, either a valid date, null if the value can be
-   *     deserialized into a null date (e.g. the empty string), or an invalid date.
-   */
-  deserialize(value) {
-    if (value == null || this.isDateInstance(value) && this.isValid(value)) {
-      return value;
-    }
-    return this.invalid();
-  }
-  /**
-   * Sets the locale used for all dates.
-   * @param locale The new locale.
-   */
-  setLocale(locale) {
-    this.locale = locale;
-    this._localeChanges.next();
-  }
-  /**
-   * Compares two dates.
-   * @param first The first date to compare.
-   * @param second The second date to compare.
-   * @returns 0 if the dates are equal, a number less than 0 if the first date is earlier,
-   *     a number greater than 0 if the first date is later.
-   */
-  compareDate(first, second) {
-    return this.getYear(first) - this.getYear(second) || this.getMonth(first) - this.getMonth(second) || this.getDate(first) - this.getDate(second);
-  }
-  /**
-   * Compares the time values of two dates.
-   * @param first First date to compare.
-   * @param second Second date to compare.
-   * @returns 0 if the times are equal, a number less than 0 if the first time is earlier,
-   *     a number greater than 0 if the first time is later.
-   */
-  compareTime(first, second) {
-    return this.getHours(first) - this.getHours(second) || this.getMinutes(first) - this.getMinutes(second) || this.getSeconds(first) - this.getSeconds(second);
-  }
-  /**
-   * Checks if two dates are equal.
-   * @param first The first date to check.
-   * @param second The second date to check.
-   * @returns Whether the two dates are equal.
-   *     Null dates are considered equal to other null dates.
-   */
-  sameDate(first, second) {
-    if (first && second) {
-      let firstValid = this.isValid(first);
-      let secondValid = this.isValid(second);
-      if (firstValid && secondValid) {
-        return !this.compareDate(first, second);
-      }
-      return firstValid == secondValid;
-    }
-    return first == second;
-  }
-  /**
-   * Checks if the times of two dates are equal.
-   * @param first The first date to check.
-   * @param second The second date to check.
-   * @returns Whether the times of the two dates are equal.
-   *     Null dates are considered equal to other null dates.
-   */
-  sameTime(first, second) {
-    if (first && second) {
-      const firstValid = this.isValid(first);
-      const secondValid = this.isValid(second);
-      if (firstValid && secondValid) {
-        return !this.compareTime(first, second);
-      }
-      return firstValid == secondValid;
-    }
-    return first == second;
-  }
-  /**
-   * Clamp the given date between min and max dates.
-   * @param date The date to clamp.
-   * @param min The minimum value to allow. If null or omitted no min is enforced.
-   * @param max The maximum value to allow. If null or omitted no max is enforced.
-   * @returns `min` if `date` is less than `min`, `max` if date is greater than `max`,
-   *     otherwise `date`.
-   */
-  clampDate(date, min, max) {
-    if (min && this.compareDate(date, min) < 0) {
-      return min;
-    }
-    if (max && this.compareDate(date, max) > 0) {
-      return max;
-    }
-    return date;
-  }
-};
-var MAT_DATE_FORMATS = new InjectionToken("mat-date-formats");
-
-// node_modules/@angular/material/fesm2022/datepicker.mjs
 var import_operators = __toESM(require_operators(), 1);
 var _c0 = ["mat-calendar-body", ""];
 function _forTrack0($index, $item) {
@@ -571,7 +397,7 @@ var MatDatepickerIntl = class _MatDatepickerIntl {
    * Stream that emits whenever the labels here are changed. Use this to notify
    * components if the labels have changed after initialization.
    */
-  changes = new import_rxjs2.Subject();
+  changes = new import_rxjs.Subject();
   /** A label for the calendar popup (used by screen readers). */
   calendarLabel = "Calendar";
   /** A label for the button used to open the calendar popup (used by screen readers). */
@@ -1388,7 +1214,7 @@ var DateRange = class {
 var MatDateSelectionModel = class _MatDateSelectionModel {
   selection;
   _adapter;
-  _selectionChanged = new import_rxjs2.Subject();
+  _selectionChanged = new import_rxjs.Subject();
   /** Emits when the selection has changed. */
   selectionChanged = this._selectionChanged;
   constructor(selection, _adapter) {
@@ -1662,7 +1488,7 @@ var MatMonthView = class _MatMonthView {
   _rangeStrategy = inject(MAT_DATE_RANGE_SELECTION_STRATEGY, {
     optional: true
   });
-  _rerenderSubscription = import_rxjs2.Subscription.EMPTY;
+  _rerenderSubscription = import_rxjs.Subscription.EMPTY;
   /** Flag used to filter out space/enter keyup events that originated outside of the view. */
   _selectionKeyPressed;
   /**
@@ -2205,7 +2031,7 @@ var MatMultiYearView = class _MatMultiYearView {
   _dir = inject(Directionality, {
     optional: true
   });
-  _rerenderSubscription = import_rxjs2.Subscription.EMPTY;
+  _rerenderSubscription = import_rxjs.Subscription.EMPTY;
   /** Flag used to filter out space/enter keyup events that originated outside of the view. */
   _selectionKeyPressed;
   /** The date to display in this multi-year view (everything other than the year is ignored). */
@@ -2573,7 +2399,7 @@ var MatYearView = class _MatYearView {
   _dir = inject(Directionality, {
     optional: true
   });
-  _rerenderSubscription = import_rxjs2.Subscription.EMPTY;
+  _rerenderSubscription = import_rxjs.Subscription.EMPTY;
   /** Flag used to filter out space/enter keyup events that originated outside of the view. */
   _selectionKeyPressed;
   /** The date to display in this year view (everything other than the year is ignored). */
@@ -3287,7 +3113,7 @@ var MatCalendar = class _MatCalendar {
   /**
    * Emits whenever there is a state change that the header may need to respond to.
    */
-  stateChanges = new import_rxjs2.Subject();
+  stateChanges = new import_rxjs.Subject();
   constructor() {
     if (typeof ngDevMode === "undefined" || ngDevMode) {
       if (!this._dateAdapter) {
@@ -3634,7 +3460,7 @@ var MatDatepickerContent = class _MatDatepickerContent {
   /** Whether the datepicker is above or below the input. */
   _isAbove;
   /** Emits when an animation has finished. */
-  _animationDone = new import_rxjs2.Subject();
+  _animationDone = new import_rxjs.Subject();
   /** Whether there is an in-progress animation. */
   _isAnimating = false;
   /** Text for the close button. */
@@ -3891,7 +3717,7 @@ var MatDatepickerBase = class _MatDatepickerBase {
   });
   _model = inject(MatDateSelectionModel);
   _scrollStrategy = inject(MAT_DATEPICKER_SCROLL_STRATEGY);
-  _inputStateChanges = import_rxjs2.Subscription.EMPTY;
+  _inputStateChanges = import_rxjs.Subscription.EMPTY;
   _document = inject(DOCUMENT);
   /** An input indicating the type of the custom header component for the calendar, if set. */
   calendarHeaderComponent;
@@ -4011,7 +3837,7 @@ var MatDatepickerBase = class _MatDatepickerBase {
   /** The input element this datepicker is associated with. */
   datepickerInput;
   /** Emits when the datepicker's state changes. */
-  stateChanges = new import_rxjs2.Subject();
+  stateChanges = new import_rxjs.Subject();
   _injector = inject(Injector);
   _changeDetectorRef = inject(ChangeDetectorRef);
   constructor() {
@@ -4231,7 +4057,7 @@ var MatDatepickerBase = class _MatDatepickerBase {
   /** Gets an observable that will emit when the overlay is supposed to be closed. */
   _getCloseStream(overlayRef) {
     const ctrlShiftMetaModifiers = ["ctrlKey", "shiftKey", "metaKey"];
-    return (0, import_rxjs2.merge)(overlayRef.backdropClick(), overlayRef.detachments(), overlayRef.keydownEvents().pipe((0, import_operators.filter)((event) => {
+    return (0, import_rxjs.merge)(overlayRef.backdropClick(), overlayRef.detachments(), overlayRef.keydownEvents().pipe((0, import_operators.filter)((event) => {
       return event.keyCode === ESCAPE && !hasModifierKey(event) || this.datepickerInput && hasModifierKey(event, "altKey") && event.keyCode === UP_ARROW && ctrlShiftMetaModifiers.every((modifier) => !hasModifierKey(event, modifier));
     })));
   }
@@ -4424,15 +4250,15 @@ var MatDatepickerInputBase = class _MatDatepickerInputBase {
   /** Emits when an `input` event is fired on this `<input>`. */
   dateInput = new EventEmitter();
   /** Emits when the internal state has changed */
-  stateChanges = new import_rxjs2.Subject();
+  stateChanges = new import_rxjs.Subject();
   _onTouched = () => {
   };
   _validatorOnChange = () => {
   };
   _cvaOnChange = () => {
   };
-  _valueChangesSubscription = import_rxjs2.Subscription.EMPTY;
-  _localeSubscription = import_rxjs2.Subscription.EMPTY;
+  _valueChangesSubscription = import_rxjs.Subscription.EMPTY;
+  _localeSubscription = import_rxjs.Subscription.EMPTY;
   /**
    * Since the value is kept on the model which is assigned in an Input,
    * we might get a value before we have a model. This property keeps track
@@ -4695,8 +4521,8 @@ var MatDatepickerInput = class _MatDatepickerInput extends MatDatepickerInputBas
   _formField = inject(MAT_FORM_FIELD, {
     optional: true
   });
-  _closedSubscription = import_rxjs2.Subscription.EMPTY;
-  _openedSubscription = import_rxjs2.Subscription.EMPTY;
+  _closedSubscription = import_rxjs.Subscription.EMPTY;
+  _openedSubscription = import_rxjs.Subscription.EMPTY;
   /** The datepicker that this input is associated with. */
   set matDatepicker(datepicker) {
     if (datepicker) {
@@ -4913,7 +4739,7 @@ var MatDatepickerToggleIcon = class _MatDatepickerToggleIcon {
 var MatDatepickerToggle = class _MatDatepickerToggle {
   _intl = inject(MatDatepickerIntl);
   _changeDetectorRef = inject(ChangeDetectorRef);
-  _stateChanges = import_rxjs2.Subscription.EMPTY;
+  _stateChanges = import_rxjs.Subscription.EMPTY;
   /** Datepicker instance that the button will toggle. */
   datepicker;
   /** Tabindex for the toggle. */
@@ -4962,11 +4788,11 @@ var MatDatepickerToggle = class _MatDatepickerToggle {
     }
   }
   _watchStateChanges() {
-    const datepickerStateChanged = this.datepicker ? this.datepicker.stateChanges : (0, import_rxjs2.of)();
-    const inputStateChanged = this.datepicker && this.datepicker.datepickerInput ? this.datepicker.datepickerInput.stateChanges : (0, import_rxjs2.of)();
-    const datepickerToggled = this.datepicker ? (0, import_rxjs2.merge)(this.datepicker.openedStream, this.datepicker.closedStream) : (0, import_rxjs2.of)();
+    const datepickerStateChanged = this.datepicker ? this.datepicker.stateChanges : (0, import_rxjs.of)();
+    const inputStateChanged = this.datepicker && this.datepicker.datepickerInput ? this.datepicker.datepickerInput.stateChanges : (0, import_rxjs.of)();
+    const datepickerToggled = this.datepicker ? (0, import_rxjs.merge)(this.datepicker.openedStream, this.datepicker.closedStream) : (0, import_rxjs.of)();
     this._stateChanges.unsubscribe();
-    this._stateChanges = (0, import_rxjs2.merge)(this._intl.changes, datepickerStateChanged, inputStateChanged, datepickerToggled).subscribe(() => this._changeDetectorRef.markForCheck());
+    this._stateChanges = (0, import_rxjs.merge)(this._intl.changes, datepickerStateChanged, inputStateChanged, datepickerToggled).subscribe(() => this._changeDetectorRef.markForCheck());
   }
   static ɵfac = function MatDatepickerToggle_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _MatDatepickerToggle)();
@@ -5130,8 +4956,8 @@ var MatDateRangeInput = class _MatDateRangeInput {
   _formField = inject(MAT_FORM_FIELD, {
     optional: true
   });
-  _closedSubscription = import_rxjs2.Subscription.EMPTY;
-  _openedSubscription = import_rxjs2.Subscription.EMPTY;
+  _closedSubscription = import_rxjs.Subscription.EMPTY;
+  _openedSubscription = import_rxjs.Subscription.EMPTY;
   _startInput;
   _endInput;
   /** Current value of the range input. */
@@ -5274,7 +5100,7 @@ var MatDateRangeInput = class _MatDateRangeInput {
    */
   ngControl;
   /** Emits when the input's state has changed. */
-  stateChanges = new import_rxjs2.Subject();
+  stateChanges = new import_rxjs.Subject();
   /**
    * Disable the automatic labeling to avoid issues like #27241.
    * @docs-private
@@ -5324,7 +5150,7 @@ var MatDateRangeInput = class _MatDateRangeInput {
     if (this._model) {
       this._registerModel(this._model);
     }
-    (0, import_rxjs2.merge)(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(() => {
+    (0, import_rxjs.merge)(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(() => {
       this.stateChanges.next(void 0);
     });
   }

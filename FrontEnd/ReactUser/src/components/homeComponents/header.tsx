@@ -14,6 +14,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
+import React from 'react';
+void React;
 
 const pages = [
     { label: 'Information area   ', path: '/informationArea' },

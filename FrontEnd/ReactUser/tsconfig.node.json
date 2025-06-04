@@ -2,9 +2,12 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": [ "ES2023" ],
     "module": "ESNext",
     "skipLibCheck": true,
+
+    /* חשוב - JSX לא צריך כאן, אלא אם את כן כותבת React בצד השרת */
+    "jsx": "react-jsx",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -20,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": [ "vite.config.ts" ]
 }
