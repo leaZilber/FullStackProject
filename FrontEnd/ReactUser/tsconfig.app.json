@@ -9,7 +9,7 @@
     "noEmitOnError": false,
     "strict": false,
     "types": [ "react", "react-dom" ],
-
+    "allowSyntheticDefaultImports": true,
     /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
