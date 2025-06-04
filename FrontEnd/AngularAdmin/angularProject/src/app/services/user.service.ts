@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RegisterPostModel } from '../models/registerDTO';
 import { UserPostModel, UserUpdateModel } from '../components/user-management/user-management.component';
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
