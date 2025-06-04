@@ -1,4 +1,3 @@
-
 # Base image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
@@ -6,8 +5,7 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-# העתקת תעודת SSL
-COPY ../certs/https/aspnetapp.pfx /https/aspnetapp.pfx
+COPY certs/https/aspnetapp.pfx /https/aspnetapp.pfx
 
 # הגדרת משתני סביבה ל־Kestrel
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
@@ -17,10 +15,12 @@ ENV ASPNETCORE_Kestrel__Certificates__Default__Password=leazilber
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
 COPY ["FinalProject.API/FinalProject.API.csproj", "FinalProject.API/"]
 COPY ["FinalProject.Data/FinalProject.Data.csproj", "FinalProject.Data/"]
 COPY ["FinalProject.Clean/FinalProject.Core.csproj", "FinalProject.Clean/"]
 COPY ["FinalProject.Service/FinalProject.Service.csproj", "FinalProject.Service/"]
+
 RUN dotnet restore "./FinalProject.API/FinalProject.API.csproj"
 COPY . .
 WORKDIR "/src/FinalProject.API"
