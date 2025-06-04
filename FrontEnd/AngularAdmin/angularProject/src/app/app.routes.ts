@@ -4,6 +4,6 @@ import { LoginAdminComponent } from './components/loginAdmin/loginAdmin.componen
 
 export const routes: Routes = [
     {path:'user-management',component:UserManagementComponent},
-    // {path: 'loginAdmin',component:LoginAdminComponent },
-    { path: '', redirectTo: 'user-management', pathMatch: 'full' } 
+    {path: 'loginAdmin',component:LoginAdminComponent },
+    { path: '', redirectTo: 'loginAdmin', pathMatch: 'full' } 
 ];
