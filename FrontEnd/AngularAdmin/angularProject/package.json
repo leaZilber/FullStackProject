@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:ssr": "ng build",
-    "serve:ssr": "node dist/angular-project-server/main.js"
+    "build:ssr": "ng build && ng run angularProject:server",
+    "serve:ssr": "node dist/angularProject-server/main.js"
   },
   "private": true,
   "dependencies": {
