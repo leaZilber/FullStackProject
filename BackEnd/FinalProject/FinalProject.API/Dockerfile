@@ -7,7 +7,7 @@ EXPOSE 8080
 EXPOSE 8081
 
 # העתקת תעודת SSL
-COPY certs/https/aspnetapp.pfx /https/aspnetapp.pfx
+COPY ../certs/https/aspnetapp.pfx /https/aspnetapp.pfx
 
 # הגדרת משתני סביבה ל־Kestrel
 ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx

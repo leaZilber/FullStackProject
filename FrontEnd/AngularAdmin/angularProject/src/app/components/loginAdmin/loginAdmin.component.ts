@@ -4,8 +4,6 @@ import { AuthService } from '../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-// Angular Material Imports
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -80,7 +78,9 @@ export class LoginAdminComponent {
     }
 
     goToLoginPage() {
-        window.location.href = "https://fullstackprojectfrontendreact.onrender.com/";
+        if (typeof window !== 'undefined') {
+            window.location.href = "https://fullstackprojectfrontendreact.onrender.com";
+        }
     }
 
     goToRegisterPage() {
