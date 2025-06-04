@@ -92,10 +92,15 @@ builder.Services.AddCors(options =>
 //    });
 
 // Swagger Configuration
-var connectionString = Environment.GetEnvironmentVariable("CONECCTION_STRING");
-
 builder.Services.AddDbContext<DataContext>(options =>
-    options.UseNpgsql(connectionString));
+{
+    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+    Console.WriteLine($"Connection string: {connectionString}");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+           .EnableSensitiveDataLogging()
+           .LogTo(Console.WriteLine);
+});
+
 
 builder.Services.AddSwaggerGen(options =>
 {

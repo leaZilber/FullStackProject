@@ -12,8 +12,13 @@ namespace FinalProject.Core.Models
     {
         [Key]
         public int DoctorId { get; set; }
+        [Required]
+        [MaxLength(100)]
         public string DoctorName { get; set; }
+        [Required]
+        [MaxLength(100)]
         public string FieldOfSpecialization { get; set; }
+        [Required]
         public int LicenseNumber { get; set; }
 
         public Doctor(int doctorId, string doctorName, string fieldOfSpecialization, int licenseNumber)

@@ -14,9 +14,12 @@ namespace FinalProject.Core.Models
         public int TurnId { get; set; }
         [ForeignKey("User")]
         public int? UserId { get; set; }
+        [MaxLength(50)]
         public string DoctorName { get; set; }
         public DateTime DateTurn { get; set; }
+        [MaxLength(100)]
         public string TurnLocate { get; set; }
+        [MaxLength(10)]
         public string Hour { get; set; }
         public bool ArrivalConfirmation { get; set; }
 

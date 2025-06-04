@@ -12,11 +12,17 @@ namespace FinalProject.Core.Models
     {
         [Key]
         public int UserId { get; set; }
+        [MaxLength(100)]
         public string UserName { get; set; }
+        [MaxLength(100)]
         public string UserEmail { get; set; }
+        [MaxLength(100)]
         public string UserEncryptedPassword { get; set; }
+        [MaxLength(5)]
         public string UserRole { get; set; }
+        [MaxLength(10)]
         public string UserPhone { get; set; }
+        [MaxLength(100)]
         public string UserAddress { get; set; }
         public DateTime UserBirth { get; set; }
         public DateTime UserCreateDate { get; set; }

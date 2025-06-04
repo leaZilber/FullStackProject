@@ -15,7 +15,9 @@ namespace FinalProject.Core.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public DateTime TestDate { get; set; }
+        [MaxLength(100)]
         public string ImgURL {  get; set; }
+        [MaxLength(250)]
         public string Summary { get; set; }
 
         public TestResualt(int testId, int userId, DateTime testDate, string imgURL, string summary)

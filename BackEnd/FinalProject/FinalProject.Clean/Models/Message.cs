@@ -15,6 +15,7 @@ namespace FinalProject.Core.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public int SenderId { get; set; }
+        [MaxLength(250)]
         public string MessageContent { get; set; }
         public DateTime MessageDate { get; set; }
 
