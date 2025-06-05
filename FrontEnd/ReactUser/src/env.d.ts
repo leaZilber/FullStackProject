@@ -8,4 +8,4 @@ declare global {
   
   declare const process: {
     env: NodeJS.ProcessEnv;
-  };
+};
