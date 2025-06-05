@@ -89,7 +89,6 @@ const RegisterComp = () => {
     const [registerSuccess, setRegisterSuccess] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); 
-    const API_URL = process.env.REACT_APP_API_URL;
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data:any) => {
@@ -113,7 +112,7 @@ const RegisterComp = () => {
         console.log('Request payload:', requestPayload);
 
         try {
-            const response = await axios.post(`${API_URL}/User`, requestPayload, {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/User`, requestPayload, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

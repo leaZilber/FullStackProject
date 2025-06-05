@@ -32,11 +32,9 @@ const SchedulePage = () => {
 
   // Current user ID - replace with actual logged-in user ID
   const currentUserId = 1;
-  const API_URL = process.env.REACT_APP_API_URL;
-
-  // Fetch all turns from API
+  
   const fetchTurns = async (): Promise<Turn[]> => {
-    const response = await fetch(`${API_URL}/Turn`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/Turn`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -45,7 +43,7 @@ const SchedulePage = () => {
 
   // Fetch all doctors from API
   const fetchDoctors = async (): Promise<Doctor[]> => {
-    const response = await fetch(`${API_URL}/Doctor`);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/Doctor`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -112,7 +110,7 @@ const SchedulePage = () => {
         UserId: currentUserId.toString()
       };
 
-      const response = await fetch(`${API_URL}/Turn/${turn.TurnId}`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Turn/${turn.TurnId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

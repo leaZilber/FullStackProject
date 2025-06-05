@@ -80,7 +80,7 @@ const theme = createTheme({
 });
 
 export const LoginComp = () => {
-  const API_URL = process.env.REACT_APP_API_URL;
+  console.log("API_URL is:", process.env.REACT_APP_API_URL);
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -99,7 +99,7 @@ export const LoginComp = () => {
     setLoading(true);
     try {
       console.log("Sending login request with data:", data);
-      const response = await axios.post(`${API_URL}/Auth/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/Auth/login`, {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });
@@ -158,25 +158,6 @@ export const LoginComp = () => {
       setLoading(false);
     }
 
-    //   catch (error) {
-    //     console.error("Login failed", error);
-
-    //     // הודעות שגיאה יותר מפורטות
-    //     if (axios.isAxiosError(error) && error.response) {
-    //       console.log("Error response:", error.response.data);
-    //       if (error.response.status === 401) {
-    //         setLoginError("שם משתמש או סיסמה שגויים");
-    //       } else if (error.response.status === 404) {
-    //         setLoginError("שרת האימות לא נמצא. בדוק את כתובת השרת");
-    //       } else {
-    //         setLoginError(`שגיאת התחברות: ${error.response.status}`);
-    //       }
-    //     } else {
-    //       setLoginError("התחברות נכשלה. בדוק את החיבור לשרת");
-    //     }
-    //   } finally {
-    //     setLoading(false);
-    //   }
   };
 
   const handleTogglePasswordVisibility = () => {

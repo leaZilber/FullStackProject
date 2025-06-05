@@ -549,7 +549,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
     message: "",
     type: "success" as "success" | "error",
   });
-  const API_URL = process.env.REACT_APP_API_URL;
 
   // קבלת ה-userId בעת טעינת הקומפוננטה
   useEffect(() => {
@@ -569,7 +568,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         setLoading(true);
         
         // Fetch appointments from the server
-        const response = await fetch(`${API_URL}/Turn`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/Turn`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -619,7 +618,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
   const handleConfirmArrival = async (appointment: Appointment) => {
     try {
       // API call to update arrival confirmation - adjust the endpoint as needed
-      const response = await fetch(`${API_URL}/Turn/${appointment.turnId}/ConfirmArrival`, {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/Turn/${appointment.turnId}/ConfirmArrival`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -25,13 +25,11 @@ const MedicalHistory = () => {
     }
 
     const fetchMedicalHistory = async () => {
-      const API_URL = process.env.REACT_APP_API_URL;
-
       try {
         const userId = getCurrentUserId()
         setCurrentUserId(userId)
 
-        const response = await fetch(`${API_URL}/TestResualt?userId=${userId}`)
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/TestResualt?userId=${userId}`)
 
         if (response.ok) {
           const data = await response.json()
