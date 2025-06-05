@@ -80,7 +80,6 @@ const theme = createTheme({
 });
 
 export const LoginComp = () => {
-  console.log("API_URL is:", import.meta.env.VITE_API_URL);
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -99,7 +98,7 @@ export const LoginComp = () => {
     setLoading(true);
     try {
       console.log("Sending login request with data:", data);
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/Auth/login`, {
+      const response = await axios.post("https://fullstackproject-5070.onrender.com/api/Auth/login", {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });

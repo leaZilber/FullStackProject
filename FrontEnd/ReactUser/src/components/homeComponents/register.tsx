@@ -112,7 +112,7 @@ const RegisterComp = () => {
         console.log('Request payload:', requestPayload);
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/User`, requestPayload, {
+            const response = await axios.post("https://fullstackproject-5070.onrender.com/api/User", requestPayload, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

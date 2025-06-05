@@ -110,7 +110,7 @@ const SchedulePage = () => {
         UserId: currentUserId.toString()
       };
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/Turn/${turn.TurnId}`, {
+      const response = await fetch("https://fullstackproject-5070.onrender.com/api/Turn/${turn.TurnId}", {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
