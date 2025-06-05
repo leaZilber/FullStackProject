@@ -16,7 +16,6 @@ const theme = {
 };
 
 // API Configuration
-const API_BASE_URL = "https://fullstackproject-5070.onrender.com/api";
 const GUEST_USER_ID = -1;
 
 // Interfaces
@@ -58,11 +57,12 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
 // };
 
 const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
+  const API_URL = process.env.REACT_APP_API_URL;
   try {
     const formData = new FormData();
     formData.append('image', file);
 
-    const response = await fetch(`${API_BASE_URL}/Upload/upload`, {
+    const response = await fetch(`${API_URL}/Upload/upload`, {
       method: 'POST',
       body: formData,
     });
@@ -82,8 +82,10 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 };
 
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+  const API_URL = process.env.REACT_APP_API_URL;
+
   try {
-    const response = await fetch(`${API_BASE_URL}/TestResualt`, {
+    const response = await fetch(`${API_URL}/TestResualt`, {
 
       method: 'POST',
       headers: {

@@ -659,7 +659,7 @@ const RegisterComp = () => {
     const [registerSuccess, setRegisterSuccess] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate(); // Hook לניתוב
-
+    const API_URL = process.env.REACT_APP_API_URL;
     const { control, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data:any) => {
@@ -684,7 +684,7 @@ const RegisterComp = () => {
 
         try {
             // Try the actual URL your API is running on
-            const response = await axios.post("https://fullstackproject-5070.onrender.com/api/User", requestPayload, {
+            const response = await axios.post(`${API_URL}/Use`, requestPayload, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -3,13 +3,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
-
-COPY certs/https/aspnetapp.pfx /https/aspnetapp.pfx
-
-# הגדרת משתני סביבה ל־Kestrel
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
-ENV ASPNETCORE_Kestrel__Certificates__Default__Password=leazilber
 
 # Build image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build

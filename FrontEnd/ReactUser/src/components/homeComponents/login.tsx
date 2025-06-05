@@ -79,7 +79,8 @@ const theme = createTheme({
   },
 });
 
-const LoginComp = () => {
+export const LoginComp = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const [loginError, setLoginError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -101,7 +102,7 @@ const LoginComp = () => {
       // Add some debugging
       console.log("Sending login request with data:", data);
 
-      const response = await axios.post("https://fullstackproject-5070.onrender.com/api/Auth/login", {
+      const response = await axios.post(`${API_URL}/Turn`, {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });

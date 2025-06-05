@@ -113,6 +113,7 @@ export const PersonalArea = () => {
   }, [navigate]);
 
   const fetchUserData = async () => {
+    const API_URL = process.env.REACT_APP_API_URL;
     setLoading(true);
     setError("");
 
@@ -123,7 +124,7 @@ export const PersonalArea = () => {
       }
 
       const token = sessionStorage.getItem("token");
-      const response = await axios.get(`https://fullstackprojectfrontendangular.onrender.com/api/User/${userId}`, {
+      const response = await axios.get(`${API_URL}/User/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

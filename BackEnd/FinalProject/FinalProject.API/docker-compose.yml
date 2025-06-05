@@ -1,0 +1,11 @@
+﻿version: '3.8'
+services:
+  finalproject:
+    build: .
+    ports:
+      - "8080:80"   # מפנה פורט 8080 במחשב לפורט 80 בקונטיינר
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - CONNECTION_STRING=${CONNECTION_STRING}
+    volumes:
+      - .:/app       # מוודא שהקבצים בספרייה נשמרים במכולה (אופציונלי)
