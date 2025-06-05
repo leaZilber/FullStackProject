@@ -123,7 +123,7 @@ export const PersonalArea = () => {
       }
 
       const token = sessionStorage.getItem("token");
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/User/${userId}`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/User/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

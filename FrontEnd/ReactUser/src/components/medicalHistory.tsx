@@ -29,7 +29,7 @@ const MedicalHistory = () => {
         const userId = getCurrentUserId()
         setCurrentUserId(userId)
 
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/TestResualt?userId=${userId}`)
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/TestResualt?userId=${userId}`)
 
         if (response.ok) {
           const data = await response.json()

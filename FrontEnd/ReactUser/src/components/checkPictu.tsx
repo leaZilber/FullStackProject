@@ -61,7 +61,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     const formData = new FormData();
     formData.append('image', file);
 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/Upload/upload`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/Upload/upload`, {
       method: 'POST',
       body: formData,
     });
@@ -82,7 +82,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/TestResualt`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/TestResualt`, {
 
       method: 'POST',
       headers: {
