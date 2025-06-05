@@ -52,25 +52,25 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddScoped<S3Service>();
 //builder.Services.AddDbContext<DataContext>();
 
-// CORS Configuration
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins(
-                "http://localhost:5173",
-                "https://localhost:5173",
-                "http://localhost:3000",
-                "https://localhost:3000",
-                "http://localhost:5174",
-                "http://localhost:4200",
-                "https://localhost:4200",
-                "https://fullstackprojectfrontendreact.onrender.com"
-              )
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
+//// CORS Configuration
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowFrontend", policy =>
+//    {
+//        policy.WithOrigins(
+//                "http://localhost:5173",
+//                "https://localhost:5173",
+//                "http://localhost:3000",
+//                "https://localhost:3000",
+//                "http://localhost:5174",
+//                "http://localhost:4200",
+//                "https://localhost:4200",
+//                "https://fullstackprojectfrontendreact.onrender.com"
+//              )
+//              .AllowAnyMethod()
+//              .AllowAnyHeader();
+//    });
+//});
 
 // JWT Authentication (אם תרצה להפעיל, הסר את ההערות)
 //builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -148,13 +148,18 @@ if (File.Exists(".env"))
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinalProject API v1");
+    c.RoutePrefix = "swagger";
+});
 
-app.UseCors("AllowFrontend");
+//}
+
+//app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseRouting();
