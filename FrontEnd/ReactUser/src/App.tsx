@@ -8,6 +8,8 @@ import LoginComp from './components/homeComponents/login'
 import RegisterComp from './components/homeComponents/register'
 import './index.css'
 import './components/mainPage.css'
+import React from 'react';
+void React;
 function App() {
   return (
 

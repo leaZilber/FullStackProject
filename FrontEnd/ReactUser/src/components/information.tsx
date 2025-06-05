@@ -399,13 +399,14 @@ import {
     AccordionSummary,
     AccordionDetails,
     ThemeProvider,
-    createTheme,
     Paper,
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
 } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
+
 import {
     ExpandMore,
     Info,

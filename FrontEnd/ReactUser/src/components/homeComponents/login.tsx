@@ -11,11 +11,11 @@ import {
   InputAdornment,
   IconButton,
   ThemeProvider,
-  createTheme,
   Avatar,
   Divider,
   Fade
 } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import LoginIcon from '@mui/icons-material/Login';

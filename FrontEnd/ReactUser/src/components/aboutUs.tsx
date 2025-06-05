@@ -11,10 +11,10 @@ import {
     ListItemIcon,
     ListItemText,
     ThemeProvider,
-    createTheme,
     styled,
     Divider
 } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 import {
     CheckCircle,
     Info,
@@ -119,7 +119,7 @@ export const AboutUs = () => {
         { id: 7, src: "/images/img8.jpg", alt: "hospital img" },
         { id: 8, src: "/images/img9.jpg", alt: "hospital img" },
         { id: 9, src: "/images/img10.jpg", alt: "hospital img" },
-        {id :10, src: "/images/img11.jpg", alt: "hospital img"},
+        { id: 10, src: "/images/img11.jpg", alt: "hospital img" },
     ];
 
     // מערך של יתרונות המערכת עם אייקונים
