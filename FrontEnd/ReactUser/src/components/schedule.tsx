@@ -1,8 +1,6 @@
-
 import React from "react";
 void React;
 import { useState, useEffect } from "react"
-// Define the Turn interface
 interface Turn {
   TurnId: number;
   DateTurn: string | Date;
@@ -12,7 +10,6 @@ interface Turn {
   DoctorId: number;
 }
 
-// Define the Doctor interface
 interface Doctor {
   DoctorId: number;
   DoctorName: string;
@@ -20,7 +17,6 @@ interface Doctor {
   LicenseNumber: string;
 }
 
-// Combined interface for doctors with available turns
 interface DoctorWithTurns extends Doctor {
   availableTurns: Turn[];
 }

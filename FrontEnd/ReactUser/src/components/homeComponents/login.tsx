@@ -32,10 +32,10 @@ const theme = createTheme({
   direction: 'rtl',
   palette: {
     primary: {
-      main: '#00B5B8', // Turquoise
+      main: '#00B5B8',
     },
     secondary: {
-      main: '#C8736D', // Coral/Salmon
+      main: '#C8736D',
     },
     background: {
       default: '#FFFFFF', // White
@@ -88,33 +88,25 @@ export const LoginComp = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => {
-    // בדיקה אם יש טוקן ב-sessionStorage (שנשמר רק במהלך חיי השיחה)
     const token = sessionStorage.getItem("token");
     if (token) {
       navigate("/personalArea");
     }
   }, [navigate]);
 
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     setLoginError("");
     setLoading(true);
     try {
-      // Add some debugging
       console.log("Sending login request with data:", data);
-
-      const response = await axios.post(`${API_URL}/Turn`, {
+      const response = await axios.post(`${API_URL}/Auth/login`, {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });
 
       console.log("Login response:", response.data);
-
       if (response.status === 200 && response.data) {
-        // שמירת טוקן ב-sessionStorage במקום localStorage
-        // כדי שיימחק אוטומטית כשסוגרים את הדפדפן/טאב
         sessionStorage.setItem("token", response.data.token);
-
-        // Correct property names to match backend response
         if (response.data.userName) {
           sessionStorage.setItem("userName", response.data.userName);
         }
