@@ -55,7 +55,7 @@ builder.Services.AddScoped<S3Service>();
 // CORS Configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins(
                 "http://localhost:5173",
@@ -68,8 +68,7 @@ builder.Services.AddCors(options =>
                 "https://fullstackprojectfrontendreact.onrender.com"
               )
               .AllowAnyMethod()
-              .AllowAnyHeader()
-              .AllowCredentials();
+              .AllowAnyHeader();
     });
 });
 
@@ -149,14 +148,13 @@ if (File.Exists(".env"))
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowAll");
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseRouting();
