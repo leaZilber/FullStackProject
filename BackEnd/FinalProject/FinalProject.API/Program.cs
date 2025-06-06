@@ -144,8 +144,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 builder.Services.AddSwaggerGen(options =>
 {
-options.SwaggerDoc("v1", new OpenApiInfo { Title = "FinalProject API", Version = "v1" });
-
 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 {
     Description = "JWT Authorization header using the Bearer scheme.",

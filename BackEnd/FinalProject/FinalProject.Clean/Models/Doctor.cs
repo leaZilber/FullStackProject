@@ -29,11 +29,13 @@ namespace FinalProject.Core.Models
             LicenseNumber = licenseNumber;
         }
 
-        public Doctor(string doctorName, string fieldOfSpecialization, int licenseNumber)
+        public Doctor (string doctorName, string fieldOfSpecialization, int licenseNumber)
         {
             DoctorName = doctorName;
             FieldOfSpecialization = fieldOfSpecialization;
             LicenseNumber = licenseNumber;
         }
+
+
     }
 }
