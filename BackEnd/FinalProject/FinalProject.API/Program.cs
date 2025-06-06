@@ -8,22 +8,36 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Amazon.Runtime;
+using Amazon.S3;
+using Amazon;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
+using System.Text;
+using Org.BouncyCastle.Utilities;
 
 // Load environment variables from .env file
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-foreach (System.Collections.DictionaryEntry envVar in Environment.GetEnvironmentVariables())
-{
-    if (envVar.Key != null)
-    {
-        string key = envVar.Key.ToString()!;
-        string? value = envVar.Value?.ToString();
 
-        builder.Configuration[key] = value ?? string.Empty;
-    }
-}
+// Add services to the container.
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+
+
+//foreach (System.Collections.DictionaryEntry envVar in Environment.GetEnvironmentVariables())
+//{
+//    if (envVar.Key != null)
+//    {
+//        string key = envVar.Key.ToString()!;
+//        string? value = envVar.Value?.ToString();
+
+//        builder.Configuration[key] = value ?? string.Empty;
+//    }
+//}
 
 // Add services to the container
 builder.Services.AddControllers().AddJsonOptions(options =>
@@ -34,7 +48,30 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 //builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
+    //c.OperationFilter<UploadController>();
+    c.CustomSchemaIds(type => type.FullName);
+    c.DescribeAllParametersInCamelCase();
+    c.IgnoreObsoleteActions();
+    c.IgnoreObsoleteProperties();
+
+    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    //if (File.Exists(xmlPath))
+    //{
+    //    c.IncludeXmlComments(xmlPath);
+    //}
+});
+
+builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
+{
+    policy
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod();
+}));
 
 // Register Services & Repositories
 builder.Services.AddScoped<IDoctorService, DoctorService>();
@@ -47,9 +84,19 @@ builder.Services.AddScoped<ITurnService, TurnService>();
 builder.Services.AddScoped<ITurnRepository, TurnRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-
 builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddScoped<S3Service>();
+builder.Services.AddSingleton<S3Service>();
+
+//builder.Services.AddScoped<S3Service>();
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+    Console.WriteLine($"Connection string: {connectionString}");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+           .EnableSensitiveDataLogging()
+           .LogTo(Console.WriteLine);
+});
+
 //builder.Services.AddDbContext<DataContext>();
 
 //// CORS Configuration
@@ -85,37 +132,31 @@ builder.Services.AddScoped<S3Service>();
 //            ValidIssuer = builder.Configuration["JWT_ISSUER"],
 //            ValidAudience = builder.Configuration["JWT_AUDIENCE"],
 //            IssuerSigningKey = new SymmetricSecurityKey(
-//                Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"])
+//                //Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"])
+//                Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"] ?? "")
+
 //            )
 //        };
 //    });
 
 // Swagger Configuration
-builder.Services.AddDbContext<DataContext>(options =>
-{
-    var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-    Console.WriteLine($"Connection string: {connectionString}");
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-           .EnableSensitiveDataLogging()
-           .LogTo(Console.WriteLine);
-});
 
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "FinalProject API", Version = "v1" });
+options.SwaggerDoc("v1", new OpenApiInfo { Title = "FinalProject API", Version = "v1" });
 
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = "JWT Authorization header using the Bearer scheme.",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
+options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+{
+    Description = "JWT Authorization header using the Bearer scheme.",
+    Name = "Authorization",
+    In = ParameterLocation.Header,
+    Type = SecuritySchemeType.ApiKey,
+    Scheme = "Bearer"
+});
 
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
+options.AddSecurityRequirement(new OpenApiSecurityRequirement
+{
         {
             new OpenApiSecurityScheme
             {
@@ -127,7 +168,7 @@ builder.Services.AddSwaggerGen(options =>
             },
             new string[] {}
         }
-    });
+});
 });
 
 // Load .env manually for safety in production (redundant if Env.Load() works properly)
@@ -164,9 +205,9 @@ app.UseSwaggerUI(c =>
 app.UseHttpsRedirection();
 app.UseRouting();
 
-// Authentication & Authorization (אם מופעל)
-// app.UseAuthentication();
-// app.UseAuthorization();
+//Authentication & Authorization(אם מופעל)
+//app.UseAuthentication();
+//app.UseAuthorization();
 
 app.MapControllers();
 app.MapGet("/", () => "final project is runing");
