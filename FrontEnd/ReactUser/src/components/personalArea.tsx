@@ -336,20 +336,128 @@ export const PersonalArea = () => {
     </Box>
   );
 
+  // return (
+  //   <ThemeProvider theme={theme}>
+  //     <>
+  //       {/* תמונת רקע  */}
+  //       {/* <Box
+  //         sx={{
+  //           position: "fixed",
+  //           width: "100%",
+  //           height: "100%",
+  //           bgcolor: "background.default",
+  //           zIndex: -1
+  //         }}
+  //       /> */}
+
+  //       <Box
+  //         sx={{
+  //           display: "flex",
+  //           flexDirection: "row",
+  //           minHeight: "100vh",
+  //           direction: "rtl",
+  //         }}
+  //       >
+  //         <AppBar
+  //           position="fixed"
+  //           sx={{
+  //             bgcolor: "background.paper",
+  //             color: "text.primary",
+  //             boxShadow: "0 2px 10px rgba(0,0,0,0.1)"
+  //           }}
+  //         >
+  //           <Toolbar>
+  //             <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: "bold", color: "primary.main" }}>
+  //               {sectionTitles[activeSection] || "אזור אישי"}
+  //             </Typography>
+  //             {isMobile && (
+  //               <IconButton color="inherit" onClick={handleDrawerToggle} edge="end">
+  //                 <MenuIcon />
+  //               </IconButton>
+  //             )}
+  //           </Toolbar>
+  //         </AppBar>
+
+  //         <Box component="main" sx={{
+  //           flexGrow: 1,
+  //           p: 3,
+  //           mt: 8,
+  //           mr: isMobile ? 0 : `${drawerWidth}px`,
+  //           transition: theme => theme.transitions.create('margin'),
+  //         }}>
+  //           <Container maxWidth="md">
+  //             {error && (
+  //               <Paper
+  //                 elevation={0}
+  //                 sx={{
+  //                   p: 2,
+  //                   mb: 3,
+  //                   bgcolor: "rgba(200, 115, 109, 0.1)",
+  //                   border: "1px solid",
+  //                   borderColor: "secondary.main",
+  //                   borderRadius: 2,
+  //                 }}
+  //               >
+  //                 <Typography color="secondary.main" variant="body2" align="center">
+  //                   {error}
+  //                 </Typography>
+  //               </Paper>
+  //             )}
+
+  //             <Paper elevation={3} sx={{
+  //               p: 4,
+  //               backgroundColor: "background.paper",
+  //               borderRadius: 2,
+  //               boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
+  //               overflow: "hidden",
+  //               position: "relative",
+  //               "&::before": {
+  //                 content: '""',
+  //                 position: "absolute",
+  //                 top: 0,
+  //                 left: 0,
+  //                 width: "100%",
+  //                 height: "4px",
+  //                 backgroundColor: "primary.main"
+  //               }
+  //             }}>
+  //               {activeSection === "uploadImage" && <CheckPicture />}
+  //               {activeSection === "medicalHistory" && <MedicalHistory />}
+  //               {activeSection === "appointments" && <Appointments />}
+  //             </Paper>
+  //           </Container>
+  //         </Box>
+
+  //         <Drawer
+  //           variant={isMobile ? "temporary" : "permanent"}
+  //           open={isMobile ? mobileOpen : true}
+  //           onClose={handleDrawerToggle}
+  //           anchor="right"
+  //           sx={{
+  //             width: drawerWidth,
+  //             flexShrink: 0,
+  //             "& .MuiDrawer-paper": {
+  //               width: drawerWidth,
+  //               boxSizing: "border-box",
+  //               bgcolor: "background.paper",
+  //               borderLeft: 0,
+  //               boxShadow: "0 0 20px rgba(0,0,0,0.1)"
+  //             },
+  //           }}
+  //         >
+  //           {drawer}
+    //       </Drawer>
+    //     </Box>
+    //   </>
+    // </ThemeProvider>
+  // );
+
+
+
+  /**נסיון claude */
   return (
     <ThemeProvider theme={theme}>
       <>
-        {/* תמונת רקע  */}
-        {/* <Box
-          sx={{
-            position: "fixed",
-            width: "100%",
-            height: "100%",
-            bgcolor: "background.default",
-            zIndex: -1
-          }}
-        /> */}
-
         <Box
           sx={{
             display: "flex",
@@ -377,15 +485,24 @@ export const PersonalArea = () => {
               )}
             </Toolbar>
           </AppBar>
-
-          <Box component="main" sx={{
-            flexGrow: 1,
-            p: 3,
-            mt: 8,
-            mr: isMobile ? 0 : `${drawerWidth}px`,
-            transition: theme => theme.transitions.create('margin'),
-          }}>
-            <Container maxWidth="md">
+  
+          {/* תוכן ראשי - 70% מהמסך */}
+          <Box 
+            component="main" 
+            sx={{
+              width: isMobile ? '100%' : 'calc(100% - 240px)', // רוחב דינמי בהתאם לסיידבר
+              maxWidth: '70%', // מקסימום 70% מרוחב המסך
+              minWidth: '60%', // מינימום 60% מרוחב המסך
+              p: 3,
+              mt: 8,
+              mr: isMobile ? 0 : `${drawerWidth}px`,
+              ml: 'auto', // יישור לצד שמאל
+              transition: theme => theme.transitions.create(['margin', 'width']),
+              overflow: 'auto', // מניעת overflow
+            }}
+          >
+            {/* הסרת Container maxWidth כדי לא להגביל את הרוחב */}
+            <Box sx={{ width: '100%' }}>
               {error && (
                 <Paper
                   elevation={0}
@@ -403,31 +520,39 @@ export const PersonalArea = () => {
                   </Typography>
                 </Paper>
               )}
-
-              <Paper elevation={3} sx={{
-                p: 4,
-                backgroundColor: "background.paper",
-                borderRadius: 2,
-                boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
-                overflow: "hidden",
-                position: "relative",
-                "&::before": {
-                  content: '""',
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "4px",
-                  backgroundColor: "primary.main"
-                }
-              }}>
-                {activeSection === "uploadImage" && <CheckPicture />}
-                {activeSection === "medicalHistory" && <MedicalHistory />}
-                {activeSection === "appointments" && <Appointments />}
+  
+              <Paper 
+                elevation={3} 
+                sx={{
+                  p: 4,
+                  backgroundColor: "background.paper",
+                  borderRadius: 2,
+                  boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
+                  overflow: "auto", // מניעת overflow בתוך הפייפר
+                  position: "relative",
+                  width: '100%', // מלוא הרוחב הזמין
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "4px",
+                    backgroundColor: "primary.main"
+                  }
+                }}
+              >
+                {/* תוכן הקומפוננטות */}
+                <Box sx={{ width: '100%', minHeight: '400px' }}>
+                  {activeSection === "uploadImage" && <CheckPicture />}
+                  {activeSection === "medicalHistory" && <MedicalHistory />}
+                  {activeSection === "appointments" && <Appointments />}
+                </Box>
               </Paper>
-            </Container>
+            </Box>
           </Box>
-
+  
+          {/* סיידבר */}
           <Drawer
             variant={isMobile ? "temporary" : "permanent"}
             open={isMobile ? mobileOpen : true}
