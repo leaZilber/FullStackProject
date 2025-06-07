@@ -8,14 +8,6 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Amazon.Runtime;
-using Amazon.S3;
-using Amazon;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
-using System.Text;
-using Org.BouncyCastle.Utilities;
 
 // Load environment variables from .env file
 Env.Load();
@@ -98,7 +90,6 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 
 //builder.Services.AddDbContext<DataContext>();
-
 //// CORS Configuration
 //builder.Services.AddCors(options =>
 //{
