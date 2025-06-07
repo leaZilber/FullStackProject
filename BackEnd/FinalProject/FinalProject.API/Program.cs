@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Amazon.Auth.AccessControlPolicy;
 
 // Load environment variables from .env file
 Env.Load();
@@ -40,31 +41,37 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 //builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
-    //c.OperationFilter<UploadController>();
-    c.CustomSchemaIds(type => type.FullName);
-    c.DescribeAllParametersInCamelCase();
-    c.IgnoreObsoleteActions();
-    c.IgnoreObsoleteProperties();
+//builder.Services.AddSwaggerGen(c =>
+//{
+//    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
+//    //c.OperationFilter<UploadController>();
+//    c.CustomSchemaIds(type => type.FullName);
+//    c.DescribeAllParametersInCamelCase();
+//    c.IgnoreObsoleteActions();
+//    c.IgnoreObsoleteProperties();
 
-    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    //if (File.Exists(xmlPath))
-    //{
-    //    c.IncludeXmlComments(xmlPath);
-    //}
-});
+//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+//if (File.Exists(xmlPath))
+//{
+//    c.IncludeXmlComments(xmlPath);
+//}
+//});
 
+//builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
+//{
+//    policy
+//    .AllowAnyOrigin()
+//    .AllowAnyHeader()
+//    .AllowAnyMethod();
+//}));
 builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
 {
-    policy
-    .AllowAnyOrigin()
-    .AllowAnyHeader()
-    .AllowAnyMethod();
+    policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com")
+      .AllowAnyHeader()
+      .AllowAnyMethod()
+      .AllowCredentials();
 }));
-
 // Register Services & Repositories
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
@@ -133,19 +140,52 @@ builder.Services.AddDbContext<DataContext>(options =>
 // Swagger Configuration
 
 
+//builder.Services.AddSwaggerGen(options =>
+//{
+//options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+//{
+//    Description = "JWT Authorization header using the Bearer scheme.",
+//    Name = "Authorization",
+//    In = ParameterLocation.Header,
+//    Type = SecuritySchemeType.ApiKey,
+//    Scheme = "Bearer"
+//});
+
+//options.AddSecurityRequirement(new OpenApiSecurityRequirement
+//{
+//        {
+//            new OpenApiSecurityScheme
+//            {
+//                Reference = new OpenApiReference
+//                {
+//                    Type = ReferenceType.SecurityScheme,
+//                    Id = "Bearer"
+//                }
+//            },
+//            new string[] {}
+//        }
+//});
+//});
 builder.Services.AddSwaggerGen(options =>
 {
-options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-{
-    Description = "JWT Authorization header using the Bearer scheme.",
-    Name = "Authorization",
-    In = ParameterLocation.Header,
-    Type = SecuritySchemeType.ApiKey,
-    Scheme = "Bearer"
-});
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
 
-options.AddSecurityRequirement(new OpenApiSecurityRequirement
-{
+    options.CustomSchemaIds(type => type.FullName);
+    options.DescribeAllParametersInCamelCase();
+    options.IgnoreObsoleteActions();
+    options.IgnoreObsoleteProperties();
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
         {
             new OpenApiSecurityScheme
             {
@@ -155,9 +195,9 @@ options.AddSecurityRequirement(new OpenApiSecurityRequirement
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            Array.Empty<string>()
         }
-});
+    });
 });
 
 // Load .env manually for safety in production (redundant if Env.Load() works properly)
@@ -189,11 +229,21 @@ app.UseSwaggerUI(c =>
 
 //}
 
-//app.UseCors("AllowFrontend");
+app.UseCors("MyPolicy");
+app.Use(async (context, next) =>
+{
+    if (context.Request.Method == HttpMethods.Options)
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.CompleteAsync();
+        return;
+    }
+
+    await next();
+});
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
 //Authentication & Authorization(אם מופעל)
 //app.UseAuthentication();
 //app.UseAuthorization();
