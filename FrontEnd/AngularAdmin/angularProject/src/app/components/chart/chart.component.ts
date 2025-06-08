@@ -204,7 +204,24 @@ export class ChartComponent implements OnInit {
     this.isLoading = true;
 
     // טעינת נתוני שעות עמוסות
-    this.authService.getUserStatsOverTime().subscribe(data => {
+    //this.authService.getUserStatsOverTime().subscribe(data => {
+    //    this.busiestHours = data.map(item => ({
+    //      day: this.getDayLabel(parseInt(item.day)),
+    //      dayValue: parseInt(item.day),
+    //      hour: item.hour,
+    //      hourFormatted: `${item.hour}:00`,
+    //      users: item.count,
+    //      date: new Date()
+    //    }));
+
+    //    // טעינת נתוני משתמשים לאורך זמן
+    //    this.loadUsersOverTime();
+    //  }, error => {
+    //    console.error('Error loading busiest hours', error);
+    //    this.isLoading = false;
+    //  });
+    this.authService.getUserStatsOverTime().subscribe({
+      next: (data) => {
         this.busiestHours = data.map(item => ({
           day: this.getDayLabel(parseInt(item.day)),
           dayValue: parseInt(item.day),
@@ -216,10 +233,13 @@ export class ChartComponent implements OnInit {
 
         // טעינת נתוני משתמשים לאורך זמן
         this.loadUsersOverTime();
-      }, error => {
+      },
+      error: (error) => {
         console.error('Error loading busiest hours', error);
         this.isLoading = false;
-      });
+      }
+    });
+
   }
 
   // loadUsersOverTime(): void {
