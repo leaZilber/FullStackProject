@@ -47,21 +47,39 @@ export class LoginAdminComponent {
 
         this.isLoading = true;
         
-        this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
-            .subscribe({
+        // this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
+        //     .subscribe({
+        //         next: (res: any) => {
+        //             console.log('Logged in! Token:', res.token);
+        //             this.router.navigate(['/chart'], { replaceUrl: true });
+        //             localStorage.setItem('token', res.token);
+        //             this.showSnackBar('Login successful!', 'success');
+        //             this.isLoading = false;
+        //         },
+        //         error: (err: any) => {
+        //             console.error('Login failed', err);
+        //             this.showSnackBar('Login failed. Please try again.', 'error');
+        //             this.isLoading = false;
+        //         }
+        //     });
+        if (typeof window !== 'undefined') {
+            this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
+              .subscribe({
                 next: (res: any) => {
-                    console.log('Logged in! Token:', res.token);
-                    this.router.navigate(['/chart'], { replaceUrl: true });
-                    localStorage.setItem('token', res.token);
-                    this.showSnackBar('Login successful!', 'success');
-                    this.isLoading = false;
+                  console.log('Logged in! Token:', res.token);
+                  this.router.navigate(['/chart'], { replaceUrl: true });
+                  localStorage.setItem('token', res.token);
+                  this.showSnackBar('Login successful!', 'success');
+                  this.isLoading = false;
                 },
                 error: (err: any) => {
-                    console.error('Login failed', err);
-                    this.showSnackBar('Login failed. Please try again.', 'error');
-                    this.isLoading = false;
+                  console.error('Login failed', err);
+                  this.showSnackBar('Login failed. Please try again.', 'error');
+                  this.isLoading = false;
                 }
-            });
+              });
+          }
+          
     }
 
     private showSnackBar(message: string, type: 'success' | 'error') {
@@ -83,7 +101,13 @@ export class LoginAdminComponent {
         }
     }
 
+    // goToRegisterPage() {
+    //     this.router.navigate(['/poral-manage'], { replaceUrl: true });
+    // }
     goToRegisterPage() {
-        this.router.navigate(['/poral-manage'], { replaceUrl: true });
-    }
+        if (typeof window !== 'undefined') {
+          this.router.navigate(['/poral-manage'], { replaceUrl: true });
+        }
+      }
+      
 }

@@ -177,7 +177,10 @@ export class RegisterComponent {
           });
                    
           setTimeout(() => {
+            if (typeof window !== 'undefined') {
+
             this.router.navigate(['/loginAdmin']);
+            }
           }, 1500);
         },
         error: (err) => {

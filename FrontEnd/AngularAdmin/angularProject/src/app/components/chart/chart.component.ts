@@ -191,10 +191,15 @@ export class ChartComponent implements OnInit {
     this.loadAllData();
   }
 
+  // goToLoginPage(): void {
+  //   this.router.navigate(['/loginAdmin'], { replaceUrl: true });
+  // }
   goToLoginPage(): void {
-    this.router.navigate(['/loginAdmin'], { replaceUrl: true });
+    if (typeof window !== 'undefined') {
+      this.router.navigate(['/loginAdmin'], { replaceUrl: true });
+    }
   }
-
+  
   loadAllData(): void {
     this.isLoading = true;
 

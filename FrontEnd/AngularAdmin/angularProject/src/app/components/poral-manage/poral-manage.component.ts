@@ -11,12 +11,16 @@ export class PoralManageComponent {
   constructor(private router: Router) {}
 
   navigateToUserManagement(): void {
+    if (typeof window !== 'undefined') {
     this.router.navigate(['/user-management']);
+    }
   }
 
   navigateToDataView(): void {
+    if (typeof window !== 'undefined') {
     // ניווט לעמוד צפיה בנתונים
     this.router.navigate(['/chart']);
+    }
   }
 
 }

@@ -373,6 +373,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/dashboard']);
+    if (typeof window !== 'undefined') {
+      this.router.navigate(['/dashboard']);
+    }
   }
 }
