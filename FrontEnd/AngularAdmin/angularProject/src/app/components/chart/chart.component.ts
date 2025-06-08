@@ -88,7 +88,6 @@ export class ChartComponent implements OnInit {
             const label = context.label || '';
             const value = context.raw || 0;
 
-            // מסנן רק ערכים שהם מספר
             const data = context.chart.data.datasets[0].data.filter((item): item is number => typeof item === 'number');
             const total = data.reduce((a, b) => a + b, 0);
 
@@ -100,7 +99,6 @@ export class ChartComponent implements OnInit {
     }
   };
 
-  // נתוני תרשים קווי לאורך זמן
   public lineChartData = {
     datasets: [
       {
@@ -139,7 +137,6 @@ export class ChartComponent implements OnInit {
 
   public lineChartType: ChartType = 'line';
 
-  // נתוני תרשים עמודות לפי שעות
   public barChartData = {
     datasets: [
       {
@@ -163,7 +160,6 @@ export class ChartComponent implements OnInit {
 
   public barChartType: ChartType = 'bar';
 
-  // נתונים מלאים מהשרת
   busiestHours: any[] = [];
   filteredData: any[] = [];
   usersOverTime: any[] = [];
@@ -191,19 +187,13 @@ export class ChartComponent implements OnInit {
     this.loadAllData();
   }
 
-  // goToLoginPage(): void {
-  //   this.router.navigate(['/loginAdmin'], { replaceUrl: true });
-  // }
   goToLoginPage(): void {
-    if (typeof window !== 'undefined') {
-      this.router.navigate(['/loginAdmin'], { replaceUrl: true });
-    }
+    this.router.navigate(['/loginAdmin'], { replaceUrl: true });
   }
   
   loadAllData(): void {
     this.isLoading = true;
 
-    // טעינת נתוני שעות עמוסות  
     this.authService.getUserStatsOverTime().subscribe({
       next: (data) => {
         this.busiestHours = data.map(item => ({
@@ -215,7 +205,6 @@ export class ChartComponent implements OnInit {
           date: new Date()
         }));
 
-        // טעינת נתוני משתמשים לאורך זמן
         this.loadUsersOverTime();
       },
       error: (error) => {
@@ -353,7 +342,6 @@ export class ChartComponent implements OnInit {
     return day ? day.value : -1;
   }
 
-  // צבעים לציון עומס
   getColor(users: number): string {
     if (users > 70) return '#c0392b';
     if (users > 50) return '#e67e22';
@@ -361,7 +349,6 @@ export class ChartComponent implements OnInit {
     return '#2ecc71';
   }
 
-  // פונקציה לאיפוס כל הפילטרים
   resetFilters(): void {
     this.selectedDay = -1;
     const today = new Date();
@@ -375,7 +362,6 @@ export class ChartComponent implements OnInit {
     this.applyFilters();
   }
 
-  // הורדת הנתונים כקובץ CSV
   exportToCSV(): void {
     const headers = ['יום', 'שעה', 'מספר משתמשים'];
     const csvData = this.filteredData.map(row => {
@@ -394,13 +380,5 @@ export class ChartComponent implements OnInit {
       link.click();
       document.body.removeChild(link);
     }
-    
-    // const link = document.createElement('a');
-    // link.setAttribute('href', url);
-    // link.setAttribute('download', `users-report-${new Date().toISOString().slice(0, 10)}.csv`);
-    // link.style.visibility = 'hidden';
-    // document.body.appendChild(link);
-    // link.click();
-    // document.body.removeChild(link);
   }
 }

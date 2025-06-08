@@ -124,41 +124,18 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userRole: ['user', [Validators.required]]
     });
   }
-  // Add this interface to match what your service actually returns
-
-
-  // Add this mapping function to your component
+  
   private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
     return registerData.map(item => ({
-      // id: item.id,
-      userName: item.UserName || '', // Map from RegisterPostModel properties
-      userEmail: item.UserEmail || '', // Map from RegisterPostModel properties  
-      userRole: item.UserRole || 'user', // Map from RegisterPostModel properties
+      userName: item.UserName || '', 
+      userEmail: item.UserEmail || '',   
+      userRole: item.UserRole || 'user', 
       userPhone: item.UserPhone,
       userAddress: item.UserAddress,
       userBirth: item.UserBirth,
       userCreateDate: item.UserCreateDate
     }));
   }
-
-  // loadUsers(): void {
-  //   this.isLoading = true;
-  //   this.userService.getAllUsers().subscribe({
-  //     next: (users: UserModel[]) => {
-  //       this.dataSource.data = users;
-  //       this.totalUsers = users.length;
-  //       this.isLoading = false;
-  //     },
-  //     error: (error) => {
-  //       console.error('שגיאה בטעינת המשתמשים:', error);
-  //       this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
-  //       this.isLoading = false;
-  //     }
-  //   });
-  // }
-
-
-
 
   loadUsers(): void {
     this.isLoading = true;
@@ -197,7 +174,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.showUserForm = true;
     this.currentUserId = user.id;
 
-    // Fill form with user data - consistent property names
     this.userForm.patchValue({
       userName: user.userName,
       userEmail: user.userEmail,
@@ -207,7 +183,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userRole: user.userRole
     });
 
-    // Make password optional for edit
     this.userForm.get('userEncryptedPassword')?.clearValidators();
     this.userForm.get('userEncryptedPassword')?.updateValueAndValidity();
   }
@@ -218,7 +193,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       const formValue = this.userForm.value;
 
       if (this.isEditMode && this.currentUserId) {
-        // Update user
         const updateData: UserUpdateModel = {
           id: this.currentUserId,
           userName: formValue.userName,
@@ -229,7 +203,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           userRole: formValue.userRole
         };
 
-        // Only include password if it was changed
         if (formValue.userEncryptedPassword) {
           updateData.userEncryptedPassword = formValue.userEncryptedPassword;
         }
@@ -246,8 +219,9 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
             this.isLoading = false;
           }
         });
-      } else {
-        // Add new user
+      } 
+
+      else {
         const postData: UserPostModel = {
           userName: formValue.userName,
           userEmail: formValue.userEmail,
@@ -338,21 +312,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     link.click();
     document.body.removeChild(link);
   }
-  // exportToCSV(): void {
-  //   if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  //     const csvData = this.convertToCSV(this.dataSource.data);
-  //     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-  //     const link = document.createElement('a');
-  //     const url = URL.createObjectURL(blob);
-  //     link.setAttribute('href', url);
-  //     link.setAttribute('download', 'users_export.csv');
-  //     document.body.appendChild(link);
-  //     link.click();
-  //     document.body.removeChild(link);
-  //   } else {
-  //     console.warn('Export to CSV is only available in the browser.');
-  //   }
-  // }
 
   private convertToCSV(data: UserModel[]): string {
     const headers = ['ID', 'שם משתמש', 'אימייל', 'טלפון', 'תפקיד', 'תאריך יצירה'];
@@ -372,8 +331,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
-    // if (typeof window !== 'undefined') {
-      this.router.navigate(['/dashboard']);
-    }
-  // }
+    this.router.navigate(['/dashboard']);
+  }
 }

@@ -44,30 +44,12 @@ export class LoginAdminComponent {
             this.showSnackBar('Please fill in all fields', 'error');
             return;
         }
-
         this.isLoading = true;
-
-        // this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
-        //     .subscribe({
-        //         next: (res: any) => {
-        //             console.log('Logged in! Token:', res.token);
-        //             this.router.navigate(['/chart'], { replaceUrl: true });
-        //             localStorage.setItem('token', res.token);
-        //             this.showSnackBar('Login successful!', 'success');
-        //             this.isLoading = false;
-        //         },
-        //         error: (err: any) => {
-        //             console.error('Login failed', err);
-        //             this.showSnackBar('Login failed. Please try again.', 'error');
-        //             this.isLoading = false;
-        //         }
-        //     });
-        // if (typeof window !== 'undefined') {
         this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
             .subscribe({
                 next: (res: any) => {
                     console.log('Logged in! Token:', res.token);
-                    this.router.navigate(['/chart'], { replaceUrl: true });
+                    this.router.navigate(['/poral-manage'], { replaceUrl: true });
                     localStorage.setItem('token', res.token);
                     this.showSnackBar('Login successful!', 'success');
                     this.isLoading = false;
@@ -99,18 +81,10 @@ export class LoginAdminComponent {
     }
 
     goToLoginPage() {
-        // if (typeof window !== 'undefined') {
         window.location.href = "https://fullstackprojectfrontendreact.onrender.com";
-        // }
     }
 
     goToRegisterPage() {
         this.router.navigate(['/poral-manage'], { replaceUrl: true });
     }
-    // goToRegisterPage() {
-    //     if (typeof window !== 'undefined') {
-    //       this.router.navigate(['/poral-manage'], { replaceUrl: true });
-    //     }
-    //   }
-
 }

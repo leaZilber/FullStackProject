@@ -8,17 +8,14 @@ import { Router } from '@angular/router';
   styleUrl: './poral-manage.component.css'
 })
 export class PoralManageComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   navigateToUserManagement(): void {
-    if (typeof window !== 'undefined') {
     this.router.navigate(['/user-management']);
-    }
+
   }
 
   navigateToDataView(): void {
-    // if (typeof window !== 'undefined') {
     this.router.navigate(['/chart']);
-    // }
   }
 }
