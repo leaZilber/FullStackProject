@@ -327,33 +327,32 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // exportToCSV(): void {
-  //   const csvData = this.convertToCSV(this.dataSource.data);
-  //   const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-  //   const link = document.createElement('a');
-  //   const url = URL.createObjectURL(blob);
-  //   link.setAttribute('href', url);
-  //   link.setAttribute('download', 'users_export.csv');
-  //   document.body.appendChild(link);
-  //   link.click();
-  //   document.body.removeChild(link);
-  // }
   exportToCSV(): void {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-      const csvData = this.convertToCSV(this.dataSource.data);
-      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      const url = URL.createObjectURL(blob);
-      link.setAttribute('href', url);
-      link.setAttribute('download', 'users_export.csv');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      // אופציונלי: טיפול או הודעה במקרה שרצים בשרת
-      console.warn('Export to CSV is only available in the browser.');
-    }
+    const csvData = this.convertToCSV(this.dataSource.data);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'users_export.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
+  // exportToCSV(): void {
+  //   if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  //     const csvData = this.convertToCSV(this.dataSource.data);
+  //     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+  //     const link = document.createElement('a');
+  //     const url = URL.createObjectURL(blob);
+  //     link.setAttribute('href', url);
+  //     link.setAttribute('download', 'users_export.csv');
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     document.body.removeChild(link);
+  //   } else {
+  //     console.warn('Export to CSV is only available in the browser.');
+  //   }
+  // }
 
   private convertToCSV(data: UserModel[]): string {
     const headers = ['ID', 'שם משתמש', 'אימייל', 'טלפון', 'תפקיד', 'תאריך יצירה'];
@@ -373,8 +372,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   goBack(): void {
-    if (typeof window !== 'undefined') {
+    // if (typeof window !== 'undefined') {
       this.router.navigate(['/dashboard']);
     }
-  }
+  // }
 }

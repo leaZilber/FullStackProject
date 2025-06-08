@@ -17,10 +17,8 @@ export class PoralManageComponent {
   }
 
   navigateToDataView(): void {
-    if (typeof window !== 'undefined') {
-    // ניווט לעמוד צפיה בנתונים
+    // if (typeof window !== 'undefined') {
     this.router.navigate(['/chart']);
-    }
+    // }
   }
-
 }

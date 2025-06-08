@@ -11,5 +11,5 @@ export const routes: Routes = [
     {path: 'poral-manage', component: PoralManageComponent},
     { path: 'chart', component: ChartComponent },
     { path: 'loginAdmin', component: LoginAdminComponent },
-    { path: '', redirectTo: 'poral-manage', pathMatch: 'full' }
+    { path: '', redirectTo: 'loginAdmin', pathMatch: 'full' }
 ];

@@ -203,23 +203,7 @@ export class ChartComponent implements OnInit {
   loadAllData(): void {
     this.isLoading = true;
 
-    // טעינת נתוני שעות עמוסות
-    //this.authService.getUserStatsOverTime().subscribe(data => {
-    //    this.busiestHours = data.map(item => ({
-    //      day: this.getDayLabel(parseInt(item.day)),
-    //      dayValue: parseInt(item.day),
-    //      hour: item.hour,
-    //      hourFormatted: `${item.hour}:00`,
-    //      users: item.count,
-    //      date: new Date()
-    //    }));
-
-    //    // טעינת נתוני משתמשים לאורך זמן
-    //    this.loadUsersOverTime();
-    //  }, error => {
-    //    console.error('Error loading busiest hours', error);
-    //    this.isLoading = false;
-    //  });
+    // טעינת נתוני שעות עמוסות  
     this.authService.getUserStatsOverTime().subscribe({
       next: (data) => {
         this.busiestHours = data.map(item => ({
@@ -242,34 +226,6 @@ export class ChartComponent implements OnInit {
 
   }
 
-  // loadUsersOverTime(): void {
-  //   // בסביבה אמיתית, זה יהיה מאפיין API נפרד
-  //   // כאן אנחנו מדמים נתונים לתצוגת משתמשים לאורך זמן
-  //   const today = new Date();
-  //   this.usersOverTime = [];
-
-  //   for (let i = 30; i >= 0; i--) {
-  //     const date = new Date(today);
-  //     date.setDate(date.getDate() - i);
-
-  //     const newUsers = Math.floor(Math.random() * 50) + 5;
-  //     const totalToDate = 1000 + (30 - i) * 30 + Math.floor(Math.random() * 100);
-
-  //     this.usersOverTime.push({
-  //       date: date,
-  //       newUsers: newUsers,
-  //       totalUsers: totalToDate
-  //     });
-  //   }
-
-  //   this.totalUsers = this.usersOverTime[this.usersOverTime.length - 1].totalUsers;
-  //   this.activeUsers = Math.floor(this.totalUsers * 0.7);
-
-  //   this.inactiveUsers = this.totalUsers - this.activeUsers;
-
-  //   this.applyFilters();
-  //   this.isLoading = false;
-  // }
   loadUsersOverTime(): void {
     this.isLoading = true;
     

@@ -62,7 +62,7 @@ export class LoginAdminComponent {
         //             this.isLoading = false;
         //         }
         //     });
-        if (typeof window !== 'undefined') {
+        // if (typeof window !== 'undefined') {
             this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
               .subscribe({
                 next: (res: any) => {
@@ -78,7 +78,7 @@ export class LoginAdminComponent {
                   this.isLoading = false;
                 }
               });
-          }
+        //   }
           
     }
 
@@ -96,18 +96,18 @@ export class LoginAdminComponent {
     }
 
     goToLoginPage() {
-        if (typeof window !== 'undefined') {
+        // if (typeof window !== 'undefined') {
             window.location.href = "https://fullstackprojectfrontendreact.onrender.com";
-        }
+        // }
     }
 
-    // goToRegisterPage() {
-    //     this.router.navigate(['/poral-manage'], { replaceUrl: true });
-    // }
     goToRegisterPage() {
-        if (typeof window !== 'undefined') {
-          this.router.navigate(['/poral-manage'], { replaceUrl: true });
-        }
-      }
+        this.router.navigate(['/poral-manage'], { replaceUrl: true });
+    }
+    // goToRegisterPage() {
+    //     if (typeof window !== 'undefined') {
+    //       this.router.navigate(['/poral-manage'], { replaceUrl: true });
+    //     }
+    //   }
       
 }
