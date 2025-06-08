@@ -67,7 +67,8 @@ builder.Services.AddEndpointsApiExplorer();
 //}));
 builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
 {
-    policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com")
+    policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
+                       "https://fullstackprojectfrontendangular.onrender.com")
       .AllowAnyHeader()
       .AllowAnyMethod()
       .AllowCredentials();
