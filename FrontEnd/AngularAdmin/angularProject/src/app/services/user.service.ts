@@ -9,35 +9,34 @@ import { UserPostModel, UserUpdateModel } from '../components/user-management/us
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl ="https://fullstackproject-5070.onrender.com/api/User";
 
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<RegisterPostModel[]> {
-    return this.http.get<RegisterPostModel[]>(this.apiUrl);
+    return this.http.get<RegisterPostModel[]>("https://fullstackproject-5070.onrender.com/api/User");
   }
 
   getUser(id: number): Observable<RegisterPostModel> {
-    return this.http.get<RegisterPostModel>(`${this.apiUrl}/${id}`);
+    return this.http.get<RegisterPostModel>(`https://fullstackproject-5070.onrender.com/api/User/${id}`);
   }
 
   getCurrentUser(): Observable<RegisterPostModel> {
-    return this.http.get<RegisterPostModel>(`${this.apiUrl}/current`);
+    return this.http.get<RegisterPostModel>(`https://fullstackproject-5070.onrender.com/api/User/current`);
   }
 
   addUser(user: UserPostModel): Observable<RegisterPostModel> {
-    return this.http.post<RegisterPostModel>(this.apiUrl, user);
+    return this.http.post<RegisterPostModel>("https://fullstackproject-5070.onrender.com/api/User", user);
   }
 
   updateUser(user: UserUpdateModel): Observable<RegisterPostModel> {
-    return this.http.put<RegisterPostModel>(`${this.apiUrl}/${user.id}`, user);
+    return this.http.put<RegisterPostModel>(`https://fullstackproject-5070.onrender.com/api/User/${user.id}`, user);
   }
 
   deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`);
+    return this.http.delete(`https://fullstackproject-5070.onrender.com/api/User/${id}`);
   }
 
   getUserStats(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users-over-time`);
+    return this.http.get(`https://fullstackproject-5070.onrender.com/api/User/users-over-time`);
   }
 }

@@ -83,7 +83,6 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
-
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
