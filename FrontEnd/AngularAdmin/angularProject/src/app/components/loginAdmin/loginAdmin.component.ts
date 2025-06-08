@@ -15,7 +15,7 @@ import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
     selector: 'app-loginAdmin',
     standalone: true,
     imports: [
-        FormsModule, 
+        FormsModule,
         CommonModule,
         MatCardModule,
         MatFormFieldModule,
@@ -46,7 +46,7 @@ export class LoginAdminComponent {
         }
 
         this.isLoading = true;
-        
+
         // this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
         //     .subscribe({
         //         next: (res: any) => {
@@ -63,23 +63,26 @@ export class LoginAdminComponent {
         //         }
         //     });
         // if (typeof window !== 'undefined') {
-            this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
-              .subscribe({
+        this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
+            .subscribe({
                 next: (res: any) => {
-                  console.log('Logged in! Token:', res.token);
-                  this.router.navigate(['/chart'], { replaceUrl: true });
-                  localStorage.setItem('token', res.token);
-                  this.showSnackBar('Login successful!', 'success');
-                  this.isLoading = false;
+                    console.log('Logged in! Token:', res.token);
+                    this.router.navigate(['/chart'], { replaceUrl: true });
+                    localStorage.setItem('token', res.token);
+                    this.showSnackBar('Login successful!', 'success');
+                    this.isLoading = false;
                 },
                 error: (err: any) => {
-                  console.error('Login failed', err);
-                  this.showSnackBar('Login failed. Please try again.', 'error');
-                  this.isLoading = false;
+                    console.error('Login failed', err);
+                    if (err.status === 401) {
+                        this.showSnackBar('שם המשתמש או הסיסמה שגויים', 'error');
+                    } else {
+                        this.showSnackBar('אירעה שגיאה בהתחברות. אנא נסה שוב.', 'error');
+                    }
+                    this.isLoading = false;
                 }
-              });
-        //   }
-          
+
+            });
     }
 
     private showSnackBar(message: string, type: 'success' | 'error') {
@@ -97,7 +100,7 @@ export class LoginAdminComponent {
 
     goToLoginPage() {
         // if (typeof window !== 'undefined') {
-            window.location.href = "https://fullstackprojectfrontendreact.onrender.com";
+        window.location.href = "https://fullstackprojectfrontendreact.onrender.com";
         // }
     }
 
@@ -109,5 +112,5 @@ export class LoginAdminComponent {
     //       this.router.navigate(['/poral-manage'], { replaceUrl: true });
     //     }
     //   }
-      
+
 }
