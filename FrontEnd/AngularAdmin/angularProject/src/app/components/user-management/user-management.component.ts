@@ -24,36 +24,36 @@
 
 
 // export interface UserModel {
-//   Userid?: number;
-//   UserName: string;
-//   UserEmail: string;
-//   UserEncryptedPassword?: string;
-//   UserPhone?: string;
-//   UserAddress?: string;
-//   UserBirth?: Date;
-//   UserRole: string;
-//   UserCreateDate?: Date;
+//   id?: number;
+//   userName: string;
+//   userEmail: string;
+//   userEncryptedPassword?: string;
+//   userPhone?: string;
+//   userAddress?: string;
+//   userBirth?: Date;
+//   userRole: string;
+//   userCreateDate?: Date;
 // }
 
 // export interface UserPostModel {
-//   UserName: string;
-//   UserEmail: string;
-//   UserEncryptedPassword: string;
-//   UserPhone?: string;
-//   UserAddress?: string;
-//   UserBirth?: Date;
-//   UserRole?: string;
+//   userName: string;
+//   userEmail: string;
+//   userEncryptedPassword: string;
+//   userPhone?: string;
+//   userAddress?: string;
+//   userBirth?: Date;
+//   userRole?: string;
 // }
 
 // export interface UserUpdateModel {
-//   Userid: number;
-//   UserName?: string;
-//   UserEmail?: string;
-//   UserEncryptedPassword?: string;
-//   UserPhone?: string;
-//   UserAddress?: string;
-//   UserBirth?: Date;
-//   UserRole?: string;
+//   id: number;
+//   userName?: string;
+//   userEmail?: string;
+//   userEncryptedPassword?: string;
+//   userPhone?: string;
+//   userAddress?: string;
+//   userBirth?: Date;
+//   userRole?: string;
 // }
 
 // @Component({
@@ -89,7 +89,7 @@
 //     this.initializeForm();
 //   }
 
-//   displayedColumns: string[] = ['Userid', 'UserName', 'UserEmail', 'UserPhone', 'UserRole', 'UserCreateDate', 'actions'];
+//   displayedColumns: string[] = ['id', 'userName', 'userEmail', 'userPhone', 'userRole', 'userCreateDate', 'actions'];
 //   dataSource = new MatTableDataSource<UserModel>();
 //   isLoading = false;
 //   totalUsers = 0;
@@ -125,8 +125,9 @@
 //   }
   
 //   private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
+    
 //     return registerData.map(item => ({
-//       UserName: item.UserName || '', 
+//       userName: item.UserName || '', 
 //       userEmail: item.UserEmail || '',   
 //       userRole: item.UserRole || 'user', 
 //       userPhone: item.UserPhone,
@@ -347,28 +348,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/**נסיון קלאוד */
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { RegisterPostModel } from '../../models/registerDTO';
-import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -377,36 +360,16 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { ReactiveFormsModule } from '@angular/forms';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
+import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatChipsModule } from '@angular/material/chips';
-
-export interface UserModel {
-  UserId?: number;
-  UserName: string;
-  UserEmail: string;
-  UserEncryptedPassword?: string;
-  UserPhone?: string;
-  UserAddress?: string;
-  UserBirth?: Date;
-  UserRole: string;
-  UserCreateDate?: Date;
-}
-
-export interface UserPostModel {
-  UserName: string;
-  UserEmail: string;
-  UserEncryptedPassword: string;
-  UserPhone?: string;
-  UserAddress?: string;
-  UserBirth?: Date;
-  UserRole?: string;
-}
-
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserService } from '../../services/user.service';
+import { RegisterPostModel } from '../../models/registerDTO';
+// Interface for updating users - only needs id and the fields that can be updated
 export interface UserUpdateModel {
-  UserId: number;
+  id: number;
   UserName?: string;
   UserEmail?: string;
   UserEncryptedPassword?: string;
@@ -432,7 +395,8 @@ export interface UserUpdateModel {
     MatProgressSpinnerModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSnackBarModule
   ],
   standalone: true,
   templateUrl: './user-management.component.html',
@@ -449,8 +413,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.initializeForm();
   }
 
-  displayedColumns: string[] = ['UserId', 'UserName', 'UserEmail', 'UserPhone', 'UserRole', 'UserCreateDate', 'actions'];
-  dataSource = new MatTableDataSource<UserModel>();
+  displayedColumns: string[] = ['id', 'UserName', 'UserEmail', 'UserPhone', 'UserRole', 'UserCreateDate', 'actions'];
+  dataSource = new MatTableDataSource<RegisterPostModel>();
   isLoading = false;
   totalUsers = 0;
   showUserForm = false;
@@ -482,25 +446,11 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       UserRole: ['user', [Validators.required]]
     });
   }
-  
-  private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
-    return registerData.map(item => ({
-      // UserId: item.UserId,
-      UserName: item.UserName || '', 
-      UserEmail: item.UserEmail || '',   
-      UserRole: item.UserRole || 'user', 
-      UserPhone: item.UserPhone,
-      UserAddress: item.UserAddress,
-      UserBirth: item.UserBirth,
-      UserCreateDate: item.UserCreateDate
-    }));
-  }
 
   loadUsers(): void {
     this.isLoading = true;
     this.userService.getAllUsers().subscribe({
-      next: (registerData: RegisterPostModel[]) => {
-        const users = this.mapRegisterToUser(registerData);
+      next: (users: RegisterPostModel[]) => {
         this.dataSource.data = users;
         this.totalUsers = users.length;
         this.isLoading = false;
@@ -529,10 +479,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.initializeForm();
   }
 
-  editUser(user: UserModel): void {
+  editUser(user: RegisterPostModel): void {
     this.isEditMode = true;
     this.showUserForm = true;
-    this.currentUserId = user.UserId;
+    this.currentUserId = user.id;
 
     this.userForm.patchValue({
       UserName: user.UserName,
@@ -543,6 +493,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       UserRole: user.UserRole
     });
 
+    // Remove password requirement for editing
     this.userForm.get('UserEncryptedPassword')?.clearValidators();
     this.userForm.get('UserEncryptedPassword')?.updateValueAndValidity();
   }
@@ -553,8 +504,9 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       const formValue = this.userForm.value;
 
       if (this.isEditMode && this.currentUserId) {
+        // Update existing user
         const updateData: UserUpdateModel = {
-          UserId: this.currentUserId,
+          id: this.currentUserId,
           UserName: formValue.UserName,
           UserEmail: formValue.UserEmail,
           UserPhone: formValue.UserPhone,
@@ -563,6 +515,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           UserRole: formValue.UserRole
         };
 
+        // Only include password if it was provided
         if (formValue.UserEncryptedPassword) {
           updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
         }
@@ -579,19 +532,20 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
             this.isLoading = false;
           }
         });
-      } 
-      else {
-        const postData: UserPostModel = {
+      } else {
+        // Add new user - use RegisterPostModel directly
+        const newUser: RegisterPostModel = {
           UserName: formValue.UserName,
           UserEmail: formValue.UserEmail,
           UserEncryptedPassword: formValue.UserEncryptedPassword,
           UserPhone: formValue.UserPhone,
           UserAddress: formValue.UserAddress,
           UserBirth: formValue.UserBirth,
-          UserRole: formValue.UserRole
+          UserRole: formValue.UserRole,
+          UserCreateDate: new Date() // Add the required UserCreateDate property
         };
 
-        this.userService.addUser(postData).subscribe({
+        this.userService.addUser(newUser).subscribe({
           next: () => {
             this.showSnackBar('המשתמש נוסף בהצלחה', 'success');
             this.cancelForm();
@@ -617,11 +571,11 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.isLoading = false;
   }
 
-  confirmDeleteUser(user: UserModel): void {
+  confirmDeleteUser(user: RegisterPostModel): void {
     const confirmed = confirm(`האם אתה בטוח שברצונך למחוק את המשתמש "${user.UserName}"?`);
 
-    if (confirmed && user.UserId) {
-      this.deleteUser(user.UserId);
+    if (confirmed && user.id) {
+      this.deleteUser(user.id);
     }
   }
 
@@ -672,12 +626,12 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     document.body.removeChild(link);
   }
 
-  private convertToCSV(data: UserModel[]): string {
+  private convertToCSV(data: RegisterPostModel[]): string {
     const headers = ['ID', 'שם משתמש', 'אימייל', 'טלפון', 'תפקיד', 'תאריך יצירה'];
     const csvContent = [
       headers.join(','),
       ...data.map(user => [
-        user.UserId || '',
+        user.id || '',
         user.UserName,
         user.UserEmail,
         user.UserPhone || '',
