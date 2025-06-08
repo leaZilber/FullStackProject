@@ -29,8 +29,7 @@ const MedicalHistory = () => {
         const userId = getCurrentUserId()
         setCurrentUserId(userId)
 
-        const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt?userId=${userId}")
-
+        const response = await fetch(`https://fullstackproject-5070.onrender.com/api/TestResualt?userId=${userId}`, )
         if (response.ok) {
           const data = await response.json()
           const filteredData = data.filter((item: any) => item.userId === userId)

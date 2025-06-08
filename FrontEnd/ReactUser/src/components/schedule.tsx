@@ -34,7 +34,7 @@ const SchedulePage = () => {
   const currentUserId = 1;
   
   const fetchTurns = async (): Promise<Turn[]> => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/Turn`);
+    const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -43,7 +43,7 @@ const SchedulePage = () => {
 
   // Fetch all doctors from API
   const fetchDoctors = async (): Promise<Doctor[]> => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/Doctor`);
+    const response = await fetch("https://fullstackproject-5070.onrender.com/api/Doctor");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -110,7 +110,7 @@ const SchedulePage = () => {
         UserId: currentUserId.toString()
       };
 
-      const response = await fetch("https://fullstackproject-5070.onrender.com/api/Turn/${turn.TurnId}", {
+      const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn/${turn.TurnId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
