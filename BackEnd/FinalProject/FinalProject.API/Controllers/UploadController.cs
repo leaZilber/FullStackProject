@@ -1,18 +1,8 @@
 ﻿using FinalProject.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Text.Json.Nodes;
 using System.Text.Json;
 using System.Text;
-using System.Collections.Generic;
-using System.Linq;
 using FinalProject.Core.IServices;
-using Microsoft.AspNetCore.Authorization;
-using FinalProject.Service.Services;
-using FinalProject.API.Models;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -49,7 +39,6 @@ public class UploadController : ControllerBase
         _googleVisionBaseUrl = "https://vision.googleapis.com/v1/images:annotate";
         _openAiBaseUrl = "https://api.openai.com/v1/chat/completions";
     }
-    // אופציה 2: להשאיר עם הגנת אבטחה (רק לפיתוח/staging)
     [HttpGet("health-check")]
     //[Authorize(Roles = "Admin")] // רק למנהלים
     public IActionResult HealthCheck()
@@ -142,14 +131,7 @@ public class UploadController : ControllerBase
                 !string.IsNullOrEmpty(_openAiApiKey));
 
             string imageUrl;
-            //try
-            //{
-            //    using (var stream = image.OpenReadStream())
-            //    {
-            //        imageUrl = await _s3Service.UploadAsync(fileName, stream, image.ContentType);
-            //    }
-            //    _logger.LogInformation("Image uploaded to S3: {ImageUrl}", imageUrl);
-            //}
+
             try
             {
                 using (var stream = image.OpenReadStream())
