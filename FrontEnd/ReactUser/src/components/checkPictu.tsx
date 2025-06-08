@@ -1,5 +1,5 @@
 
-import { useState} from "react";
+import { useState } from "react";
 import React from 'react';
 void React;
 const theme = {
@@ -311,7 +311,7 @@ export default function CheckPicture() {
               className="text-3xl font-bold"
               style={{ color: theme.textPrimary }}
             >
-            Upload a picture for checking     </h1>
+              Upload a picture for checking     </h1>
           </div>
 
           <AlertBox type={isLoggedIn ? "success" : "info"}>
@@ -382,7 +382,7 @@ export default function CheckPicture() {
             )}
 
             {/* Image Preview */}
-            {image && !loading && (
+            {/* {image && !loading && (
               <div className="mb-6">
                 <div className="flex justify-center">
                   <img
@@ -411,8 +411,38 @@ export default function CheckPicture() {
                   </button>
                 </div>
               </div>
+            )} */}
+            {image && !loading && (
+              <div className="mb-6">
+                <div className="flex justify-center">
+                  <img
+                    src={image}
+                    alt="תמונה שהועלתה"
+                    className="rounded-lg shadow-md"
+                    style={{ maxWidth: '400px', width: '100%', height: 'auto' }}
+                  />
+                </div>
+                <div className="text-center mt-4">
+                  <button
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+                    style={{
+                      backgroundColor: theme.secondary,
+                      color: theme.surface
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = `${theme.secondary}dd`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = theme.secondary;
+                    }}
+                  >
+                    לשליחה לבדיקה
+                  </button>
+                </div>
+              </div>
             )}
-
             {/* Loading State */}
             {loading && <LoadingSpinner />}
 
@@ -503,9 +533,9 @@ export default function CheckPicture() {
                         </span>
                         <div
                           className={`mr-3 px-2 py-1 rounded-full text-xs font-medium ${getSeverityType(test.Summary) === 'success' ? 'bg-green-100 text-green-800' :
-                              getSeverityType(test.Summary) === 'warning' ? 'bg-yellow-100 text-yellow-800' :
-                                getSeverityType(test.Summary) === 'error' ? 'bg-red-100 text-red-800' :
-                                  'bg-blue-100 text-blue-800'
+                            getSeverityType(test.Summary) === 'warning' ? 'bg-yellow-100 text-yellow-800' :
+                              getSeverityType(test.Summary) === 'error' ? 'bg-red-100 text-red-800' :
+                                'bg-blue-100 text-blue-800'
                             }`}
                         >
                           {getSeverityType(test.Summary) === 'success' ? '✓ תקין' :

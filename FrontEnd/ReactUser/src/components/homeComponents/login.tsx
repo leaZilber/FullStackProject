@@ -89,7 +89,7 @@ export const LoginComp = () => {
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
-      navigate("/personalArea");
+      navigate("/api/personalArea");
     }
   }, [navigate]);
 
