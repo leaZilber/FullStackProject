@@ -404,13 +404,22 @@ export class ChartComponent implements OnInit {
     const csvContent = [headers.join(','), ...csvData].join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
-
-    const link = document.createElement('a');
-    link.setAttribute('href', url);
-    link.setAttribute('download', `users-report-${new Date().toISOString().slice(0, 10)}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `users-report-${new Date().toISOString().slice(0, 10)}.csv`;
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+    
+    // const link = document.createElement('a');
+    // link.setAttribute('href', url);
+    // link.setAttribute('download', `users-report-${new Date().toISOString().slice(0, 10)}.csv`);
+    // link.style.visibility = 'hidden';
+    // document.body.appendChild(link);
+    // link.click();
+    // document.body.removeChild(link);
   }
 }
