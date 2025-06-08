@@ -16,7 +16,7 @@ export class PoralManageComponent {
 
   navigateToDataView(): void {
     // ניווט לעמוד צפיה בנתונים
-    this.router.navigate(['/data-view']);
+    this.router.navigate(['/chart']);
   }
 
 }
