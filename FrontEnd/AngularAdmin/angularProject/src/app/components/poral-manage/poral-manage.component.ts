@@ -11,7 +11,6 @@ export class PoralManageComponent {
   constructor(private router: Router) {}
 
   navigateToUserManagement(): void {
-    // ניווט לעמוד ניהול משתמשים
     this.router.navigate(['/user-management']);
   }
 

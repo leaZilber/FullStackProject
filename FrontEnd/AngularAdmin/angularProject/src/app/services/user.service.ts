@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/api/user`;
+  private apiUrl ="https://fullstackproject-5070.onrender.com/api/User";
 
   constructor(private http: HttpClient) {}
 

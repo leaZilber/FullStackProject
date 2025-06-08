@@ -10,14 +10,14 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(data: any) {
-    return this.http.post(`${environment.apiUrl}/User`, data);
+    return this.http.post("https://fullstackproject-5070.onrender.com/api/User", data);
   }
 
   login(data: any) {
-    return this.http.post(`${environment.apiUrl}/Auth/admin-login`, data);
+    return this.http.post("https://fullstackproject-5070.onrender.com/api/Auth/admin-login", data);
   }
 
   getUserStatsOverTime(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.apiUrl}/User/users-over-time`);
+    return this.http.get<any[]>("https://fullstackproject-5070.onrender.com/api/User/users-over-time");
   }
 }
