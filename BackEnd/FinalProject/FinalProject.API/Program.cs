@@ -70,8 +70,8 @@ builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
     policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
                        "https://fullstackprojectfrontendangular.onrender.com")
       .AllowAnyHeader()
-      .AllowAnyMethod()
-      .AllowCredentials();
+      .AllowAnyMethod();
+      //.AllowCredentials();
 }));
 // Register Services & Repositories
 builder.Services.AddScoped<IDoctorService, DoctorService>();
