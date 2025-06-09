@@ -164,19 +164,23 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   //     }
   //   });
   // }
-  
+
   loadUsers(): void {
     this.isLoading = true;
+    console.log('Starting to load users...'); // הוסף את זה
+    
     this.userService.getAllUsers().subscribe({
       next: (registerData: RegisterPostModel[]) => {
-        // השתמש במיפוי המקורי שלך
+        console.log('Data received:', registerData); // הוסף את זה
         const users = this.mapRegisterToUser(registerData);
         this.dataSource.data = users;
         this.totalUsers = users.length;
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('שגיאה בטעינת המשתמשים:', error);
+        console.error('Full error object:', error); // הוסף את זה
+        console.error('Error status:', error.status); // הוסף את זה
+        console.error('Error URL:', error.url); // הוסף את זה
         this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
         this.isLoading = false;
       }

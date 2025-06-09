@@ -65,6 +65,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getAllUsers(): Observable<RegisterPostModel[]> {
+    console.log('API URL:',"https://fullstackproject-5070.onrender.com/api/User" ); 
     return this.http.get<RegisterPostModel[]>("https://fullstackproject-5070.onrender.com/api/User");
   }
 
