@@ -203,22 +203,22 @@ app.UseSwaggerUI(c =>
 });
 
 //}
-
-app.UseCors("MyPolicy");
-app.Use(async (context, next) =>
-{
-    if (context.Request.Method == HttpMethods.Options)
-    {
-        context.Response.StatusCode = 200;
-        await context.Response.CompleteAsync();
-        return;
-    }
-
-    await next();
-});
-
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseCors("MyPolicy");
+//app.Use(async (context, next) =>
+//{
+//    if (context.Request.Method == HttpMethods.Options)
+//    {
+//        context.Response.StatusCode = 200;
+//        await context.Response.CompleteAsync();
+//        return;
+//    }
+
+//    await next();
+//});
+
+
 //Authentication & Authorization(אם מופעל)
 //app.UseAuthentication();
 //app.UseAuthorization();
