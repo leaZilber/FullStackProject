@@ -33,7 +33,7 @@ opt.AddPolicy("MyPolicy", policy =>
     policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
                        "https://fullstackprojectfrontendangular.onrender.com")
       .AllowAnyHeader()
-      .AllowAnyMethod().
+      .AllowAnyMethod();
       //AllowCredentials();
 }));
 
