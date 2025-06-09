@@ -345,7 +345,7 @@ div {
     font-weight: 400;
     color-scheme: light dark;
     color: #ffffffde;
-    background-color: #242424;
+    /* background-color: #242424; */
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
