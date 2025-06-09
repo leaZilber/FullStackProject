@@ -30,7 +30,6 @@ const SchedulePage = () => {
   const [success, setSuccess] = useState<string | null>(null)
   const [showTurnDetails, setShowTurnDetails] = useState(false)
 
-  // Current user ID - replace with actual logged-in user ID
   const currentUserId = 1;
   
   const fetchTurns = async (): Promise<Turn[]> => {
@@ -41,7 +40,6 @@ const SchedulePage = () => {
     return await response.json();
   };
 
-  // Fetch all doctors from API
   const fetchDoctors = async (): Promise<Doctor[]> => {
     const response = await fetch("https://fullstackproject-5070.onrender.com/api/Doctor");
     if (!response.ok) {
@@ -50,24 +48,20 @@ const SchedulePage = () => {
     return await response.json();
   };
 
-  // Load doctors with available turns
   const loadDoctorsWithAvailableTurns = async () => {
     setLoading(true)
     setError(null)
     setSuccess(null)
     try {
-      // Fetch both turns and doctors
       const [allTurns, allDoctors] = await Promise.all([
         fetchTurns(),
         fetchDoctors()
       ]);
 
-      // Filter only available turns (where UserId is null or empty)
       const availableTurns = allTurns.filter(turn => 
         !turn.UserId || turn.UserId === null || turn.UserId === ""
       );
 
-      // Group available turns by doctor
       const turnsGroupedByDoctor = availableTurns.reduce((acc, turn) => {
         if (!acc[turn.DoctorId]) {
           acc[turn.DoctorId] = [];
@@ -76,9 +70,8 @@ const SchedulePage = () => {
         return acc;
       }, {} as Record<number, Turn[]>);
 
-      // Combine doctors with their available turns
       const doctorsWithAvailableTurns: DoctorWithTurns[] = allDoctors
-        .filter(doctor => turnsGroupedByDoctor[doctor.DoctorId]) // Only doctors with available turns
+        .filter(doctor => turnsGroupedByDoctor[doctor.DoctorId]) 
         .map(doctor => ({
           ...doctor,
           availableTurns: turnsGroupedByDoctor[doctor.DoctorId] || []
@@ -98,13 +91,11 @@ const SchedulePage = () => {
     }
   };
 
-  // Book a turn for the current user
   const bookTurn = async (turn: Turn) => {
     setLoading(true)
     setError(null)
     setSuccess(null)
     try {
-      // Update the turn with the current user ID
       const updatedTurn = {
         ...turn,
         UserId: currentUserId.toString()
@@ -126,7 +117,6 @@ const SchedulePage = () => {
       setShowTurnDetails(false);
       setSelectedTurn(null);
       
-      // Remove the booked turn from the selected doctor's available turns
       if (selectedDoctor) {
         const updatedDoctor = {
           ...selectedDoctor,
@@ -134,13 +124,12 @@ const SchedulePage = () => {
         };
         setSelectedDoctor(updatedDoctor);
         
-        // Update the main doctors list
         setDoctorsWithTurns(prev => 
           prev.map(doc => 
             doc.DoctorId === selectedDoctor.DoctorId 
               ? updatedDoctor
               : doc
-          ).filter(doc => doc.availableTurns.length > 0) // Remove doctors with no available turns
+          ).filter(doc => doc.availableTurns.length > 0) 
         );
       }
 
@@ -152,12 +141,10 @@ const SchedulePage = () => {
     }
   };
 
-  // Load data on component mount
   useEffect(() => {
     loadDoctorsWithAvailableTurns();
   }, []);
 
-  // Format date to Hebrew locale
   const formatDate = (dateString: string | Date) => {
     try {
       return new Date(dateString).toLocaleDateString("he-IL");
@@ -166,25 +153,21 @@ const SchedulePage = () => {
     }
   };
 
-  // Handle turn details view
   const handleViewTurnDetails = (turn: Turn) => {
     setSelectedTurn(turn);
     setShowTurnDetails(true);
   };
 
-  // Handle booking confirmation
   const handleBookTurn = () => {
     if (selectedTurn) {
       bookTurn(selectedTurn);
     }
   };
 
-  // Handle doctor selection
   const handleDoctorSelect = (doctor: DoctorWithTurns) => {
     setSelectedDoctor(doctor);
   };
 
-  // Handle back to doctors list
   const handleBackToDoctors = () => {
     setSelectedDoctor(null);
   };
@@ -214,7 +197,6 @@ const SchedulePage = () => {
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
           overflow: 'hidden'
         }}>
-          {/* Header */}
           <div style={{ 
             background: `linear-gradient(135deg, ${theme.primary} 0%, #008B8E 100%)`,
             color: theme.white,
@@ -269,7 +251,6 @@ const SchedulePage = () => {
           </div>
 
           <div style={{ padding: '1.5rem' }}>
-            {/* Loading indicator */}
             {loading && (
               <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
                 <div style={{ 
@@ -284,7 +265,6 @@ const SchedulePage = () => {
               </div>
             )}
 
-            {/* Error message */}
             {error && (
               <div style={{ 
                 backgroundColor: '#ffebee',
@@ -301,7 +281,6 @@ const SchedulePage = () => {
               </div>
             )}
 
-            {/* Success message */}
             {success && (
               <div style={{ 
                 backgroundColor: '#e8f5e8',
@@ -318,7 +297,6 @@ const SchedulePage = () => {
               </div>
             )}
 
-            {/* Doctor selection */}
             {!selectedDoctor && !loading && (
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -415,10 +393,8 @@ const SchedulePage = () => {
               </div>
             )}
 
-            {/* Available turns for selected doctor */}
             {selectedDoctor && !loading && (
               <div>
-                {/* Doctor info */}
                 <div style={{ 
                   backgroundColor: theme.lightGray, 
                   padding: '1.5rem',
@@ -454,7 +430,6 @@ const SchedulePage = () => {
                   </div>
                 </div>
 
-                {/* Available turns */}
                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
                   <div style={{ fontSize: '1.5rem', marginLeft: '0.5rem' }}>📅</div>
                   <h2 style={{ margin: 0, color: theme.primary, fontWeight: 'bold' }}>
@@ -590,7 +565,6 @@ const SchedulePage = () => {
               </div>
             )}
 
-            {/* Turn details modal */}
             {showTurnDetails && selectedTurn && (
               <div style={{
                 position: 'fixed',

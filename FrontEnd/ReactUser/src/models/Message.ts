@@ -13,8 +13,6 @@ export class Message {
     }
 }
 
-
-
 export class MessagePost {
     UserId: number;
     SenderId: number;

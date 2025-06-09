@@ -14,8 +14,7 @@ export class Turn {
         this.DateTurn = data.DateTurn ?? new Date();
         this.TurnLocate = data.TurnLocate ?? "Unidentified Location";
         this.ArrivalConfirmation = data.ArrivalConfirmation ?? false;
-
-        // חישוב שעה בפורמט 12:30
+        
         const hours = this.DateTurn.getHours().toString().padStart(2, '0');
         const minutes = this.DateTurn.getMinutes().toString().padStart(2, '0');
         this.Hour = `${hours}:${minutes}`;

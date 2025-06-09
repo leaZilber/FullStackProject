@@ -140,16 +140,14 @@ const MedicalHistory = () => {
                 },
               }}
             >
-              {/* מלבן ארוך עם פריסה אופקית */}
               <Box
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   minHeight: 100,
-                  width: "100%", // כמעט כל רוחב ה-70%
+                  width: "100%", 
                 }}
               >
-                {/* תמונה בצד ימין */}
                 <Box
                   sx={{
                     width: 80,
@@ -187,8 +185,6 @@ const MedicalHistory = () => {
                     </Box>
                   )}
                 </Box>
-
-                {/* תוכן באמצע - תוצאות הבדיקה */}
                 <Box sx={{ flex: 1, px: 3, py: 2 }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                     <FileText size={20} color="#C8736D" />
@@ -229,7 +225,6 @@ const MedicalHistory = () => {
                   </Box>
                 </Box>
 
-                {/* תאריך ומספר בדיקה בצד שמאל */}
                 <Box
                   sx={{
                     display: "flex",

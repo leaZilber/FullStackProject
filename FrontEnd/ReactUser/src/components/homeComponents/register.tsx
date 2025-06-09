@@ -29,7 +29,7 @@ import {
     Login
 } from '@mui/icons-material';
 import HeaderPage from './header';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 void React;
 
@@ -37,29 +37,29 @@ const theme = createTheme({
     direction: 'rtl',
     palette: {
         primary: {
-            main: '#00B5B8', // Turquoise
+            main: '#00B5B8',
         },
         secondary: {
-            main: '#C8736D', // Coral/Salmon
+            main: '#C8736D',
         },
         background: {
-            default: '#FFFFFF', // White
-            paper: '#F5F5F5', // Light Gray
+            default: '#FFFFFF',
+            paper: '#F5F5F5',
         },
         text: {
-            primary: '#333333', // Dark Gray
-            secondary: '#666666', // Medium Gray
+            primary: '#333333',
+            secondary: '#666666',
         },
     },
     typography: {
         fontFamily: "'Roboto', 'Arial', sans-serif",
         h3: {
             fontWeight: 600,
-            color: '#00B5B8', // Turquoise
+            color: '#00B5B8',
         },
         h4: {
             fontWeight: 500,
-            color: '#C8736D', // Coral/Salmon
+            color: '#C8736D',
             marginTop: '24px',
         },
     },
@@ -88,15 +88,13 @@ const RegisterComp = () => {
     const [registerError, setRegisterError] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
     const { control, handleSubmit, formState: { errors } } = useForm();
 
-    const onSubmit = async (data:any) => {
+    const onSubmit = async (data: any) => {
         setRegisterError('');
         setRegisterSuccess('');
         setLoading(true);
-
-        // Enhanced logging
         console.log('Form data submitted:', data);
 
         const requestPayload = {
@@ -116,7 +114,7 @@ const RegisterComp = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                timeout: 20000, // 10 second timeout
+                timeout: 20000,
             });
 
             console.log('Full response:', response);
@@ -124,7 +122,6 @@ const RegisterComp = () => {
             console.log('Response data:', response.data);
 
             if (response.status === 200 || response.status === 201) {
-                // Handle both 200 and 201 status codes
                 if (response.data.token) {
                     sessionStorage.setItem("token", response.data.token);
                 }
@@ -145,10 +142,8 @@ const RegisterComp = () => {
         catch (error) {
             console.error("Registration failed - Full error:", error);
 
-            // Type guard to check if error is an axios error
             if (axios.isAxiosError(error)) {
                 if (error.response) {
-                    // Server responded with error status
                     console.error("Error response data:", error.response.data);
                     console.error("Error response status:", error.response.status);
                     console.error("Error response headers:", error.response.headers);
@@ -157,25 +152,26 @@ const RegisterComp = () => {
                         error.response.data?.title ||
                         `Server error: ${error.response.status}`;
                     setRegisterError(`הרשמה נכשלה: ${errorMessage}`);
-                } else if (error.request) {
-                    // Network error
+                }
+                else if (error.request) {
                     console.error("Network error:", error.request);
                     setRegisterError("שגיאת רשת. בדוק את החיבור לאינטרנט.");
-                } else {
-                    // Other axios error
+                }
+                else {
                     console.error("Axios error message:", error.message);
                     setRegisterError("הרשמה נכשלה. נסה שוב.");
                 }
-            } else if (error instanceof Error) {
-                // Standard JavaScript Error
+            }
+            else if (error instanceof Error) {
                 console.error("Error message:", error.message);
                 setRegisterError(`הרשמה נכשלה: ${error.message}`);
-            } else {
-                // Unknown error type
+            } 
+            else {
                 console.error("Unknown error:", error);
                 setRegisterError("הרשמה נכשלה. נסה שוב.");
             }
-        } finally {
+        } 
+        finally {
             setLoading(false);
         }
     };
@@ -251,7 +247,6 @@ const RegisterComp = () => {
                                 <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            {/* UserName */}
                                             <Controller
                                                 name="UserName"
                                                 control={control}
@@ -278,7 +273,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            {/* UserEmail */}
                                             <Controller
                                                 name="UserEmail"
                                                 control={control}
@@ -312,7 +306,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            {/* UserPassword */}
                                             <Controller
                                                 name="UserEncryptedPassword"
                                                 control={control}
@@ -346,7 +339,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
-                                            {/* UserRole */}
                                             <Controller
                                                 name="UserRole"
                                                 control={control}
@@ -373,7 +365,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12} sm={6}>
-                                            {/* UserPhone */}
                                             <Controller
                                                 name="UserPhone"
                                                 control={control}
@@ -406,7 +397,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            {/* UserAddress */}
                                             <Controller
                                                 name="UserAddress"
                                                 control={control}
@@ -433,7 +423,6 @@ const RegisterComp = () => {
                                         </Grid>
 
                                         <Grid item xs={12}>
-                                            {/* UserBirth */}
                                             <Controller
                                                 name="UserBirth"
                                                 control={control}
@@ -484,7 +473,6 @@ const RegisterComp = () => {
                                             </Button>
                                         </Grid>
 
-                                        {/* Login Link Section */}
                                         <Grid item xs={12}>
                                             <Box
                                                 sx={{

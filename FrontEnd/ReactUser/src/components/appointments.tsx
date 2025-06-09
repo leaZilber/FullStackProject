@@ -152,12 +152,10 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
       try {
         setLoading(true);
         
-        // Fetch appointments from the server
         const response = await fetch("https://fullstackproject-5070.onrender.com/api/Turn", {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // הוסף את ה-authorization token אם נדרש
             'Authorization': `Bearer ${localStorage.getItem("authToken") || sessionStorage.getItem("token") || ""}`,
           },
         });
@@ -252,7 +250,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
     }
   };
 
-  // אם אין userId, הצג הודעת שגיאה
   if (!currentUserId) {
     return (
       <Box sx={{ textAlign: "center", py: 8 }}>
@@ -266,7 +263,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
 
   return (
     <Box>
-      {/* Loading */}
       {loading ? (
         <Box sx={{ textAlign: "center", py: 8 }}>
           <CircularProgress size={60} sx={{ mb: 2 }} />
@@ -275,7 +271,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
           </Typography>
         </Box>
       ) : (
-        /* Appointments List */
         <Box>
           {appointments.length > 0 ? (
             <Grid container spacing={3}>
@@ -296,7 +291,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
                       }}
                     >
                       <CardContent sx={{ p: 4 }}>
-                        {/* Status Badge */}
                         <Box sx={{ mb: 3, textAlign: "right" }}>
                           <Chip
                             label={getStatusText(status)}
@@ -306,14 +300,12 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
                           />
                         </Box>
 
-                        {/* Doctor Name */}
                         <Box sx={{ mb: 3, textAlign: "right" }}>
                           <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
                             {appointment.doctorName || "רופא לא צוין"}
                           </Typography>
                         </Box>
 
-                        {/* Appointment Details */}
                         <Grid container spacing={2} sx={{ mb: 3 }}>
                           <Grid item xs={12} sm={6}>
                             <Paper elevation={1} sx={{ p: 2, bgcolor: "background.default" }}>
@@ -359,8 +351,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
                             </Paper>
                           </Grid>
                         </Grid>
-
-                        {/* Action Buttons */}
                         {status === "upcoming" && (
                           <Box sx={{ display: "flex", gap: 2, justifyContent: "flex-start" }}>
                             <Button
@@ -394,7 +384,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
             </Grid>
           ) : (
             <Paper elevation={2} sx={{ p: 8, textAlign: "center" }}>
-              {/* <CalendarIcon sx={{ fontSize: 64, color: "text.secondary", mb: 2 }} /> */}
               <Typography variant="h5" color="text.secondary" gutterBottom>
                 לא נמצאו תורים
               </Typography>
@@ -406,7 +395,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         </Box>
       )}
 
-      {/* Confirmation Dialog */}
       <Dialog
         open={showDialog}
         onClose={() => setShowDialog(false)}
@@ -449,7 +437,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         </DialogActions>
       </Dialog>
 
-      {/* Notification Snackbar */}
       <Snackbar
         open={notification.show}
         autoHideDuration={5000}

@@ -1,6 +1,4 @@
-// import { Message } from "react-hook-form";
-// import { TestResult } from "./testResault";
-// import { Turn } from "./turn";
+
 
 export class User {
     UserId: number;

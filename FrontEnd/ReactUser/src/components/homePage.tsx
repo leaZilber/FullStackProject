@@ -22,7 +22,6 @@ export const HomePage = () => {
                         <button className="signup-btn" onClick={() => { setShowRegister(true); setShowLogin(false); setShowHomePage(false) }}>הרשמה</button>
                     </div>
                     
-                    {/* Admin Login Button */}
                     <div className="admin-login-container">
                         <button 
                             className="admin-login-btn" 

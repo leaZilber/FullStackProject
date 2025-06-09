@@ -1,17 +1,15 @@
 #root {
   max-width: 100vh;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
   overflow-x: hidden;
 } 
-#root {
+/* #root {
   width: 80%;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
   overflow-x: hidden;
-}
+} */
 
 .logo {
   height: 6em;
@@ -319,3 +317,37 @@ input {
   color: #666;
 }
  
+
+.css-1yrp4m8 {
+    display: flex
+;
+    flex-direction: row;
+    min-height: 100vh;
+    direction: rtl;
+    background-color: transparent;
+}
+
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #fff;
+    }
+}
+:root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: light dark;
+    color: #ffffffde;
+    background-color: #242424;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

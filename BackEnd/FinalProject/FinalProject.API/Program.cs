@@ -41,39 +41,16 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 //builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen(c =>
-//{
-//    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
-//    //c.OperationFilter<UploadController>();
-//    c.CustomSchemaIds(type => type.FullName);
-//    c.DescribeAllParametersInCamelCase();
-//    c.IgnoreObsoleteActions();
-//    c.IgnoreObsoleteProperties();
 
-//var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-//var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-//if (File.Exists(xmlPath))
-//{
-//    c.IncludeXmlComments(xmlPath);
-//}
-//});
-
-//builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
-//{
-//    policy
-//    .AllowAnyOrigin()
-//    .AllowAnyHeader()
-//    .AllowAnyMethod();
-//}));
 builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
 {
     policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
-                       "https://fullstackprojectfrontendangular.onrender.com")
+                       "https://fullstackprojectfrontendangular.onrender.com",
+                       "https://vision.googleapis.com/v1/images:annotate",
+                       "https://api.openai.com/v1/chat/completions")
       .AllowAnyHeader()
       .AllowAnyMethod();
-      //.AllowCredentials();
 }));
-// Register Services & Repositories
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IMessageService, MessageService>();

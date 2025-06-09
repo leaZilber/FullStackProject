@@ -105,7 +105,6 @@ namespace FinalProject.API.Controllers
             var stats = await _userService.GetUserStatsOverTime();
             return Ok(stats);
         }
-
     }
 }
 

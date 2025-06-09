@@ -15,10 +15,8 @@ const theme = {
   info: "#2196F3"
 };
 
-// API Configuration
 const GUEST_USER_ID = -1;
 
-// Interfaces
 interface TestResult {
   TestId: number;
   UserId: number;
@@ -48,13 +46,6 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
   </div>
 );
 
-// Utility Functions
-// const getCurrentUserId = (): number => {
-//   // Using in-memory simulation instead of localStorage
-//   const mockUserId = Math.random() > 0.5 ? 123 : GUEST_USER_ID;
-//   console.log(mockUserId === GUEST_USER_ID ? "Guest user mode" : `User logged in with ID: ${mockUserId}`);
-//   return mockUserId;
-// };
 
 const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   try {
@@ -101,7 +92,6 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   }
 };
 
-// Components
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-8">
     <div
@@ -294,7 +284,6 @@ export default function CheckPicture() {
       style={{ backgroundColor: theme.background }}
     >
       <div className="max-w-4xl mx-auto px-4">
-        {/* Header */}
         <div
           className="rounded-xl shadow-lg p-6 mb-8"
           style={{ backgroundColor: theme.surface }}
@@ -316,7 +305,6 @@ export default function CheckPicture() {
           <AlertBox type={isLoggedIn ? "success" : "info"}>
             <div className="flex items-center">
               <span className="ml-2">
-                {/* {isLoggedIn ? "👤" : "👥"} */}
               </span>
               <strong>מצב משתמש: </strong>
               {isLoggedIn ?
@@ -326,7 +314,6 @@ export default function CheckPicture() {
           </AlertBox>
         </div>
 
-        {/* Main Upload Section */}
         <div
           className="rounded-xl shadow-lg p-6 mb-8"
           style={{ backgroundColor: theme.surface }}
@@ -371,7 +358,6 @@ export default function CheckPicture() {
               המערכת משתמשת בבינה מלאכותית מתקדמת לזיהוי אזורים חשודים
             </div>
 
-            {/* Error Display */}
             {error && (
               <div className="mb-6">
                 <AlertBox type="error">
@@ -380,37 +366,7 @@ export default function CheckPicture() {
               </div>
             )}
 
-            {/* Image Preview */}
-            {/* {image && !loading && (
-              <div className="mb-6">
-                <div className="flex justify-center">
-                  <img
-                    src={image}
-                    alt="תמונה שהועלתה"
-                    className="max-w-md max-h-96 object-contain rounded-lg shadow-md"
-                  />
-                </div>
-                <div className="text-center mt-4">
-                  <button
-                    onClick={handleSubmit}
-                    disabled={loading}
-                    className="font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-                    style={{
-                      backgroundColor: theme.secondary,
-                      color: theme.surface
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = `${theme.secondary}dd`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = theme.secondary;
-                    }}
-                  >
-                    לשליחה לבדיקה
-                  </button>
-                </div>
-              </div>
-            )} */}
+          
             {image && !loading && (
               <div className="mb-6">
                 <div className="flex justify-center">
@@ -442,16 +398,13 @@ export default function CheckPicture() {
                 </div>
               </div>
             )}
-            {/* Loading State */}
             {loading && <LoadingSpinner />}
 
-            {/* Results Display */}
             {feedback && analysisComplete && !loading && (
               <div className="mb-6">
                 <AlertBox type={getSeverityType(feedback)}>
                   <div className="space-y-3">
                     <div className="flex items-center">
-                      {/* <span className="text-xl ml-2">🔬</span> */}
                       <strong>תוצאות הבדיקה:</strong>
                     </div>
                     <div className="text-base leading-relaxed">
@@ -465,7 +418,6 @@ export default function CheckPicture() {
                   </div>
                 </AlertBox>
 
-                {/* Appointment Scheduling Button */}
                 {shouldShowAppointment && (
                   <div className="mt-6 text-center">
                     <AlertBox type="warning">
@@ -498,7 +450,6 @@ export default function CheckPicture() {
           </div>
         </div>
 
-        {/* Test History Section */}
         {isLoggedIn && testHistory.length > 0 && (
           <div
             className="rounded-xl shadow-lg p-6"
@@ -569,7 +520,6 @@ export default function CheckPicture() {
           </div>
         )}
 
-        {/* Instructions Section */}
         <div
           className="rounded-xl shadow-lg p-6 mt-8"
           style={{ backgroundColor: theme.surface }}

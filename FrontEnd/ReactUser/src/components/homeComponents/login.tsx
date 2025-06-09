@@ -38,12 +38,12 @@ const theme = createTheme({
       main: '#C8736D',
     },
     background: {
-      default: '#FFFFFF', // White
-      paper: '#F5F5F5', // Light Gray
+      default: '#FFFFFF', 
+      paper: '#F5F5F5', 
     },
     text: {
-      primary: '#333333', // Dark Gray
-      secondary: '#666666', // Medium Gray
+      primary: '#333333', 
+      secondary: '#666666', 
     },
   },
   typography: {

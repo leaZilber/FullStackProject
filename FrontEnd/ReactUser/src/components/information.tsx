@@ -56,7 +56,6 @@ const theme = createTheme({
     },
 });
 
-// Define the type for content keys
 type ContentKey = 
     | "מהי מלנומה?"
     | "מהי שכיחות המלנומה, ועד כמה היא נפוצה?"
@@ -76,7 +75,6 @@ const Information = () => {
         setExpandedPanel(isExpanded ? panel : false);
     };
 
-    // Define content with proper typing
     const content: Record<ContentKey, JSX.Element> = {
         "מהי מלנומה?": (
             <Box>
