@@ -30,17 +30,16 @@ builder.Services.AddEndpointsApiExplorer();
 //    }
 //}
 
-// Add services to the container
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     options.JsonSerializerOptions.WriteIndented = true;
 });
 
-//builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
+builder.Services.AddCors(opt =>
+opt.AddPolicy("MyPolicy", policy =>
 {
     policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
                        "https://fullstackprojectfrontendangular.onrender.com")
@@ -48,6 +47,9 @@ builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
       .AllowAnyMethod().
       AllowCredentials();
 }));
+
+
+
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IMessageService, MessageService>();
@@ -61,7 +63,6 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddSingleton<S3Service>();
 
-//builder.Services.AddScoped<S3Service>();
 builder.Services.AddDbContext<DataContext>(options =>
 {
     var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
@@ -71,76 +72,8 @@ builder.Services.AddDbContext<DataContext>(options =>
            .LogTo(Console.WriteLine);
 });
 
-//builder.Services.AddDbContext<DataContext>();
-//// CORS Configuration
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowFrontend", policy =>
-//    {
-//        policy.WithOrigins(
-//                "http://localhost:5173",
-//                "https://localhost:5173",
-//                "http://localhost:3000",
-//                "https://localhost:3000",
-//                "http://localhost:5174",
-//                "http://localhost:4200",
-//                "https://localhost:4200",
-//                "https://fullstackprojectfrontendreact.onrender.com"
-//              )
-//              .AllowAnyMethod()
-//              .AllowAnyHeader();
-//    });
-//});
-
-// JWT Authentication (אם תרצה להפעיל, הסר את ההערות)
-//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//    .AddJwtBearer(options =>
-//    {
-//        options.TokenValidationParameters = new TokenValidationParameters
-//        {
-//            ValidateIssuer = true,
-//            ValidateAudience = true,
-//            ValidateLifetime = true,
-//            ValidateIssuerSigningKey = true,
-//            ValidIssuer = builder.Configuration["JWT_ISSUER"],
-//            ValidAudience = builder.Configuration["JWT_AUDIENCE"],
-//            IssuerSigningKey = new SymmetricSecurityKey(
-//                //Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"])
-//                Encoding.UTF8.GetBytes(builder.Configuration["JWT_KEY"] ?? "")
-
-//            )
-//        };
-//    });
-
-// Swagger Configuration
 
 
-//builder.Services.AddSwaggerGen(options =>
-//{
-//options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-//{
-//    Description = "JWT Authorization header using the Bearer scheme.",
-//    Name = "Authorization",
-//    In = ParameterLocation.Header,
-//    Type = SecuritySchemeType.ApiKey,
-//    Scheme = "Bearer"
-//});
-
-//options.AddSecurityRequirement(new OpenApiSecurityRequirement
-//{
-//        {
-//            new OpenApiSecurityScheme
-//            {
-//                Reference = new OpenApiReference
-//                {
-//                    Type = ReferenceType.SecurityScheme,
-//                    Id = "Bearer"
-//                }
-//            },
-//            new string[] {}
-//        }
-//});
-//});
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Pictures API", Version = "v1" });
@@ -206,22 +139,6 @@ app.UseSwaggerUI(c =>
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("MyPolicy");
-//app.Use(async (context, next) =>
-//{
-//    if (context.Request.Method == HttpMethods.Options)
-//    {
-//        context.Response.StatusCode = 200;
-//        await context.Response.CompleteAsync();
-//        return;
-//    }
-
-//    await next();
-//});
-
-
-//Authentication & Authorization(אם מופעל)
-//app.UseAuthentication();
-//app.UseAuthorization();
 
 app.MapControllers();
 app.MapGet("/", () => "final project is runing");

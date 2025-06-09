@@ -55,6 +55,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     const response = await fetch("https://fullstackproject-5070.onrender.com/api/Upload/upload", {
       method: 'POST',
       body: formData,
+      credentials: "include",
     });
 
     if (!response.ok) {
