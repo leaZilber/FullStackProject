@@ -8,9 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Amazon.Auth.AccessControlPolicy;
 
-// Load environment variables from .env file
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,11 +43,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(opt => opt.AddPolicy("MyPolicy", policy =>
 {
     policy.WithOrigins("https://fullstackprojectfrontendreact.onrender.com",
-                       "https://fullstackprojectfrontendangular.onrender.com",
-                       "https://vision.googleapis.com/v1/images:annotate",
-                       "https://api.openai.com/v1/chat/completions")
+                       "https://fullstackprojectfrontendangular.onrender.com")
       .AllowAnyHeader()
-      .AllowAnyMethod();
+      .AllowAnyMethod().
+      AllowCredentials();
 }));
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();

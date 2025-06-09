@@ -45,7 +45,6 @@ public class UploadController : ControllerBase
     {
         try
         {
-            // בדיקה בסיסית בלי חשיפת מידע רגיש
             var status = new
             {
                 Status = "Healthy",
@@ -67,8 +66,6 @@ public class UploadController : ControllerBase
             return StatusCode(500, new { status = "Unhealthy", error = "Configuration check failed" });
         }
     }
-
-    // אופציה 3: endpoint נפרד רק לצרכי פיתוח (להסיר בproduction)
 #if DEBUG
     [HttpGet("debug/config-test")]
     public IActionResult DebugConfigurationTest()
@@ -100,6 +97,7 @@ public class UploadController : ControllerBase
     [HttpPost("upload")]
     public async Task<IActionResult> UploadImage(IFormFile image)
     {
+
         if (image == null || image.Length == 0)
         {
             _logger.LogWarning("Upload attempt with no file");
