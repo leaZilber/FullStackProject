@@ -34,7 +34,7 @@ opt.AddPolicy("MyPolicy", policy =>
                        "https://fullstackprojectfrontendangular.onrender.com")
       .AllowAnyHeader()
       .AllowAnyMethod().
-      AllowCredentials();
+      //AllowCredentials();
 }));
 
 
