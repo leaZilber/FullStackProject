@@ -48,7 +48,6 @@ export class LoginAdminComponent {
         this.authService.login({ UserName: this.UserName, UserEncryptedPassword: this.UserEncryptedPassword })
             .subscribe({
                 next: (res: any) => {
-                    console.log('Logged in! Token:', res.token);
                     this.router.navigate(['/poral-manage'], { replaceUrl: true });
                     localStorage.setItem('token', res.token);
                     this.showSnackBar('Login successful!', 'success');

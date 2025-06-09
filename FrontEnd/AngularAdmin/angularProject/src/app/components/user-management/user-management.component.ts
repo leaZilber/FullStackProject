@@ -22,6 +22,17 @@ import { MatSortModule } from '@angular/material/sort';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 
+export interface UserResponseModel {
+  id: number;
+  userName: string;
+  userEmail: string;
+  userRole: string;
+  userPhone?: string;
+  userAddress?: string;
+  userBirth?: Date;
+  userCreateDate?: Date;
+}
+
 
 export interface UserModel {
   id?: number;
@@ -137,10 +148,28 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     }));
   }
 
+  // loadUsers(): void {
+  //   this.isLoading = true;
+  //   this.userService.getAllUsers().subscribe({
+  //     next: (registerData: RegisterPostModel[]) => {
+  //       const users = this.mapRegisterToUser(registerData);
+  //       this.dataSource.data = users;
+  //       this.totalUsers = users.length;
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('שגיאה בטעינת המשתמשים:', error);
+  //       this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
+  
   loadUsers(): void {
     this.isLoading = true;
     this.userService.getAllUsers().subscribe({
       next: (registerData: RegisterPostModel[]) => {
+        // השתמש במיפוי המקורי שלך
         const users = this.mapRegisterToUser(registerData);
         this.dataSource.data = users;
         this.totalUsers = users.length;
@@ -153,6 +182,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       }
     });
   }
+ 
+  
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -187,68 +218,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.userForm.get('userEncryptedPassword')?.updateValueAndValidity();
   }
 
-  // saveUser(): void {
-  //   if (this.userForm.valid) {
-  //     this.isLoading = true;
-  //     const formValue = this.userForm.value;
-
-  //     if (this.isEditMode && this.currentUserId) {
-  //       const updateData: UserUpdateModel = {
-  //         id: this.currentUserId,
-  //         userName: formValue.userName,
-  //         userEmail: formValue.userEmail,
-  //         userPhone: formValue.userPhone,
-  //         userAddress: formValue.userAddress,
-  //         userBirth: formValue.userBirth,
-  //         userRole: formValue.userRole
-  //       };
-
-  //       if (formValue.userEncryptedPassword) {
-  //         updateData.userEncryptedPassword = formValue.userEncryptedPassword;
-  //       }
-
-  //       this.userService.updateUser(updateData).subscribe({
-  //         next: () => {
-  //           this.showSnackBar('המשתמש עודכן בהצלחה', 'success');
-  //           this.cancelForm();
-  //           this.loadUsers();
-  //         },
-  //         error: (error) => {
-  //           console.error('שגיאה בעדכון המשתמש:', error);
-  //           this.showSnackBar('שגיאה בעדכון המשתמש', 'error');
-  //           this.isLoading = false;
-  //         }
-  //       });
-  //     } 
-
-  //     else {
-  //       const postData: UserPostModel = {
-  //         userName: formValue.userName,
-  //         userEmail: formValue.userEmail,
-  //         userEncryptedPassword: formValue.userEncryptedPassword,
-  //         userPhone: formValue.userPhone,
-  //         userAddress: formValue.userAddress,
-  //         userBirth: formValue.userBirth,
-  //         userRole: formValue.userRole
-  //       };
-
-  //       this.userService.addUser(postData).subscribe({
-  //         next: () => {
-  //           this.showSnackBar('המשתמש נוסף בהצלחה', 'success');
-  //           this.cancelForm();
-  //           this.loadUsers();
-  //         },
-  //         error: (error) => {
-  //           console.error('שגיאה בהוספת המשתמש:', error);
-  //           this.showSnackBar('שגיאה בהוספת המשתמש', 'error');
-  //           this.isLoading = false;
-  //         }
-  //       });
-  //     }
-  //   } else {
-  //     this.showSnackBar('אנא מלא את כל השדות הנדרשים', 'error');
-  //   }
-  // }
   saveUser(): void {
     if (this.userForm.valid) {
       this.isLoading = true;
