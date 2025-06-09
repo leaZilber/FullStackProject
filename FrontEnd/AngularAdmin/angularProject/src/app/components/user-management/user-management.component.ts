@@ -136,8 +136,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
-
     return registerData.map(item => ({
+      userId: item.UserId,
       userName: item.UserName || '',
       userEmail: item.UserEmail || '',
       userRole: item.UserRole || 'user',
@@ -147,23 +147,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userCreateDate: item.UserCreateDate
     }));
   }
-
-  // loadUsers(): void {
-  //   this.isLoading = true;
-  //   this.userService.getAllUsers().subscribe({
-  //     next: (registerData: RegisterPostModel[]) => {
-  //       const users = this.mapRegisterToUser(registerData);
-  //       this.dataSource.data = users;
-  //       this.totalUsers = users.length;
-  //       this.isLoading = false;
-  //     },
-  //     error: (error) => {
-  //       console.error('שגיאה בטעינת המשתמשים:', error);
-  //       this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
-  //       this.isLoading = false;
-  //     }
-  //   });
-  // }
 
   loadUsers(): void {
     this.isLoading = true;
@@ -256,11 +239,10 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         });
       }
       else {
-        // Create RegisterPostModel with PascalCase properties to match the expected format
         const newUser: RegisterPostModel = new RegisterPostModel(
           undefined, // id
-          formValue.userName, // UserName
-          formValue.userEmail, // UserEmail
+          formValue.userName, 
+          formValue.userEmail, 
           formValue.userEncryptedPassword, // UserEncryptedPassword
           formValue.userRole, // UserRole
           formValue.userPhone || '', // UserPhone
@@ -370,5 +352,4 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   goBack(): void {
     this.router.navigate(['/dashboard']);
   }
-
 }
