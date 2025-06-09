@@ -8,27 +8,16 @@ using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http.Features;
 
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-
-//foreach (System.Collections.DictionaryEntry envVar in Environment.GetEnvironmentVariables())
-//{
-//    if (envVar.Key != null)
-//    {
-//        string key = envVar.Key.ToString()!;
-//        string? value = envVar.Value?.ToString();
-
-//        builder.Configuration[key] = value ?? string.Empty;
-//    }
-//}
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -47,7 +36,6 @@ opt.AddPolicy("MyPolicy", policy =>
       .AllowAnyMethod().
       AllowCredentials();
 }));
-
 
 
 builder.Services.AddScoped<IDoctorService, DoctorService>();
@@ -124,10 +112,15 @@ if (File.Exists(".env"))
     }
 }
 
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 100_000_000; 
+});
+
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
+
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -135,7 +128,6 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = "swagger";
 });
 
-//}
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("MyPolicy");
@@ -143,3 +135,6 @@ app.UseCors("MyPolicy");
 app.MapControllers();
 app.MapGet("/", () => "final project is runing");
 app.Run();
+
+
+
