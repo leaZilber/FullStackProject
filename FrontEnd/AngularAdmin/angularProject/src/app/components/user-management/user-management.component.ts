@@ -243,8 +243,8 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           undefined, // id
           formValue.userName, 
           formValue.userEmail, 
-          formValue.userEncryptedPassword, // UserEncryptedPassword
-          formValue.userRole, // UserRole
+          formValue.userEncryptedPassword, 
+          formValue.userRole,
           formValue.userPhone || '', // UserPhone
           formValue.userAddress || '', // UserAddress
           formValue.userBirth || new Date(), // UserBirth

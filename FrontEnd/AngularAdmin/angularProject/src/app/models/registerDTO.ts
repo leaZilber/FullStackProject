@@ -13,7 +13,7 @@
 // }
 
 
-export interface RegisterPostModel {
+export class RegisterPostModel {
     UserId?: number; // הוסף את זה
     UserName: string;
     UserEmail: string;
@@ -23,4 +23,25 @@ export interface RegisterPostModel {
     UserAddress?: string;
     UserBirth?: Date;
     UserCreateDate?: Date;
+    constructor(
+        UserId?: number,
+        UserName: string = "",
+        UserEmail: string = "",
+        UserEncryptedPassword: string = "",
+        UserRole: string = 'user|Admin',
+        UserPhone?: string,
+        UserAddress?: string,
+        UserBirth?: Date,
+        UserCreateDate?: Date
+    ) {
+        this.UserId = UserId;
+        this.UserName = UserName;
+        this.UserEmail = UserEmail;
+        this.UserEncryptedPassword = UserEncryptedPassword;
+        this.UserRole = UserRole;
+        this.UserPhone = UserPhone;
+        this.UserAddress = UserAddress;
+        this.UserBirth = UserBirth;
+        this.UserCreateDate = UserCreateDate;
+    }
   }
