@@ -86,8 +86,8 @@ export interface UserUpdateModel {
     MatChipsModule
   ],
   standalone: true,
-  templateUrl: 'user-management.component.html',
-  styleUrls: ['user-management.component.css']
+  templateUrl: './user-management.component.html',
+  // styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit, AfterViewInit {
 
