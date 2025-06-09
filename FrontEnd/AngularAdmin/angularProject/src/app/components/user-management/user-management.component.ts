@@ -148,28 +148,87 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     }));
   }
 
+  // loadUsers(): void {
+  //   this.isLoading = true;
+  //   console.log('Starting to load users...'); // הוסף את זה
+    
+  //   this.userService.getAllUsers().subscribe({
+  //     next: (registerData: RegisterPostModel[]) => {
+  //       console.log('Data received:', registerData); // הוסף את זה
+  //       const users = this.mapRegisterToUser(registerData);
+  //       this.dataSource.data = users;
+  //       this.totalUsers = users.length;
+  //       this.isLoading = false;
+  //     },
+  //     error: (error) => {
+  //       console.error('Full error object:', error); // הוסף את זה
+  //       console.error('Error status:', error.status); // הוסף את זה
+  //       console.error('Error URL:', error.url); // הוסף את זה
+  //       this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
+  //       this.isLoading = false;
+  //     }
+  //   });
+  // }
   loadUsers(): void {
     this.isLoading = true;
-    console.log('Starting to load users...'); // הוסף את זה
+    console.log('Starting to load users...');
     
+    // בדיקה אם השרת זמין
     this.userService.getAllUsers().subscribe({
       next: (registerData: RegisterPostModel[]) => {
-        console.log('Data received:', registerData); // הוסף את זה
+        console.log('Raw data received from server:', registerData);
+        console.log('Data type:', typeof registerData);
+        console.log('Is array:', Array.isArray(registerData));
+        
+        if (!registerData || !Array.isArray(registerData)) {
+          console.error('Invalid data format received:', registerData);
+          this.showSnackBar('פורמט הנתונים לא תקין', 'error');
+          this.isLoading = false;
+          return;
+        }
+        
+        console.log('Number of users received:', registerData.length);
+        
+        if (registerData.length === 0) {
+          console.log('No users found in database');
+          this.showSnackBar('לא נמצאו משתמשים במערכת', 'error');
+        }
+        
         const users = this.mapRegisterToUser(registerData);
+        console.log('Mapped users:', users);
+        
         this.dataSource.data = users;
         this.totalUsers = users.length;
         this.isLoading = false;
+        
+        console.log('Users loaded successfully. Total:', this.totalUsers);
       },
       error: (error) => {
-        console.error('Full error object:', error); // הוסף את זה
-        console.error('Error status:', error.status); // הוסף את זה
-        console.error('Error URL:', error.url); // הוסף את זה
-        this.showSnackBar('שגיאה בטעינת המשתמשים', 'error');
+        console.error('=== ERROR DETAILS ===');
+        console.error('Full error object:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+        console.error('Error URL:', error.url);
+        console.error('Error name:', error.name);
+        
+        // בדיקה מדויקת של סוג השגיאה
+        if (error.status === 404) {
+          console.error('404 Error - API endpoint not found');
+          this.showSnackBar('נתיב ה-API לא נמצא - בדוק את כתובת השרת', 'error');
+        } else if (error.status === 0) {
+          console.error('Network Error - Server might be down');
+          this.showSnackBar('שגיאת רשת - השרת אינו זמין', 'error');
+        } else if (error.status === 500) {
+          console.error('Server Error');
+          this.showSnackBar('שגיאת שרת פנימית', 'error');
+        } else {
+          this.showSnackBar(`שגיאה בטעינת המשתמשים: ${error.status}`, 'error');
+        }
+        
         this.isLoading = false;
       }
     });
   }
- 
   
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
