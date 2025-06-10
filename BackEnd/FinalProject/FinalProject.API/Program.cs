@@ -179,24 +179,24 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 
 // תיקון ההגדרה של CORS - פתרון יותר פתוח
-builder.Services.AddCors(opt =>
-    opt.AddPolicy("MyPolicy", policy =>
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy", builder =>
     {
-        policy.AllowAnyOrigin()  // מתיר מכל מקום - פחות בטוח אבל יעבוד
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-
-        // אלטרנטיבה יותר בטוחה:
-        /*
-        policy.WithOrigins(
+        builder
+            .WithOrigins(
+                "https://fullstackprojectfrontendangular.onrender.com",
                 "https://fullstackprojectfrontendreact.onrender.com",
-                "https://fullstackprojectfrontendangular.onrender.com"
+                "http://localhost:4200", // for local development
+                "http://localhost:3000"  // for local development
             )
-            .AllowAnyHeader()
             .AllowAnyMethod()
-            .SetIsOriginAllowed(origin => true); // מתיר מכל origin
-        */
-    }));
+            .AllowAnyHeader()
+            .AllowCredentials(); // Important if you're sending cookies/auth
+    });
+});
+
+
 
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
