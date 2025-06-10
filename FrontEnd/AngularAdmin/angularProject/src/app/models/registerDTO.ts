@@ -12,36 +12,17 @@
 //     ) { }
 // }
 
-
 export class RegisterPostModel {
-    UserId?: number; // הוסף את זה
-    UserName: string;
-    UserEmail: string;
-    UserEncryptedPassword: string;
-    UserRole: string;
-    UserPhone?: string;
-    UserAddress?: string;
-    UserBirth?: Date;
-    UserCreateDate?: Date;
     constructor(
-        UserId?: number,
-        UserName: string = "",
-        UserEmail: string = "",
-        UserEncryptedPassword: string = "",
-        UserRole: string = 'user|Admin',
-        UserPhone?: string,
-        UserAddress?: string,
-        UserBirth?: Date,
-        UserCreateDate?: Date
-    ) {
-        this.UserId = UserId;
-        this.UserName = UserName;
-        this.UserEmail = UserEmail;
-        this.UserEncryptedPassword = UserEncryptedPassword;
-        this.UserRole = UserRole;
-        this.UserPhone = UserPhone;
-        this.UserAddress = UserAddress;
-        this.UserBirth = UserBirth;
-        this.UserCreateDate = UserCreateDate;
-    }
+      public userId?: number,
+      public userName: string = '',
+      public userEmail: string = '',
+      public userEncryptedPassword: string = '',
+      public userRole: string = 'user',
+      public userPhone?: string,
+      public userAddress?: string,
+      public userBirth?: Date,
+      public userCreateDate?: Date
+    ) {}
   }
+  

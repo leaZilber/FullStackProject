@@ -137,14 +137,14 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
     return registerData.map(item => ({
-      userId: item.UserId,
-      userName: item.UserName || '',
-      userEmail: item.UserEmail || '',
-      userRole: item.UserRole || 'user',
-      userPhone: item.UserPhone,
-      userAddress: item.UserAddress,
-      userBirth: item.UserBirth,
-      userCreateDate: item.UserCreateDate
+      userId: item.userId,
+      userName: item.userName || '',
+      userEmail: item.userEmail || '',
+      userRole: item.userRole || 'user',
+      userPhone: item.userPhone,
+      userAddress: item.userAddress,
+      userBirth: item.userBirth,
+      userCreateDate: item.userCreateDate
     }));
   }
 
