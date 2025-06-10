@@ -25,8 +25,7 @@
               }
             ],
             "styles": [ "src/custom-theme.scss", "src/styles.css" ],
-            "scripts": [],
-            "server": "src/main.server.ts"
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -69,26 +68,6 @@
             }
           },
           "defaultConfiguration": "development"
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/angular-project-server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "sourceMap": false,
-              "optimization": true
-            },
-            "development": {
-              "sourceMap": true,
-              "optimization": false
-            }
-          },
-          "defaultConfiguration": "production"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
