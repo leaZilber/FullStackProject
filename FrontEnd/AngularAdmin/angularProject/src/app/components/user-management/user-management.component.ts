@@ -579,10 +579,9 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // ← תיקון הבעיה העיקרית כאן
   private mapRegisterToUser(registerData: RegisterPostModel[]): UserModel[] {
     return registerData.map(item => ({
-      id: item.userId, // ← תוקן מ userId ל id
+      id: item.userId, 
       userName: item.userName || '',
       userEmail: item.userEmail || '',
       userRole: item.userRole || 'user',
@@ -614,13 +613,12 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         
         if (registerData.length === 0) {
           console.log('No users found in database');
-          this.showSnackBar('לא נמצאו משתמשים במערכת', 'info'); // שונה מ error ל info
+          this.showSnackBar('לא נמצאו משתמשים במערכת', 'info'); 
         }
         
         const users = this.mapRegisterToUser(registerData);
         console.log('Mapped users:', users);
         
-        // בדיקה שכל המשתמשים יש להם ID
         const usersWithoutId = users.filter(user => !user.id);
         if (usersWithoutId.length > 0) {
           console.warn('Found users without ID:', usersWithoutId);
@@ -643,13 +641,16 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         if (error.status === 404) {
           console.error('404 Error - API endpoint not found');
           this.showSnackBar('נתיב ה-API לא נמצא - בדוק את כתובת השרת', 'error');
-        } else if (error.status === 0) {
+        } 
+        else if (error.status === 0) {
           console.error('Network Error - Server might be down');
           this.showSnackBar('שגיאת רשת - השרת אינו זמין', 'error');
-        } else if (error.status === 500) {
+        } 
+        else if (error.status === 500) {
           console.error('Server Error');
           this.showSnackBar('שגיאת שרת פנימית', 'error');
-        } else {
+        } 
+        else {
           this.showSnackBar(`שגיאה בטעינת המשתמשים: ${error.status}`, 'error');
         }
         
@@ -675,7 +676,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   editUser(user: UserModel): void {
-    console.log('Editing user:', user); // הוסף לוג לבדיקה
+    console.log('Editing user:', user); 
     
     if (!user.id) {
       console.error('Cannot edit user without ID:', user);
@@ -696,7 +697,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       userRole: user.userRole
     });
 
-    // הסר את הדרישה לסיסמה בעריכה
     this.userForm.get('userEncryptedPassword')?.clearValidators();
     this.userForm.get('userEncryptedPassword')?.updateValueAndValidity();
   }
