@@ -4,14 +4,14 @@ using FinalProject.Core;
 using FinalProject.Core.DTOs;
 using FinalProject.Core.IServices;
 using FinalProject.Core.Models;
-using FinalProject.Service.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FinalProject.API.Controllers;
+using Microsoft.AspNetCore.Cors;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace FinalProject.API.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
