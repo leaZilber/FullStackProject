@@ -413,7 +413,6 @@ div {
   top: 0;
   /* transform: translateX(-50%); */
   width: 100%; /* Slightly less than full width for better appearance */
-  max-width: 1200px; /* Maximum width */
   height: 70px;
   color: white;
   display: flex;
@@ -421,6 +420,7 @@ div {
   justify-content: space-between;
   z-index: 1000;
   left: 0;
+  right: 0;
 }
 
 #backgroundHome {
