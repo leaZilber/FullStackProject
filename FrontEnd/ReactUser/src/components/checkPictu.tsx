@@ -32,7 +32,6 @@ interface ApiResponse {
   timestamp?: string;
 }
 
-// Mock SchedulePage component - replace with your actual component
 const SchedulePage = ({ onBack }: { onBack: () => void }) => (
   <div className="p-8 text-center">
     <h2 className="text-2xl font-bold mb-4">קביעת תור לרופא עור</h2>
