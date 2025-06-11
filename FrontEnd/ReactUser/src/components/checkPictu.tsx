@@ -920,7 +920,7 @@ export default function CheckPicture() {
   //   setUserId(userIdFromToken);
   //   setIsLoggedIn(userIdFromToken !== -1);
   // }, []);
-  React.useEffect(() => {
+  useEffect(() => {
     const userIdFromToken = getUserIdFromToken();
     console.log('User ID from token:', userIdFromToken); // הוסף זה
     
