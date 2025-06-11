@@ -411,7 +411,6 @@ div {
 #headerContainer {
   position: fixed;
   top: 0;
-  left: 50%; /* Center horizontally */
   transform: translateX(-50%); /* Adjust for perfect centering */
   width: 90%; /* Slightly less than full width for better appearance */
   max-width: 1200px; /* Maximum width */
