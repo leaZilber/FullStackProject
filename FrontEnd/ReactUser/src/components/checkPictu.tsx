@@ -552,7 +552,7 @@
 
 
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from 'react';
 void React;
 
@@ -655,6 +655,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     throw new Error(error instanceof Error ? error.message : 'שגיאה בתקשורת עם השרת. אנא נסה שוב.');
   }
 };
+
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
     console.log('Attempting to save test result:', testResult); // הוסף זה
@@ -881,16 +882,31 @@ export default function CheckPicture() {
   //   setUserId(userIdFromToken);
   //   setIsLoggedIn(userIdFromToken !== -1);
   // }, []);
-  React.useEffect(() => {
-    const userIdFromToken = getUserIdFromToken();
-    console.log('User ID from token:', userIdFromToken); // הוסף זה
+
+  // useEffect(() => {
+  //   const userIdFromToken = getUserIdFromToken();
+  //   console.log('User ID from token:', userIdFromToken); // הוסף זה
     
+  //   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  //   console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
+    
+  //   setUserId(userIdFromToken);
+  //   setIsLoggedIn(userIdFromToken !== -1);
+  // }, []);
+
+  useEffect(() => {
     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-    console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
-    
+    console.log('Token in storage:', token ? 'exists' : 'missing');
+  
+    if (!token) return;
+  
+    const userIdFromToken = getUserIdFromToken();
+    console.log('User ID from token:', userIdFromToken);
+  
     setUserId(userIdFromToken);
     setIsLoggedIn(userIdFromToken !== -1);
   }, []);
+  
   
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
