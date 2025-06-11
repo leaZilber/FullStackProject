@@ -79,6 +79,8 @@ const theme = createTheme({
 });
 
 const drawerWidth = 260;
+
+// Define the type for section keys
 type SectionKey = "uploadImage" | "medicalHistory" | "appointments";
 
 export const PersonalArea = () => {

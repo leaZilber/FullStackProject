@@ -611,15 +611,48 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
 );
 
 // Get user ID from token
+// const getUserIdFromToken = (): number => {
+//   try {
+//     const token = sessionStorage.getItem('token');
+//     if (!token) return -1; 
+//     const payload = JSON.parse(atob(token.split('.')[1]));
+//     return payload.userId || payload.sub || -1;
+//   } catch (error) {
+//     console.error('Error decoding token:', error);
+//     return -1; 
+//   }
+// };
+
+
 const getUserIdFromToken = (): number => {
   try {
     const token = sessionStorage.getItem('token');
-    if (!token) return -1; // Guest user
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.userId || payload.sub || -1;
+    console.log('Raw token:', token); // Debug log
+    
+    if (!token) {
+      console.log('No token found');
+      return -1;
+    }
+
+    // Split the JWT token and get the payload
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      console.log('Invalid token format');
+      return -1;
+    }
+
+    // Decode the payload (second part of JWT)
+    const payload = JSON.parse(atob(tokenParts[1]));
+    console.log('Decoded payload:', payload); // Debug log
+    
+    // Try different possible field names for user ID
+    const userId = payload.userId || payload.sub || payload.id || payload.nameid || payload.user_id;
+    console.log('Extracted userId:', userId); // Debug log
+    
+    return userId ? parseInt(userId, 10) : -1;
   } catch (error) {
     console.error('Error decoding token:', error);
-    return -1; 
+    return -1;
   }
 };
 
@@ -627,7 +660,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   try {
     const formData = new FormData();
     formData.append('image', file);
-    formData.append('includeObjectDetection', 'true'); // Request object detection
+    formData.append('includeObjectDetection', 'true');
 
     const token = sessionStorage.getItem('token');
     const headers: Record<string, string> = {};
@@ -636,11 +669,19 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
+    console.log('Making request with headers:', headers); // Debug log
+
     const response = await fetch("https://fullstackproject-5070.onrender.com/api/Upload/upload", {
       method: 'POST',
       body: formData,
       headers: headers,
+      // Add these for CORS
+      mode: 'cors',
+      credentials: 'include'
     });
+
+    console.log('Response status:', response.status); // Debug log
+    console.log('Response headers:', response.headers); // Debug log
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => null);
@@ -654,7 +695,39 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     console.error('API call failed:', error);
     throw new Error(error instanceof Error ? error.message : 'שגיאה בתקשורת עם השרת. אנא נסה שוב.');
   }
-};
+}
+// const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
+//   try {
+//     const formData = new FormData();
+//     formData.append('image', file);
+//     formData.append('includeObjectDetection', 'true'); 
+
+//     const token = sessionStorage.getItem('token');
+//     const headers: Record<string, string> = {};
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/Upload/upload", {
+//       method: 'POST',
+//       body: formData,
+//       headers: headers,
+//     });
+
+//     if (!response.ok) {
+//       const errorData = await response.json().catch(() => null);
+//       const errorMessage = errorData?.error || `שגיאת שרת: ${response.status}`;
+//       throw new Error(errorMessage);
+//     }
+
+//     const result = await response.json();
+//     return result;
+//   } catch (error) {
+//     console.error('API call failed:', error);
+//     throw new Error(error instanceof Error ? error.message : 'שגיאה בתקשורת עם השרת. אנא נסה שוב.');
+//   }
+// };
 
 // const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
 //   try {
@@ -722,12 +795,52 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 //     throw new Error('שגיאה בשמירת התוצאה');
 //   }
 // };
+
+
+// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+//   try {
+//     console.log('Attempting to save test result:', testResult); // הוסף זה
+    
+//     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+//     console.log('Token exists:', !!token); // הוסף זה
+    
+//     const headers: Record<string, string> = {
+//       'Content-Type': 'application/json',
+//     };
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(testResult),
+//     });
+
+//     console.log('Response status:', response.status); // הוסף זה
+//     console.log('Response ok:', response.ok); // הוסף זה
+
+//     if (!response.ok) {
+//       const errorText = await response.text();
+//       console.error('Error response:', errorText); // הוסף זה
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const result = await response.json();
+//     console.log('Saved result:', result); // הוסף זה
+//     return result;
+//   } catch (error) {
+//     console.error('Save test result failed:', error);
+//     throw new Error('שגיאה בשמירת התוצאה');
+//   }
+// };
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
-    console.log('Attempting to save test result:', testResult); // הוסף זה
+    console.log('Attempting to save test result:', testResult);
     
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-    console.log('Token exists:', !!token); // הוסף זה
+    const token = sessionStorage.getItem('token'); // Use consistent token storage
+    console.log('Token exists:', !!token);
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -741,19 +854,21 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(testResult),
+      mode: 'cors',
+      credentials: 'include'
     });
 
-    console.log('Response status:', response.status); // הוסף זה
-    console.log('Response ok:', response.ok); // הוסף זה
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error response:', errorText); // הוסף זה
+      console.error('Error response:', errorText);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const result = await response.json();
-    console.log('Saved result:', result); // הוסף זה
+    console.log('Saved result:', result);
     return result;
   } catch (error) {
     console.error('Save test result failed:', error);
@@ -930,6 +1045,7 @@ export default function CheckPicture() {
     setUserId(userIdFromToken);
     setIsLoggedIn(userIdFromToken !== -1);
   }, []);
+
   // useEffect(() => {
   //   const userIdFromToken = getUserIdFromToken();
   //   console.log('User ID from token:', userIdFromToken); // הוסף זה
