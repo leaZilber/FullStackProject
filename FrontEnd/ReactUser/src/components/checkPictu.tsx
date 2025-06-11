@@ -924,7 +924,7 @@ export default function CheckPicture() {
     const userIdFromToken = getUserIdFromToken();
     console.log('User ID from token:', userIdFromToken); // הוסף זה
     
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem('token') || sessionStorage.getItem('token');
     console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
     
     setUserId(userIdFromToken);
