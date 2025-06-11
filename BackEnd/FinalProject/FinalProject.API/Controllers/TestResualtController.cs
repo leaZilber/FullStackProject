@@ -49,6 +49,28 @@ namespace FinalProject.API.Controllers
         //    var newTestResault = await _testResualtService.AddAsync(value);
         //    return Ok(newTestResault);
         //}
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] TestResualt value)
+        //{
+        //    try
+        //    {
+        //        // הוסף לוג לבדיקה
+        //        Console.WriteLine($"Attempting to save test result for user: {value.UserId}");
+
+        //        var newTestResault = await _testResualtService.AddAsync(value);
+
+        //        Console.WriteLine($"Successfully saved test result with ID: {newTestResault.TestId}");
+
+        //        return Ok(newTestResault);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error saving test result: {ex.Message}");
+        //        return StatusCode(500, new { error = ex.Message, success = false });
+        //    }
+        //}
+
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] TestResualt value)
         {
@@ -69,6 +91,8 @@ namespace FinalProject.API.Controllers
                 return StatusCode(500, new { error = ex.Message, success = false });
             }
         }
+
+
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put([FromBody] TestResualt value)

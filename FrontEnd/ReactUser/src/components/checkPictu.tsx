@@ -656,6 +656,72 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   }
 };
 
+// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+//   try {
+//     console.log('Attempting to save test result:', testResult); // הוסף זה
+    
+//     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+//     console.log('Token exists:', !!token); // הוסף זה
+    
+//     const headers: Record<string, string> = {
+//       'Content-Type': 'application/json',
+//     };
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(testResult),
+//     });
+
+//     console.log('Response status:', response.status); // הוסף זה
+//     console.log('Response ok:', response.ok); // הוסף זה
+
+//     if (!response.ok) {
+//       const errorText = await response.text();
+//       console.error('Error response:', errorText); // הוסף זה
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const result = await response.json();
+//     console.log('Saved result:', result); // הוסף זה
+//     return result;
+//   } catch (error) {
+//     console.error('Save test result failed:', error);
+//     throw new Error('שגיאה בשמירת התוצאה');
+//   }
+// };
+
+// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+//   try {
+//     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+//     const headers: Record<string, string> = {
+//       'Content-Type': 'application/json',
+//     };
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(testResult),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     return await response.json();
+//   } catch (error) {
+//     console.error('Save test result failed:', error);
+//     throw new Error('שגיאה בשמירת התוצאה');
+//   }
+// };
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
     console.log('Attempting to save test result:', testResult); // הוסף זה
@@ -694,34 +760,6 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
     throw new Error('שגיאה בשמירת התוצאה');
   }
 };
-
-// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
-//   try {
-//     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-//     const headers: Record<string, string> = {
-//       'Content-Type': 'application/json',
-//     };
-    
-//     if (token) {
-//       headers['Authorization'] = `Bearer ${token}`;
-//     }
-
-//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
-//       method: 'POST',
-//       headers: headers,
-//       body: JSON.stringify(testResult),
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     return await response.json();
-//   } catch (error) {
-//     console.error('Save test result failed:', error);
-//     throw new Error('שגיאה בשמירת התוצאה');
-//   }
-// };
 
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-8">
@@ -877,12 +915,21 @@ export default function CheckPicture() {
   const [detectedObjects, setDetectedObjects] = useState<DetectedObject[]>([]);
 
   // // Initialize user ID from token on component mount
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   const userIdFromToken = getUserIdFromToken();
   //   setUserId(userIdFromToken);
   //   setIsLoggedIn(userIdFromToken !== -1);
   // }, []);
-
+  React.useEffect(() => {
+    const userIdFromToken = getUserIdFromToken();
+    console.log('User ID from token:', userIdFromToken); // הוסף זה
+    
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
+    
+    setUserId(userIdFromToken);
+    setIsLoggedIn(userIdFromToken !== -1);
+  }, []);
   // useEffect(() => {
   //   const userIdFromToken = getUserIdFromToken();
   //   console.log('User ID from token:', userIdFromToken); // הוסף זה
@@ -894,18 +941,18 @@ export default function CheckPicture() {
   //   setIsLoggedIn(userIdFromToken !== -1);
   // }, []);
 
-  useEffect(() => {
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-    console.log('Token in storage:', token ? 'exists' : 'missing');
+  // useEffect(() => {
+  //   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+  //   console.log('Token in storage:', token ? 'exists' : 'missing');
   
-    if (!token) return;
+  //   if (!token) return;
   
-    const userIdFromToken = getUserIdFromToken();
-    console.log('User ID from token:', userIdFromToken);
+  //   const userIdFromToken = getUserIdFromToken();
+  //   console.log('User ID from token:', userIdFromToken);
   
-    setUserId(userIdFromToken);
-    setIsLoggedIn(userIdFromToken !== -1);
-  }, []);
+  //   setUserId(userIdFromToken);
+  //   setIsLoggedIn(userIdFromToken !== -1);
+  // }, []);
   
   
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
