@@ -674,8 +674,6 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
       method: 'POST',
       body: formData,
       headers: headers,
-      mode: 'cors',
-      credentials: 'include'
     });
 
     console.log('Response status:', response.status); // Debug log
