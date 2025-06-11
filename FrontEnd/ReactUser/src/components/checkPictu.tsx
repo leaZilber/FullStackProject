@@ -552,7 +552,7 @@
 
 
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import React from 'react';
 void React;
 
@@ -613,7 +613,7 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
 // Get user ID from token
 const getUserIdFromToken = (): number => {
   try {
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem('token');
     if (!token) return -1; // Guest user
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.userId || payload.sub || -1;
@@ -629,7 +629,7 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     formData.append('image', file);
     formData.append('includeObjectDetection', 'true'); // Request object detection
 
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem('token');
     const headers: Record<string, string> = {};
     
     if (token) {
@@ -776,7 +776,7 @@ const LoadingSpinner = () => (
   </div>
 );
 
-const AlertBox = ({ type, children }: { type: 'success' | 'error' | 'warning' | 'info', children: React.ReactNode }) => {
+const AlertBox = ({ type, children }: { type: 'success' | 'error' | 'warning' | 'info', children: ReactNode }) => {
   const getColors = (type: string) => {
     switch (type) {
       case 'success':
@@ -955,7 +955,7 @@ export default function CheckPicture() {
   // }, []);
   
   
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       if (!file.type.startsWith('image/')) {
