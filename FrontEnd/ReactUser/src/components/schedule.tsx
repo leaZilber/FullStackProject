@@ -31,22 +31,66 @@ const SchedulePage = () => {
   const [showTurnDetails, setShowTurnDetails] = useState(false)
 
   const currentUserId = 1;
-  
+
+  // const fetchTurns = async (): Promise<Turn[]> => {
+  //   const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn`);
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  //   return await response.json();
+  // };
   const fetchTurns = async (): Promise<Turn[]> => {
-    const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn`);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      console.log("🔄 Fetching turns...");
+      const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn`);
+
+      console.log("📡 Turn response status:", response.status);
+      console.log("📡 Turn response headers:", response.headers);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("❌ Turn fetch error:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log("📅 Turn data received:", data);
+      return data;
+    } catch (error) {
+      console.error("❌ Error in fetchTurns:", error);
+      throw error;
     }
-    return await response.json();
   };
 
   const fetchDoctors = async (): Promise<Doctor[]> => {
-    const response = await fetch("https://fullstackproject-5070.onrender.com/api/Doctor");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    try {
+      console.log("🔄 Fetching doctors...");
+      const response = await fetch("https://fullstackproject-5070.onrender.com/api/Doctor");
+
+      console.log("📡 Doctor response status:", response.status);
+      console.log("📡 Doctor response headers:", response.headers);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("❌ Doctor fetch error:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log("👨‍⚕️ Doctor data received:", data);
+      return data;
+    } catch (error) {
+      console.error("❌ Error in fetchDoctors:", error);
+      throw error;
     }
-    return await response.json();
   };
+  // const fetchDoctors = async (): Promise<Doctor[]> => {
+  //   const response = await fetch("https://fullstackproject-5070.onrender.com/api/Doctor");
+  //   if (!response.ok) {
+  //     throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  //   return await response.json();
+  // };
 
   const loadDoctorsWithAvailableTurns = async () => {
     setLoading(true)
@@ -58,7 +102,7 @@ const SchedulePage = () => {
         fetchDoctors()
       ]);
 
-      const availableTurns = allTurns.filter(turn => 
+      const availableTurns = allTurns.filter(turn =>
         !turn.UserId || turn.UserId === null || turn.UserId === ""
       );
 
@@ -71,7 +115,7 @@ const SchedulePage = () => {
       }, {} as Record<number, Turn[]>);
 
       const doctorsWithAvailableTurns: DoctorWithTurns[] = allDoctors
-        .filter(doctor => turnsGroupedByDoctor[doctor.DoctorId]) 
+        .filter(doctor => turnsGroupedByDoctor[doctor.DoctorId])
         .map(doctor => ({
           ...doctor,
           availableTurns: turnsGroupedByDoctor[doctor.DoctorId] || []
@@ -116,20 +160,20 @@ const SchedulePage = () => {
       setSuccess("התור נקבע בהצלחה!");
       setShowTurnDetails(false);
       setSelectedTurn(null);
-      
+
       if (selectedDoctor) {
         const updatedDoctor = {
           ...selectedDoctor,
           availableTurns: selectedDoctor.availableTurns.filter(t => t.TurnId !== turn.TurnId)
         };
         setSelectedDoctor(updatedDoctor);
-        
-        setDoctorsWithTurns(prev => 
-          prev.map(doc => 
-            doc.DoctorId === selectedDoctor.DoctorId 
+
+        setDoctorsWithTurns(prev =>
+          prev.map(doc =>
+            doc.DoctorId === selectedDoctor.DoctorId
               ? updatedDoctor
               : doc
-          ).filter(doc => doc.availableTurns.length > 0) 
+          ).filter(doc => doc.availableTurns.length > 0)
         );
       }
 
@@ -174,7 +218,7 @@ const SchedulePage = () => {
 
   const theme = {
     primary: '#00B5B8',
-    secondary: '#C8736D', 
+    secondary: '#C8736D',
     white: '#FFFFFF',
     lightGray: '#F5F5F5',
     darkGray: '#333333',
@@ -182,22 +226,22 @@ const SchedulePage = () => {
   };
 
   return (
-    <div 
-      style={{ 
-        minHeight: '100vh', 
+    <div
+      style={{
+        minHeight: '100vh',
         backgroundColor: theme.lightGray,
         direction: 'rtl',
         fontFamily: 'Arial, sans-serif'
       }}
     >
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '2rem' }}>
-        <div style={{ 
-          backgroundColor: theme.white, 
-          borderRadius: '12px', 
+        <div style={{
+          backgroundColor: theme.white,
+          borderRadius: '12px',
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
           overflow: 'hidden'
         }}>
-          <div style={{ 
+          <div style={{
             background: `linear-gradient(135deg, ${theme.primary} 0%, #008B8E 100%)`,
             color: theme.white,
             padding: '1.5rem',
@@ -215,7 +259,7 @@ const SchedulePage = () => {
               <button
                 onClick={loadDoctorsWithAvailableTurns}
                 disabled={loading}
-                style={{ 
+                style={{
                   backgroundColor: theme.white,
                   color: theme.primary,
                   border: 'none',
@@ -227,12 +271,12 @@ const SchedulePage = () => {
                   gap: '0.5rem'
                 }}
               >
-                 רענן רשימה
+                רענן רשימה
               </button>
               {selectedDoctor && (
                 <button
                   onClick={handleBackToDoctors}
-                  style={{ 
+                  style={{
                     backgroundColor: theme.white,
                     color: theme.primary,
                     border: 'none',
@@ -253,9 +297,9 @@ const SchedulePage = () => {
           <div style={{ padding: '1.5rem' }}>
             {loading && (
               <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-                <div style={{ 
-                  width: '48px', 
-                  height: '48px', 
+                <div style={{
+                  width: '48px',
+                  height: '48px',
                   border: `4px solid ${theme.lightGray}`,
                   borderTop: `4px solid ${theme.primary}`,
                   borderRadius: '50%',
@@ -266,7 +310,7 @@ const SchedulePage = () => {
             )}
 
             {error && (
-              <div style={{ 
+              <div style={{
                 backgroundColor: '#ffebee',
                 border: '1px solid #f44336',
                 color: '#d32f2f',
@@ -282,7 +326,7 @@ const SchedulePage = () => {
             )}
 
             {success && (
-              <div style={{ 
+              <div style={{
                 backgroundColor: '#e8f5e8',
                 border: '1px solid #4caf50',
                 color: '#2e7d32',
@@ -305,17 +349,17 @@ const SchedulePage = () => {
                     בחירת רופא
                   </h2>
                 </div>
-                
+
                 {doctorsWithTurns.length > 0 ? (
-                  <div style={{ 
-                    display: 'grid', 
+                  <div style={{
+                    display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
                     gap: '1rem'
                   }}>
                     {doctorsWithTurns.map((doctor) => (
-                      <div 
+                      <div
                         key={doctor.DoctorId}
-                        style={{ 
+                        style={{
                           border: '2px solid transparent',
                           borderRadius: '8px',
                           padding: '1.5rem',
@@ -332,12 +376,12 @@ const SchedulePage = () => {
                         }}
                         onMouseOut={(e) => {
                           e.currentTarget.style.borderColor = 'transparent';
-                          e.currentTarget.style.transform = 'translateY(0)'; 
+                          e.currentTarget.style.transform = 'translateY(0)';
                           e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
                         }}
                       >
                         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                          <div style={{ 
+                          <div style={{
                             backgroundColor: theme.primary,
                             color: theme.white,
                             width: '56px',
@@ -355,7 +399,7 @@ const SchedulePage = () => {
                             <h3 style={{ margin: 0, color: theme.darkGray }}>
                               {doctor.DoctorName}
                             </h3>
-                            <div style={{ 
+                            <div style={{
                               backgroundColor: theme.secondary,
                               color: theme.white,
                               padding: '0.25rem 0.5rem',
@@ -371,8 +415,8 @@ const SchedulePage = () => {
                         <div style={{ color: theme.mediumGray, fontSize: '0.9rem' }}>
                           מספר רישיון: {doctor.LicenseNumber}
                         </div>
-                        <div style={{ 
-                          color: theme.primary, 
+                        <div style={{
+                          color: theme.primary,
                           fontSize: '0.9rem',
                           marginTop: '0.5rem',
                           fontWeight: 'bold'
@@ -395,14 +439,14 @@ const SchedulePage = () => {
 
             {selectedDoctor && !loading && (
               <div>
-                <div style={{ 
-                  backgroundColor: theme.lightGray, 
+                <div style={{
+                  backgroundColor: theme.lightGray,
                   padding: '1.5rem',
                   borderRadius: '8px',
                   marginBottom: '1.5rem'
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                    <div style={{ 
+                    <div style={{
                       backgroundColor: theme.primary,
                       color: theme.white,
                       width: '48px',
@@ -445,7 +489,7 @@ const SchedulePage = () => {
                     </h3>
                   </div>
                 ) : (
-                  <div style={{ 
+                  <div style={{
                     backgroundColor: theme.white,
                     borderRadius: '8px',
                     overflow: 'hidden',
@@ -454,32 +498,32 @@ const SchedulePage = () => {
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                       <thead>
                         <tr style={{ backgroundColor: theme.primary }}>
-                          <th style={{ 
-                            color: theme.white, 
+                          <th style={{
+                            color: theme.white,
                             padding: '1rem',
                             textAlign: 'right',
                             fontWeight: 'bold'
                           }}>
                             📅 תאריך
                           </th>
-                          <th style={{ 
-                            color: theme.white, 
+                          <th style={{
+                            color: theme.white,
                             padding: '1rem',
                             textAlign: 'right',
                             fontWeight: 'bold'
                           }}>
                             🕐 שעה
                           </th>
-                          <th style={{ 
-                            color: theme.white, 
+                          <th style={{
+                            color: theme.white,
                             padding: '1rem',
                             textAlign: 'right',
                             fontWeight: 'bold'
                           }}>
                             📍 מיקום
                           </th>
-                          <th style={{ 
-                            color: theme.white, 
+                          <th style={{
+                            color: theme.white,
                             padding: '1rem',
                             textAlign: 'center',
                             fontWeight: 'bold'
@@ -490,9 +534,9 @@ const SchedulePage = () => {
                       </thead>
                       <tbody>
                         {selectedDoctor.availableTurns.map((turn, index) => (
-                          <tr 
+                          <tr
                             key={turn.TurnId}
-                            style={{ 
+                            style={{
                               borderBottom: index < selectedDoctor.availableTurns.length - 1 ? `1px solid ${theme.lightGray}` : 'none'
                             }}
                             onMouseOver={(e) => {
@@ -524,7 +568,7 @@ const SchedulePage = () => {
                               <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                                 <button
                                   onClick={() => handleViewTurnDetails(turn)}
-                                  style={{ 
+                                  style={{
                                     border: `1px solid ${theme.secondary}`,
                                     backgroundColor: 'transparent',
                                     color: theme.secondary,
@@ -542,7 +586,7 @@ const SchedulePage = () => {
                                     bookTurn(turn);
                                   }}
                                   disabled={loading}
-                                  style={{ 
+                                  style={{
                                     backgroundColor: theme.primary,
                                     color: theme.white,
                                     border: 'none',
@@ -597,7 +641,7 @@ const SchedulePage = () => {
                     <h3 style={{ margin: 0, fontWeight: 'bold' }}>
                       פרטי תור
                     </h3>
-                    <button 
+                    <button
                       onClick={() => setShowTurnDetails(false)}
                       style={{
                         background: 'none',
@@ -616,7 +660,7 @@ const SchedulePage = () => {
                       ×
                     </button>
                   </div>
-                  
+
                   <div style={{ padding: '1.5rem' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -649,16 +693,16 @@ const SchedulePage = () => {
                     </div>
                   </div>
 
-                  <div style={{ 
-                    padding: '1.5rem', 
-                    display: 'flex', 
-                    justifyContent: 'center', 
+                  <div style={{
+                    padding: '1.5rem',
+                    display: 'flex',
+                    justifyContent: 'center',
                     gap: '1rem',
                     borderTop: `1px solid ${theme.lightGray}`
                   }}>
                     <button
                       onClick={() => setShowTurnDetails(false)}
-                      style={{ 
+                      style={{
                         border: `1px solid ${theme.mediumGray}`,
                         backgroundColor: 'transparent',
                         color: theme.mediumGray,
@@ -672,7 +716,7 @@ const SchedulePage = () => {
                     <button
                       onClick={handleBookTurn}
                       disabled={loading}
-                      style={{ 
+                      style={{
                         backgroundColor: theme.primary,
                         color: theme.white,
                         border: 'none',
