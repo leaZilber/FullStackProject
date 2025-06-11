@@ -8,6 +8,7 @@ import LoginComp from './components/homeComponents/login'
 import RegisterComp from './components/homeComponents/register'
 import './index.css'
 import React from 'react';
+import SchedulePage from './components/schedule';
 void React;
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register" element={<RegisterComp />}/>
         <Route path='/personalArea' element={<PersonalArea />} />
         <Route path="*" element={<PersonalArea />} />
+        <Route path='/schedule' element={<SchedulePage/>}/>
       </Routes> 
   )
 }
