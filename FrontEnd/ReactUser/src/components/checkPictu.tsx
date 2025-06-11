@@ -850,8 +850,6 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
       method: 'POST',
       headers: headers,
       body: JSON.stringify(testResult),
-      mode: 'cors',
-      credentials: 'include'
     });
 
     console.log('Response status:', response.status);

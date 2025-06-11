@@ -20,19 +20,19 @@ const MedicalHistory = () => {
 
   useEffect(() => {
     const getCurrentUserId = () => {
-      const userId = localStorage.getItem("currentUserId") || sessionStorage.getItem("currentUserId") || 123
+      const userId = sessionStorage.getItem("userId") || 123
       return Number.parseInt(userId.toString())
     }
 
     const fetchMedicalHistory = async () => {
       try {
-        const userId = getCurrentUserId()
-        setCurrentUserId(userId)
+        const UserId = getCurrentUserId()
+        setCurrentUserId(UserId)
 
-        const response = await fetch(`https://fullstackproject-5070.onrender.com/api/TestResualt?userId=${userId}`, )
+        const response = await fetch(`https://fullstackproject-5070.onrender.com/api/TestResualt?userId=${UserId}`, )
         if (response.ok) {
           const data = await response.json()
-          const filteredData = data.filter((item: any) => item.userId === userId)
+          const filteredData = data.filter((item: any) => item.userId === UserId)
 
           const convertedData: MedicalRecord[] = filteredData.map((item: any) => ({
             id: item.testId.toString(),

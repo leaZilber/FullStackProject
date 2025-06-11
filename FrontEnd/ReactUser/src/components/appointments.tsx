@@ -105,7 +105,7 @@ const getCurrentUserId = (): number | null => {
   }
 
   // אופציה 3: מ-JWT token
-  const token = localStorage.getItem("authToken") || sessionStorage.getItem("token");
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   if (token) {
     try {
       // פענח את ה-JWT token לקבלת ה-userId
@@ -152,7 +152,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem("authToken") || sessionStorage.getItem("token") || ""}`,
+            'Authorization': `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token") || ""}`,
           },
         });
 
@@ -201,7 +201,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("authToken") || sessionStorage.getItem("token") || ""}`,
+          'Authorization': `Bearer ${localStorage.getItem("token") || sessionStorage.getItem("token") || ""}`,
         },
         body: JSON.stringify({
           arrivalConfirmation: true
