@@ -19,7 +19,6 @@ import {
   Snackbar,
 } from "@mui/material";
 import {
-//   Calendar as CalendarIcon,
   AccessTime as ClockIcon,
   Person as PersonIcon,
   LocationOn as LocationIcon,
@@ -29,18 +28,16 @@ import {
 } from "@mui/icons-material";
 import { CalendarIcon } from "lucide-react";
 
-// Updated appointment interface to match the new model
 interface Appointment {
   turnId: number;
   userId?: number;
   doctorName?: string;
-  dateTurn: string; // DateTime from server
+  dateTurn: string;
   turnLocate: string;
   hour: string;
   arrivalConfirmation: boolean;
 }
 
-// הוסף פרופס לקבלת ה-userId
 interface AppointmentsProps {
   userId?: number; // אופציונלי במקרה שתרצה להעביר אותו כ-prop
 }
@@ -118,7 +115,6 @@ const getCurrentUserId = (): number | null => {
       console.error("Error parsing JWT token:", error);
     }
   }
-
   return null;
 };
 
@@ -454,16 +450,3 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
     </Box>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -615,13 +615,11 @@ const getUserIdFromToken = (): number => {
   try {
     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
     if (!token) return -1; // Guest user
-    
-    // Decode JWT token (assuming it's a JWT)
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.userId || payload.sub || -1;
   } catch (error) {
     console.error('Error decoding token:', error);
-    return -1; // Guest user
+    return -1; 
   }
 };
 
@@ -657,10 +655,13 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
     throw new Error(error instanceof Error ? error.message : 'שגיאה בתקשורת עם השרת. אנא נסה שוב.');
   }
 };
-
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
+    console.log('Attempting to save test result:', testResult); // הוסף זה
+    
     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    console.log('Token exists:', !!token); // הוסף זה
+    
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
@@ -675,16 +676,51 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
       body: JSON.stringify(testResult),
     });
 
+    console.log('Response status:', response.status); // הוסף זה
+    console.log('Response ok:', response.ok); // הוסף זה
+
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Error response:', errorText); // הוסף זה
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return await response.json();
+    const result = await response.json();
+    console.log('Saved result:', result); // הוסף זה
+    return result;
   } catch (error) {
     console.error('Save test result failed:', error);
     throw new Error('שגיאה בשמירת התוצאה');
   }
 };
+
+// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+//   try {
+//     const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+//     const headers: Record<string, string> = {
+//       'Content-Type': 'application/json',
+//     };
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(testResult),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     return await response.json();
+//   } catch (error) {
+//     console.error('Save test result failed:', error);
+//     throw new Error('שגיאה בשמירת התוצאה');
+//   }
+// };
 
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-8">
@@ -839,13 +875,23 @@ export default function CheckPicture() {
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const [detectedObjects, setDetectedObjects] = useState<DetectedObject[]>([]);
 
-  // Initialize user ID from token on component mount
+  // // Initialize user ID from token on component mount
+  // React.useEffect(() => {
+  //   const userIdFromToken = getUserIdFromToken();
+  //   setUserId(userIdFromToken);
+  //   setIsLoggedIn(userIdFromToken !== -1);
+  // }, []);
   React.useEffect(() => {
     const userIdFromToken = getUserIdFromToken();
+    console.log('User ID from token:', userIdFromToken); // הוסף זה
+    
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
+    
     setUserId(userIdFromToken);
     setIsLoggedIn(userIdFromToken !== -1);
   }, []);
-
+  
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -894,7 +940,6 @@ export default function CheckPicture() {
         setFeedback(result.summary);
         setAnalysisComplete(true);
         
-        // Set detected objects if available
         if (result.detectedObjects) {
           setDetectedObjects(result.detectedObjects);
         }

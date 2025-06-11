@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProject.API.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TestResualtController : ControllerBase
@@ -43,13 +43,32 @@ namespace FinalProject.API.Controllers
         }
 
         // POST api/<UserController>
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] TestResualt value)
+        //{
+        //    var newTestResault = await _testResualtService.AddAsync(value);
+        //    return Ok(newTestResault);
+        //}
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] TestResualt value)
         {
-            var newTestResault = await _testResualtService.AddAsync(value);
-            return Ok(newTestResault);
-        }
+            try
+            {
+                // הוסף לוג לבדיקה
+                Console.WriteLine($"Attempting to save test result for user: {value.UserId}");
 
+                var newTestResault = await _testResualtService.AddAsync(value);
+
+                Console.WriteLine($"Successfully saved test result with ID: {newTestResault.TestId}");
+
+                return Ok(newTestResault);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving test result: {ex.Message}");
+                return StatusCode(500, new { error = ex.Message, success = false });
+            }
+        }
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put([FromBody] TestResualt value)

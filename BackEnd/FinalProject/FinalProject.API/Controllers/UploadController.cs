@@ -325,7 +325,7 @@ public class UploadController : ControllerBase
             };
 
             using var client = _httpClientFactory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(60); // הגדל timeout
+            client.Timeout = TimeSpan.FromSeconds(60); 
 
             client.DefaultRequestHeaders.Add("User-Agent", "YourApp/1.0");
 
@@ -462,7 +462,6 @@ public class UploadController : ControllerBase
 
             var analysisResults = new List<string>();
 
-            // Parse label annotations
             if (firstResponse.TryGetProperty("labelAnnotations", out var labels) && labels.GetArrayLength() > 0)
             {
                 var labelList = new List<string>();
@@ -527,13 +526,13 @@ public class UploadController : ControllerBase
                         role = "system",
                         content = @"אתה רופא עור מומחה. קבל תיאור של תמונה מ-Google Vision API ותן הערכה רפואית לגבי האפשרות לסרטן עור.
 
-אם בתיאור מופיעים מונחים או התייחסויות לגוף האדם, עור, בשר, כתמים או גידולים – תמיד החזר את התגובה:  
-'חשש כבד לסרטן עור - יש לפנות מיד לרופא עור'
+אם בתיאור מופיעים מונחים או התייחסויות לגוף האדם, עור, בשר, כתמים או גידולים – תמיד החזר את התגובה  :  
+                            'חשש כבד לסרטן עור - יש לפנות מיד לרופא עור'
 
-אם בתיאור אין שום התייחסות או קשר לגוף האדם או לעור, החזר את התגובה:  
-'אין חשש, התמונה אינה כוללת מידע עבור עור או כתמים'
+                            אם בתיאור אין שום התייחסות או קשר לגוף האדם או לעור, החזר את התגובה :  
+                            'אין חשש, התמונה אינה כוללת מידע עבור עור או כתמים'
 
-חשוב: זוהי הערכה ניסיונית בלבד ואינה מהווה ייעוץ רפואי מקצועי ואינה מחליפה בדיקה רפואית.
+                            חשוב: זוהי הערכה ניסיונית בלבד ואינה מהווה ייעוץ רפואי מקצועי ואינה מחליפה בדיקה רפואית.
 
 "
         },
