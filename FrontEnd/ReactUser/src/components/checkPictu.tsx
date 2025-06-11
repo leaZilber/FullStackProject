@@ -643,11 +643,10 @@ const getUserIdFromToken = (): number => {
 
     // Decode the payload (second part of JWT)
     const payload = JSON.parse(atob(tokenParts[1]));
-    console.log('Decoded payload:', payload); // Debug log
+    console.log('Decoded payload:', payload); 
     
-    // Try different possible field names for user ID
-    const userId = payload.userId || payload.sub || payload.id || payload.nameid || payload.user_id;
-    console.log('Extracted userId:', userId); // Debug log
+    const userId = payload.userId || payload.sub || payload.id || payload.nameid || payload.user_id|| payload.UserId;
+    console.log('Extracted userId:', userId); 
     
     return userId ? parseInt(userId, 10) : -1;
   } catch (error) {
@@ -675,7 +674,6 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
       method: 'POST',
       body: formData,
       headers: headers,
-      // Add these for CORS
       mode: 'cors',
       credentials: 'include'
     });
