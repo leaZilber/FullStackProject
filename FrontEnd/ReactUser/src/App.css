@@ -411,8 +411,8 @@ div {
 #headerContainer {
   position: fixed;
   top: 0;
-  transform: translateX(-50%); /* Adjust for perfect centering */
-  width: 90%; /* Slightly less than full width for better appearance */
+  /* transform: translateX(-50%); */
+  width: 100%; /* Slightly less than full width for better appearance */
   max-width: 1200px; /* Maximum width */
   height: 70px;
   color: white;
@@ -420,6 +420,7 @@ div {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
+  left: 0;
 }
 
 #backgroundHome {
