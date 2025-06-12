@@ -43,45 +43,6 @@ namespace FinalProject.API.Controllers
             var turnDto = _mapper.Map<TurnDTO>(turn);
             return Ok(turnDto);
         }
-
-        // POST api/<UserController>
-        //    [HttpPost]
-        //    public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)
-        //    {
-        //        if (newTurn == null)
-        //        {
-        //            return BadRequest("❌ נתוני התור חסרים.");
-        //        }
-
-        //        using (var context = new DataContext())
-        //        {
-        //            //var schedule = context.scheduleList
-        //            //    .FirstOrDefault(s => s.DoctorName == newTurn.DoctorName);
-        //            var schedule = context.scheduleList
-        //.Include(s => s.Doctor)
-        //.FirstOrDefault(s => s.Doctor.DoctorName == newTurn.DoctorName);
-
-        //            if (schedule != null)
-        //            {
-        //                var turn = new Turn
-        //                {
-        //                    UserId = newTurn.UserId,
-        //                    DoctorName = newTurn.DoctorName,
-        //                    DateTurn = newTurn.DateTurn,
-        //                    TurnLocate = newTurn.TurnLocate,
-        //                    Hour = newTurn.Hour,
-        //                    ArrivalConfirmation = newTurn.ArrivalConfirmation
-        //                };
-
-        //                schedule.Turns.Add(turn);
-        //                await context.SaveChangesAsync();
-        //                return Ok("✅ התור נוסף בהצלחה!");
-        //            }
-        //            else
-        //            {
-        //                return NotFound("❌ לא נמצאה מערכת עם שם הרופא הנתון.");
-        //            }
-        //        }
         //    }
         [HttpPost]
         //public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)

@@ -253,6 +253,7 @@
 
 
 using AutoMapper;
+using FinalProject.API.Models;
 using FinalProject.Core;
 using FinalProject.Core.DTOs;
 using FinalProject.Core.IServices;
@@ -320,30 +321,19 @@ namespace FinalProject.API.Controllers
 
         // POST api/<TestResualtController>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TestResualt value)
+        public async Task<ActionResult> Post([FromBody] TestPostModel value)
         {
-            try
-            {
-                if (value == null)
-                {
-                    return BadRequest(new { error = "Invalid data" });
-                }
 
-                // הוספת לוגים לדיבוג
-                Console.WriteLine($"Received TestResualt: UserId={value.UserId}, Summary={value.Summary}, ImgURL={value.ImgURL}");
+            var testPost = new TestResualt(
+                value.UserId,
+                 value.TestDate,
+                 value.ImgURL,
+                value.Summary
 
-                var newTestResault = await _testResualtService.AddAsync(value);
+            );
+            var newDoctor = await _testResualtService.AddAsync(testPost);
+            return Ok(newDoctor);
 
-                Console.WriteLine($"Saved TestResualt with ID: {newTestResault.TestId}");
-
-                return Ok(newTestResault);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error saving TestResualt: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return StatusCode(500, new { error = ex.Message });
-            }
         }
 
         // PUT api/<TestResualtController>/5
