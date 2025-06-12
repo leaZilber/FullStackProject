@@ -624,36 +624,36 @@ const SchedulePage = ({ onBack }: { onBack: () => void }) => (
 // };
 
 
-const getUserIdFromToken = (): number => {
-  try {
-    const token = sessionStorage.getItem('token');
-    console.log('Raw token:', token); // Debug log
+// const getUserIdFromToken = (): number => {
+//   try {
+//     const token = sessionStorage.getItem('token');
+//     console.log('Raw token:', token); // Debug log
     
-    if (!token) {
-      console.log('No token found');
-      return -1;
-    }
+//     if (!token) {
+//       console.log('No token found');
+//       return -1;
+//     }
 
-    // Split the JWT token and get the payload
-    const tokenParts = token.split('.');
-    if (tokenParts.length !== 3) {
-      console.log('Invalid token format');
-      return -1;
-    }
+//     // Split the JWT token and get the payload
+//     const tokenParts = token.split('.');
+//     if (tokenParts.length !== 3) {
+//       console.log('Invalid token format');
+//       return -1;
+//     }
 
-    // Decode the payload (second part of JWT)
-    const payload = JSON.parse(atob(tokenParts[1]));
-    console.log('Decoded payload:', payload); 
+//     // Decode the payload (second part of JWT)
+//     const payload = JSON.parse(atob(tokenParts[1]));
+//     console.log('Decoded payload:', payload); 
     
-    const userId = payload.userId || payload.sub || payload.id || payload.nameid || payload.user_id|| payload.UserId;
-    console.log('Extracted userId:', userId); 
+//     const userId = payload.userId || payload.sub || payload.id || payload.nameid || payload.user_id|| payload.UserId;
+//     console.log('Extracted userId:', userId); 
     
-    return userId ? parseInt(userId, 10) : -1;
-  } catch (error) {
-    console.error('Error decoding token:', error);
-    return -1;
-  }
-};
+//     return userId ? parseInt(userId, 10) : -1;
+//   } catch (error) {
+//     console.error('Error decoding token:', error);
+//     return -1;
+//   }
+// };
 
 const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
   try {
@@ -831,11 +831,50 @@ const checkSkinCancer = async (file: File): Promise<ApiResponse> => {
 //     throw new Error('שגיאה בשמירת התוצאה');
 //   }
 // };
+
+// const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
+//   try {
+//     console.log('Attempting to save test result:', testResult);
+    
+//     const token = sessionStorage.getItem('token'); // Use consistent token storage
+//     console.log('Token exists:', !!token);
+    
+//     const headers: Record<string, string> = {
+//       'Content-Type': 'application/json',
+//     };
+    
+//     if (token) {
+//       headers['Authorization'] = `Bearer ${token}`;
+//     }
+
+//     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
+//       method: 'POST',
+//       headers: headers,
+//       body: JSON.stringify(testResult),
+//     });
+
+//     console.log('Response status:', response.status);
+//     console.log('Response ok:', response.ok);
+
+//     if (!response.ok) {
+//       const errorText = await response.text();
+//       console.error('Error response:', errorText);
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const result = await response.json();
+//     console.log('Saved result:', result);
+//     return result;
+//   } catch (error) {
+//     console.error('Save test result failed:', error);
+//     throw new Error('שגיאה בשמירת התוצאה');
+//   }
+// };
 const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
   try {
     console.log('Attempting to save test result:', testResult);
     
-    const token = sessionStorage.getItem('token'); // Use consistent token storage
+    const token = sessionStorage.getItem('token');
     console.log('Token exists:', !!token);
     
     const headers: Record<string, string> = {
@@ -846,10 +885,22 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
+    // וודא שהאובייקט תואם למבנה הנדרש
+    const requestBody = {
+      testId: testResult.TestId,
+      userId: testResult.UserId,
+      testDate: testResult.TestDate,
+      imgURL: testResult.ImgURL,
+      summary: testResult.Summary,
+      detectedObjects: testResult.DetectedObjects || []
+    };
+
+    console.log('Request body:', requestBody);
+
     const response = await fetch("https://fullstackproject-5070.onrender.com/api/TestResualt", {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify(testResult),
+      body: JSON.stringify(requestBody),
     });
 
     console.log('Response status:', response.status);
@@ -858,7 +909,16 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Error response:', errorText);
-      throw new Error(`HTTP error! status: ${response.status}`);
+      
+      // נסה לפענח את שגיאת ה-JSON
+      try {
+        const errorJson = JSON.parse(errorText);
+        console.error('Parsed error:', errorJson);
+      } catch (parseError) {
+        console.error('Could not parse error response as JSON');
+      }
+      
+      throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`);
     }
 
     const result = await response.json();
@@ -866,9 +926,10 @@ const saveTestResult = async (testResult: TestResult): Promise<TestResult> => {
     return result;
   } catch (error) {
     console.error('Save test result failed:', error);
-    throw new Error('שגיאה בשמירת התוצאה');
+    throw new Error(error instanceof Error ? error.message : 'שגיאה בשמירת התוצאה');
   }
 };
+
 
 const LoadingSpinner = () => (
   <div className="flex flex-col items-center justify-center p-8">
@@ -1012,27 +1073,79 @@ export default function CheckPicture() {
   const [image, setImage] = useState<string>("");
   const [feedback, setFeedback] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [userId, setUserId] = useState<number>(-1);
+  const [userId] = useState<number>(-1);
   const [currentTestResult, setCurrentTestResult] = useState<TestResult | null>(null);
   const [shouldShowAppointment, setShouldShowAppointment] = useState(false);
   const [showSchedulePage, setShowSchedulePage] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [testHistory, setTestHistory] = useState<TestResult[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn] = useState(false);
   const [error, setError] = useState<string>("");
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const [detectedObjects, setDetectedObjects] = useState<DetectedObject[]>([]);
 
 
   useEffect(() => {
-    const userIdFromToken = getUserIdFromToken();
-    console.log('User ID from token:', userIdFromToken); // הוסף זה
+    // const userIdFromToken = getUserIdFromToken();
+    // console.log('User ID from token:', userIdFromToken); // הוסף זה
     
-    const token = sessionStorage.getItem('token') || sessionStorage.getItem('token');
-    console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
+    // const token = sessionStorage.getItem('token') || sessionStorage.getItem('token');
+    // console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
     
-    setUserId(userIdFromToken);
-    setIsLoggedIn(userIdFromToken !== -1);
+    // setUserId(userIdFromToken);
+    // setIsLoggedIn(userIdFromToken !== -1);
+    const getUserIdFromToken = (): number => {
+      try {
+        const token = sessionStorage.getItem('token');
+        console.log('Raw token exists:', !!token);
+        
+        if (!token) {
+          console.log('No token found in sessionStorage');
+          return -1;
+        }
+    
+        const tokenParts = token.split('.');
+        if (tokenParts.length !== 3) {
+          console.log('Invalid JWT token format');
+          return -1;
+        }
+    
+        // פענח את ה-payload
+        const payload = JSON.parse(atob(tokenParts[1]));
+        console.log('Full token payload:', payload);
+        
+        // נסה כל האופציות האפשריות ל-user ID
+        const possibleUserIds = [
+          payload.userId,
+          payload.sub,
+          payload.id,
+          payload.nameid,
+          payload.user_id,
+          payload.UserId,
+          payload.uid,
+          payload.user
+        ];
+        
+        console.log('Possible user IDs found:', possibleUserIds);
+        
+        for (const id of possibleUserIds) {
+          if (id !== undefined && id !== null) {
+            const parsedId = parseInt(id.toString(), 10);
+            if (!isNaN(parsedId) && parsedId > 0) {
+              console.log('Using user ID:', parsedId);
+              return parsedId;
+            }
+          }
+        }
+        
+        console.log('No valid user ID found in token');
+        return -1;
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return -1;
+      }
+    };
+    getUserIdFromToken()
   }, []);
   
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
