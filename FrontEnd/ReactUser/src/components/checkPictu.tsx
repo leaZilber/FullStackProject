@@ -27,7 +27,6 @@ interface DetectedObject {
 }
 
 interface TestResualt {
-  TestId: number;
   UserId: number;
   TestDate: string;
   ImgURL: string;
@@ -333,7 +332,6 @@ const saveTestResualt = async (TestResualt: TestResualt): Promise<TestResualt> =
       headers['Authorization'] = `Bearer ${token}`;
     }
     const requestBody = {
-      TestId: TestResualt.TestId,
       UserId: TestResualt.UserId,
       TestDate: TestResualt.TestDate,
       ImgURL: TestResualt.ImgURL,
@@ -646,7 +644,6 @@ export default function CheckPicture() {
         }
 
         const newTestResult: TestResualt = {
-          TestId: 0,
           UserId: userId,
           TestDate: new Date().toISOString(),
           ImgURL: result.fileUrl,
@@ -916,7 +913,7 @@ export default function CheckPicture() {
             <div className="space-y-4">
               {testHistory.slice(0, 5).map((test, index) => (
                 <div
-                  key={test.TestId || index}
+                  key={index}
                   className="border rounded-lg p-4 hover:shadow-md transition-shadow duration-200"
                   style={{
                     borderColor: theme.primary + '30',
