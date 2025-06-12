@@ -164,17 +164,7 @@ using Microsoft.AspNetCore.Http.Features;
 
 Env.Load();
 
-//var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddHttpClient();
-
-//builder.Services.AddControllers().AddJsonOptions(options =>
-//{
-//    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-//    options.JsonSerializerOptions.WriteIndented = true;
-//});
 var builder = WebApplication.CreateBuilder(args);
 
 // Combine AddControllers with JsonOptions in one call

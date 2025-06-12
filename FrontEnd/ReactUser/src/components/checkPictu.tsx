@@ -1023,12 +1023,7 @@ export default function CheckPicture() {
   const [analysisComplete, setAnalysisComplete] = useState<boolean>(false);
   const [detectedObjects, setDetectedObjects] = useState<DetectedObject[]>([]);
 
-  // // Initialize user ID from token on component mount
-  // useEffect(() => {
-  //   const userIdFromToken = getUserIdFromToken();
-  //   setUserId(userIdFromToken);
-  //   setIsLoggedIn(userIdFromToken !== -1);
-  // }, []);
+
   useEffect(() => {
     const userIdFromToken = getUserIdFromToken();
     console.log('User ID from token:', userIdFromToken); // הוסף זה
@@ -1039,31 +1034,6 @@ export default function CheckPicture() {
     setUserId(userIdFromToken);
     setIsLoggedIn(userIdFromToken !== -1);
   }, []);
-
-  // useEffect(() => {
-  //   const userIdFromToken = getUserIdFromToken();
-  //   console.log('User ID from token:', userIdFromToken); // הוסף זה
-    
-  //   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  //   console.log('Token in storage:', token ? 'exists' : 'missing'); // הוסף זה
-    
-  //   setUserId(userIdFromToken);
-  //   setIsLoggedIn(userIdFromToken !== -1);
-  // }, []);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
-  //   console.log('Token in storage:', token ? 'exists' : 'missing');
-  
-  //   if (!token) return;
-  
-  //   const userIdFromToken = getUserIdFromToken();
-  //   console.log('User ID from token:', userIdFromToken);
-  
-  //   setUserId(userIdFromToken);
-  //   setIsLoggedIn(userIdFromToken !== -1);
-  // }, []);
-  
   
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

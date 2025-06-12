@@ -18,4 +18,8 @@ export class PoralManageComponent {
   navigateToDataView(): void {
     this.router.navigate(['/chart']);
   }
+
+  navigateToBack(): void {
+    this.router.navigate(['/loginAdmin']);
+  }
 }
