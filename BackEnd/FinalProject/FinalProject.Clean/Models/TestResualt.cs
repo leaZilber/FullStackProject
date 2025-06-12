@@ -11,7 +11,7 @@ namespace FinalProject.Core.Models
     public class TestResualt
     {
         [Key]
-        public int? TestId  { get; set; }
+        public int TestId  { get; set; }
         [ForeignKey("User")]
         public int UserId { get; set; }
         public DateTime TestDate { get; set; }
