@@ -598,9 +598,9 @@ export default function CheckPicture() {
         }
   
         // בדוק אם צריך להציג המלצה לתור
-        if (result.summary.includes("חשש כבד") ||
-            result.summary.includes("יש לפנות מיד") ||
-            result.summary.includes("מומלץ לבדוק")) {
+        if (result.summary?.includes("חשש כבד") ||
+            result.summary?.includes("יש לפנות מיד") ||
+            result.summary?.includes("מומלץ לבדוק")) {
           setShouldShowAppointment(true);
         }
       } else {
