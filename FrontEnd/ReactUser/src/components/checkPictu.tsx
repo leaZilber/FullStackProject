@@ -36,8 +36,8 @@ interface TestResualt {
 
 
 interface ApiResponse {
-  fileUrl: string;
-  summary: string;
+  ImgURL: string;
+  Summary: string;
   success: boolean;
   timestamp?: string;
   detectedObjects?: DetectedObject[];
@@ -556,7 +556,7 @@ export default function CheckPicture() {
       const result = await checkSkinCancer(imageFile);
   
       if (result.success) {
-        setFeedback(result.summary);
+        setFeedback(result.Summary);
         setAnalysisComplete(true);
         
         if (result.detectedObjects) {
@@ -566,8 +566,8 @@ export default function CheckPicture() {
         const newTestResult: TestResualt = {
           UserId: userId,
           TestDate: new Date().toISOString(),
-          ImgURL: result.fileUrl,
-          Summary: result.summary,
+          ImgURL: result.ImgURL,
+          Summary: result.Summary,
         };
   
         console.log('Test result to save:', newTestResult);
@@ -598,12 +598,16 @@ export default function CheckPicture() {
         }
   
         // בדוק אם צריך להציג המלצה לתור
-        if (result.summary?.includes("חשש כבד") ||
-            result.summary?.includes("יש לפנות מיד") ||
-            result.summary?.includes("מומלץ לבדוק")) {
+        if (result.Summary?.includes("חשש כבד") ||
+            result.Summary?.includes("יש לפנות מיד") ||
+            result.Summary?.includes("מומלץ לבדוק")) {
+              console.log("testResult.summary:",result.Summary);
+
           setShouldShowAppointment(true);
         }
       } else {
+        console.log("testResult.summary:", result.Summary);
+
         setError("שגיאה בעיבוד התמונה");
       }
     } catch (error) {
@@ -672,13 +676,22 @@ export default function CheckPicture() {
   //   }
   // };
 
-  const getSeverityType = (summary: string): 'success' | 'error' | 'warning' | 'info' => {
-    if (summary.includes("חשש כבד") || summary.includes("יש לפנות מיד")) return 'error';
-    if (summary.includes("מומלץ לבדוק") || summary.includes("חשש")) return 'warning';
-    if (summary.includes("אין חשש") || summary.includes("שפיר")) return 'success';
+  // const getSeverityType = (summary?: string): 'success' | 'error' | 'warning' | 'info' => {
+  //   console.log("testResult.summary:", summary);
+
+  //   if (summary.includes("חשש כבד") || summary.includes("יש לפנות מיד")) return 'error';
+  //   if (summary.includes("מומלץ לבדוק") || summary.includes("חשש")) return 'warning';
+  //   if (summary.includes("אין חשש") || summary.includes("שפיר")) return 'success';
+  //   return 'info';
+  // };
+  const getSeverityType = (Summary?: string): 'success' | 'error' | 'warning' | 'info' => {
+    if (!Summary) return 'info'; // הגנה משגיאה
+    if (Summary.includes("חשש כבד") || Summary.includes("יש לפנות מיד")) return 'error';
+    if (Summary.includes("מומלץ לבדוק") || Summary.includes("חשש")) return 'warning';
+    if (Summary.includes("אין חשש") || Summary.includes("שפיר")) return 'success';
     return 'info';
   };
-
+  
   const formatDate = (dateString: string): string => {
     return new Date(dateString).toLocaleDateString('he-IL', {
       year: 'numeric',
