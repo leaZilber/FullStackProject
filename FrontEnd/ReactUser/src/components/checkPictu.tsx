@@ -606,10 +606,11 @@ interface TestResualt {
 }
 
 interface ApiResponse {
-  ImgURL: string;
-  Summary: string;
+  fileUrl: string;
+  summary: string;
   success: boolean;
   timestamp?: string;
+  visionAnalysis?: string;
   detectedObjects?: DetectedObject[];
 }
 
@@ -1010,7 +1011,7 @@ export default function CheckPicture() {
       console.log('checkSkinCancer result:', result); // לוג נוסף לבדיקה
 
       if (result.success) {
-        setFeedback(result.Summary);
+        setFeedback(result.summary);
         setAnalysisComplete(true);
         
         if (result.detectedObjects) {
@@ -1018,10 +1019,10 @@ export default function CheckPicture() {
         }
 
         // בדיקה שיש נתונים תקינים לפני יצירת TestResult
-        if (!result.ImgURL || !result.Summary) {
+        if (!result.fileUrl || !result.summary) {
           console.error('Missing required data from API:', { 
-            ImgURL: result.ImgURL, 
-            Summary: result.Summary 
+            fileUrl: result.fileUrl, 
+            summary: result.summary 
           });
           setError("חסרים נתונים מהשרת. אנא נסה שוב.");
           return;
@@ -1030,8 +1031,8 @@ export default function CheckPicture() {
         const newTestResult: TestResualt = {
           UserId: userId,
           TestDate: new Date().toISOString(),
-          ImgURL: result.ImgURL,
-          Summary: result.Summary,
+          ImgURL: result.fileUrl,
+          Summary: result.summary,
         };
 
         console.log('Test result to save:', newTestResult);
@@ -1060,14 +1061,14 @@ export default function CheckPicture() {
         }
 
         // בדוק אם צריך להציג המלצה לתור
-        if (result.Summary?.includes("חשש כבד") ||
-            result.Summary?.includes("יש לפנות מיד") ||
-            result.Summary?.includes("מומלץ לבדוק")) {
-          console.log("testResult.summary:", result.Summary);
+        if (result.summary?.includes("חשש כבד") ||
+            result.summary?.includes("יש לפנות מיד") ||
+            result.summary?.includes("מומלץ לבדוק")) {
+          console.log("testResult.summary:", result.summary);
           setShouldShowAppointment(true);
         }
       } else {
-        console.log("testResult.summary:", result.Summary);
+        console.log("testResult.summary:", result.summary);
         setError("שגיאה בעיבוד התמונה");
       }
     } catch (error) {
