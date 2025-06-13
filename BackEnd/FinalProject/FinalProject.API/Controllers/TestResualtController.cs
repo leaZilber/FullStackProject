@@ -335,7 +335,91 @@ namespace FinalProject.API.Controllers
         //    return Ok(newDoctor);
 
         //}
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] TestPostModel value)
+        {
+            try
+            {
+                Console.WriteLine("=== POST TestResult Debug ===");
+                Console.WriteLine($"Received data: {System.Text.Json.JsonSerializer.Serialize(value)}");
 
+                // וודא שהנתונים תקינים
+                if (value == null)
+                {
+                    Console.WriteLine("ERROR: value is null");
+                    return BadRequest(new { error = "Invalid data provided" });
+                }
+
+                Console.WriteLine($"UserId: {value.UserId}");
+                Console.WriteLine($"TestDate: {value.TestDate}");
+                Console.WriteLine($"ImgURL: {value.ImgURL}");
+                Console.WriteLine($"Summary length: {value.Summary?.Length ?? 0}");
+
+                if (value.UserId <= 0)
+                {
+                    Console.WriteLine("ERROR: Invalid User ID");
+                    return BadRequest(new { error = "Invalid User ID" });
+                }
+
+                if (string.IsNullOrEmpty(value.ImgURL))
+                {
+                    Console.WriteLine("ERROR: Image URL is empty");
+                    return BadRequest(new { error = "Image URL is required" });
+                }
+
+                if (string.IsNullOrEmpty(value.Summary))
+                {
+                    Console.WriteLine("ERROR: Summary is empty");
+                    return BadRequest(new { error = "Summary is required" });
+                }
+
+                // בדוק אם המשתמש קיים (אם יש לך טבלת Users)
+                // var userExists = await _userService.ExistsAsync(value.UserId);
+                // if (!userExists)
+                // {
+                //     Console.WriteLine($"ERROR: User {value.UserId} does not exist");
+                //     return BadRequest(new { error = "User does not exist" });
+                // }
+
+                Console.WriteLine("Creating TestResult entity...");
+                var testPost = new TestResualt(
+                    value.UserId,
+                    value.TestDate,
+                    value.ImgURL,
+                    value.Summary
+                );
+
+                Console.WriteLine($"Entity created: TestId={testPost.TestId}, UserId={testPost.UserId}");
+                Console.WriteLine("Calling service AddAsync...");
+
+                var newTest = await _testResualtService.AddAsync(testPost);
+
+                Console.WriteLine($"Test result saved successfully with ID: {newTest?.TestId}");
+                Console.WriteLine("=== POST TestResult Success ===");
+
+                return Ok(newTest);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("=== POST TestResult Error ===");
+                Console.WriteLine($"Error type: {ex.GetType().Name}");
+                Console.WriteLine($"Error message: {ex.Message}");
+                Console.WriteLine($"Stack trace: {ex.StackTrace}");
+
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Inner exception: {ex.InnerException.Message}");
+                    Console.WriteLine($"Inner stack trace: {ex.InnerException.StackTrace}");
+                }
+
+                return StatusCode(500, new
+                {
+                    error = ex.Message,
+                    innerError = ex.InnerException?.Message,
+                    type = ex.GetType().Name
+                });
+            }
+        }
         // PUT api/<TestResualtController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] TestResualt value)
@@ -363,54 +447,55 @@ namespace FinalProject.API.Controllers
                 return StatusCode(500, new { error = ex.Message });
             }
         }
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TestPostModel value)
-        {
-            try
-            {
-                // וודא שהנתונים תקינים
-                if (value == null)
-                {
-                    return BadRequest(new { error = "Invalid data provided" });
-                }
 
-                if (value.UserId <= 0)
-                {
-                    return BadRequest(new { error = "Invalid User ID" });
-                }
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] TestPostModel value)
+        //{
+        //    try
+        //    {
+        //        if (value == null)
+        //        {
+        //            return BadRequest(new { error = "Invalid data provided" });
+        //        }
 
-                if (string.IsNullOrEmpty(value.ImgURL))
-                {
-                    return BadRequest(new { error = "Image URL is required" });
-                }
+        //        if (value.UserId <= 0)
+        //        {
+        //            return BadRequest(new { error = "Invalid User ID" });
+        //        }
 
-                if (string.IsNullOrEmpty(value.Summary))
-                {
-                    return BadRequest(new { error = "Summary is required" });
-                }
+        //        if (string.IsNullOrEmpty(value.ImgURL))
+        //        {
+        //            return BadRequest(new { error = "Image URL is required" });
+        //        }
 
-                Console.WriteLine($"Received test result: UserId={value.UserId}, Date={value.TestDate}, ImgURL={value.ImgURL}");
+        //        if (string.IsNullOrEmpty(value.Summary))
+        //        {
+        //            return BadRequest(new { error = "Summary is required" });
+        //        }
 
-                var testPost = new TestResualt(
-                    value.UserId,
-                    value.TestDate,
-                    value.ImgURL,
-                    value.Summary
-                );
+        //        Console.WriteLine($"Received test result: UserId={value.UserId}, Date={value.TestDate}, ImgURL={value.ImgURL}");
 
-                var newTest = await _testResualtService.AddAsync(testPost);
+        //        var testPost = new TestResualt(
+        //            value.UserId,
+        //            value.TestDate,
+        //            value.ImgURL,
+        //            value.Summary
+        //        );
 
-                Console.WriteLine($"Test result saved with ID: {newTest?.TestId}");
+        //        var newTest = await _testResualtService.AddAsync(testPost);
 
-                return Ok(newTest);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error saving test result: {ex.Message}");
-                Console.WriteLine($"Stack trace: {ex.StackTrace}");
-                return StatusCode(500, new { error = ex.Message });
-            }
-        }
+        //        Console.WriteLine($"Test result saved with ID: {newTest?.TestId}");
+
+        //        return Ok(newTest);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error saving test result: {ex.Message}");
+        //        Console.WriteLine($"Stack trace: {ex.StackTrace}");
+        //        return StatusCode(500, new { error = ex.Message });
+        //    }
+        //}
+
         // DELETE api/<TestResualtController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
