@@ -101,7 +101,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.initializeForm();
   }
 
-  displayedColumns: string[] = ['id', 'userName', 'userEmail', 'userPhone', 'userRole', 'userCreateDate', 'actions'];
+  displayedColumns: string[] = ['UserId', 'UserName', 'UserEmail', 'UserPhone', 'UserRole', 'UserCreateDate', 'actions'];
   dataSource = new MatTableDataSource<UserModel>();
   isLoading = false;
   totalUsers = 0;
@@ -125,13 +125,13 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
 
   private initializeForm(): void {
     this.userForm = this.fb.group({
-      userName: ['', [Validators.required]],
-      userEmail: ['', [Validators.required, Validators.email]],
-      userEncryptedPassword: ['', [Validators.required, Validators.minLength(6)]],
-      userPhone: [''],
-      userAddress: [''],
-      userBirth: [null],
-      userRole: ['user', [Validators.required]]
+      UserName: ['', [Validators.required]],
+      UserEmail: ['', [Validators.required, Validators.email]],
+      UserEncryptedPassword: ['', [Validators.required, Validators.minLength(6)]],
+      UserPhone: [''],
+      UserAddress: [''],
+      UserBirth: [null],
+      UserRole: ['user', [Validators.required]]
     });
   }
 
@@ -245,12 +245,12 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.currentUserId = user.UserId;
 
     this.userForm.patchValue({
-      userName: user.UserName,
-      userEmail: user.UserEmail,
-      userPhone: user.UserPhone,
-      userAddress: user.UserAddress,
-      userBirth: user.UserBirth,
-      userRole: user.UserRole
+      UserName: user.UserName,
+      UserEmail: user.UserEmail,
+      UserPhone: user.UserPhone,
+      UserAddress: user.UserAddress,
+      UserBirth: user.UserBirth,
+      UserRole: user.UserRole
     });
 
     this.userForm.get('userEncryptedPassword')?.clearValidators();
@@ -265,16 +265,16 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       if (this.isEditMode && this.currentUserId) {
         const updateData: UserUpdateModel = {
           UserId: this.currentUserId,
-          UserName: formValue.userName,
-          UserEmail: formValue.userEmail,
-          UserPhone: formValue.userPhone,
-          UserAddress: formValue.userAddress,
-          UserBirth: formValue.userBirth,
-          UserRole: formValue.userRole
+          UserName: formValue.UserName,
+          UserEmail: formValue.UserEmail,
+          UserPhone: formValue.UserPhone,
+          UserAddress: formValue.UserAddress,
+          UserBirth: formValue.UserBirth,
+          UserRole: formValue.UserRole
         };
 
-        if (formValue.userEncryptedPassword) {
-          updateData.UserEncryptedPassword = formValue.userEncryptedPassword;
+        if (formValue.UserEncryptedPassword) {
+          updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
         }
 
         this.userService.updateUser(updateData).subscribe({
@@ -293,13 +293,13 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       else {
         const newUser: RegisterPostModel = new RegisterPostModel(
           undefined, // id
-          formValue.userName, 
-          formValue.userEmail, 
-          formValue.userEncryptedPassword, 
-          formValue.userRole,
-          formValue.userPhone || '',
-          formValue.userAddress || '',
-          formValue.userBirth || new Date(),
+          formValue.UserName, 
+          formValue.UserEmail, 
+          formValue.UserEncryptedPassword, 
+          formValue.UserRole,
+          formValue.UserPhone || '',
+          formValue.UserAddress || '',
+          formValue.UserBirth || new Date(),
           new Date()
         );
 

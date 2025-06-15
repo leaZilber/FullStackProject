@@ -40,7 +40,7 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>שם משתמש</mat-label>
             <mat-icon matPrefix>person</mat-icon>
-            <input matInput formControlName="userName" placeholder="הכנס שם משתמש">
+            <input matInput formControlName="UserName" placeholder="הכנס שם משתמש">
             <mat-error *ngIf="userForm.get('userName')?.hasError('required')">
               שם משתמש הוא שדה חובה
             </mat-error>
@@ -49,7 +49,7 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>אימייל</mat-label>
             <mat-icon matPrefix>email</mat-icon>
-            <input matInput formControlName="userEmail" type="email" placeholder="הכנס כתובת אימייל">
+            <input matInput formControlName="UserEmail" type="email" placeholder="הכנס כתובת אימייל">
             <mat-error *ngIf="userForm.get('userEmail')?.hasError('required')">
               אימייל הוא שדה חובה
             </mat-error>
@@ -63,7 +63,7 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>סיסמה</mat-label>
             <mat-icon matPrefix>lock</mat-icon>
-            <input matInput formControlName="userEncryptedPassword" [type]="hidePassword ? 'password' : 'text'"
+            <input matInput formControlName="UserEncryptedPassword" [type]="hidePassword ? 'password' : 'text'"
               placeholder="הכנס סיסמה">
             <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
               <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
@@ -79,7 +79,7 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>טלפון</mat-label>
             <mat-icon matPrefix>phone</mat-icon>
-            <input matInput formControlName="userPhone" placeholder="הכנס מספר טלפון">
+            <input matInput formControlName="UserPhone" placeholder="הכנס מספר טלפון">
           </mat-form-field>
         </div>
 
@@ -87,13 +87,13 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>כתובת</mat-label>
             <mat-icon matPrefix>location_on</mat-icon>
-            <input matInput formControlName="userAddress" placeholder="הכנס כתובת">
+            <input matInput formControlName="UserAddress" placeholder="הכנס כתובת">
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>תאריך לידה</mat-label>
             <mat-icon matPrefix>cake</mat-icon>
-            <input matInput formControlName="userBirth" [matDatepicker]="picker" placeholder="בחר תאריך לידה">
+            <input matInput formControlName="UserBirth" [matDatepicker]="picker" placeholder="בחר תאריך לידה">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -103,9 +103,9 @@
           <mat-form-field appearance="outline" class="form-field">
             <mat-label>תפקיד</mat-label>
             <mat-icon matPrefix>admin_panel_settings</mat-icon>
-            <mat-select formControlName="userRole">
-              <mat-option value="user">משתמש רגיל</mat-option>
-              <mat-option value="admin">מנהל</mat-option>
+            <mat-select formControlName="UserRole">
+              <mat-option value="User">משתמש רגיל</mat-option>
+              <mat-option value="Admin">מנהל</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -146,54 +146,54 @@
       <div class="table-container">
         <mat-table [dataSource]="dataSource" matSort class="users-table">
 
-          <ng-container matColumnDef="id">
+          <ng-container matColumnDef="UserId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>מזהה</mat-header-cell>
-            <mat-cell *matCellDef="let user">{{ user.id }}</mat-cell>
+            <mat-cell *matCellDef="let user">{{ user.UserId }}</mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="userName">
+          <ng-container matColumnDef="UserName">
             <mat-header-cell *matHeaderCellDef mat-sort-header>שם משתמש</mat-header-cell>
             <mat-cell *matCellDef="let user">
               <div class="user-info">
                 <mat-icon class="user-avatar">account_circle</mat-icon>
-                <span class="username">{{ user.userName }}</span>
+                <span class="username">{{ user.UserName }}</span>
               </div>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="userEmail">
+          <ng-container matColumnDef="UserEmail">
             <mat-header-cell *matHeaderCellDef mat-sort-header>אימייל</mat-header-cell>
             <mat-cell *matCellDef="let user">
-              <a [href]="'mailto:' + user.userEmail" class="email-link">
-                {{ user.userEmail }}
+              <a [href]="'mailto:' + user.UserEmail" class="email-link">
+                {{ user.UserEmail }}
               </a>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="userPhone">
+          <ng-container matColumnDef="UserPhone">
             <mat-header-cell *matHeaderCellDef>טלפון</mat-header-cell>
             <mat-cell *matCellDef="let user">
-              <span class="phone-number">{{ user.userPhone || 'לא צוין' }}</span>
+              <span class="phone-number">{{ user.UserPhone || 'לא צוין' }}</span>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="userRole">
+          <ng-container matColumnDef="UserRole">
             <mat-header-cell *matHeaderCellDef mat-sort-header>תפקיד</mat-header-cell>
             <mat-cell *matCellDef="let user">
-              <mat-chip [class]="getRoleBadgeClass(user.userRole)">
+              <mat-chip [class]="getRoleBadgeClass(user.UserRole)">
                 <mat-icon class="role-icon">
-                  {{ user.userRole === 'admin' ? 'admin_panel_settings' : 'person' }}
+                  {{ user.UserRole === 'Admin' ? 'admin_panel_settings' : 'person' }}
                 </mat-icon>
-                {{ user.userRole === 'admin' ? 'מנהל' : 'משתמש' }}
+                {{ user.UserRole === 'Admin' ? 'מנהל' : 'משתמש' }}
               </mat-chip>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="userCreateDate">
+          <ng-container matColumnDef="UserCreateDate">
             <mat-header-cell *matHeaderCellDef mat-sort-header>תאריך יצירה</mat-header-cell>
             <mat-cell *matCellDef="let user">
               <span class="create-date">
-                {{ user.userCreateDate | date:'dd/MM/yyyy HH:mm' }}
+                {{ user.UserCreateDate | date:'dd/MM/yyyy HH:mm' }}
               </span>
             </mat-cell>
           </ng-container>
@@ -207,7 +207,7 @@
                 </button>
 
                 <button mat-icon-button color="warn" matTooltip="מחק משתמש" (click)="confirmDeleteUser(user)"
-                  [disabled]="user.userRole === 'admin'">
+                  [disabled]="user.UserRole === 'Admin'">
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
@@ -216,7 +216,7 @@
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;" class="table-row"
-            [ngClass]="{'admin-row': row.userRole === 'admin'}"></mat-row>
+            [ngClass]="{'admin-row': row.UserRole === 'Admin'}"></mat-row>
         </mat-table>
 
         <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons

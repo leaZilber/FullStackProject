@@ -69,7 +69,7 @@ namespace FinalProject.API.Controllers
         //    return Ok(upUser);
         //}
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody] UserPostModel value)
+        public async Task<ActionResult> Put(int id, [FromBody] UserUpdateModel value)
         {
             try
             {
@@ -95,8 +95,8 @@ namespace FinalProject.API.Controllers
                 if (!string.IsNullOrEmpty(value.UserAddress))
                     existingUser.UserAddress = value.UserAddress;
 
-                //if (value.UserBirth.HasValue)
-                //    existingUser.UserBirth = value.UserBirth.Value;
+                if (value.UserBirth.HasValue)
+                    existingUser.UserBirth = value.UserBirth.Value;
 
                 if (!string.IsNullOrEmpty(value.UserRole))
                     existingUser.UserRole = value.UserRole;
