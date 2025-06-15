@@ -61,12 +61,55 @@ namespace FinalProject.API.Controllers
         }
 
         // PUT api/<UserController>/5
+        //[HttpPut("{id}")]
+        ////[Authorize(UserRole = "Admin")]
+        //public async Task<ActionResult> Put([FromBody] User value)
+        //{
+        //    var upUser = await _userService.UpDateAsync(value);
+        //    return Ok(upUser);
+        //}
         [HttpPut("{id}")]
-        //[Authorize(UserRole = "Admin")]
-        public async Task<ActionResult> Put([FromBody] User value)
+        public async Task<ActionResult> Put(int id, [FromBody] UserPostModel value)
         {
-            var upUser = await _userService.UpDateAsync(value);
-            return Ok(upUser);
+            try
+            {
+                // Get the existing user first
+                var existingUser = _userService.GetUser(id);
+                if (existingUser == null)
+                {
+                    return NotFound($"User with ID {id} not found");
+                }
+
+                if (!string.IsNullOrEmpty(value.UserName))
+                    existingUser.UserName = value.UserName;
+
+                if (!string.IsNullOrEmpty(value.UserEmail))
+                    existingUser.UserEmail = value.UserEmail;
+
+                if (!string.IsNullOrEmpty(value.UserEncryptedPassword))
+                    existingUser.UserEncryptedPassword = value.UserEncryptedPassword;
+
+                if (!string.IsNullOrEmpty(value.UserPhone))
+                    existingUser.UserPhone = value.UserPhone;
+
+                if (!string.IsNullOrEmpty(value.UserAddress))
+                    existingUser.UserAddress = value.UserAddress;
+
+                //if (value.UserBirth.HasValue)
+                //    existingUser.UserBirth = value.UserBirth.Value;
+
+                if (!string.IsNullOrEmpty(value.UserRole))
+                    existingUser.UserRole = value.UserRole;
+
+                var updatedUser = await _userService.UpDateAsync(existingUser);
+                return Ok(updatedUser);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception for debugging
+                Console.WriteLine($"Error updating user: {ex.Message}");
+                return StatusCode(500, new { message = "Internal server error", details = ex.Message });
+            }
         }
 
         // DELETE api/<UserController>/5
