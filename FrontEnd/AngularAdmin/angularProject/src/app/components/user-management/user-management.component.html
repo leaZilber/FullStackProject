@@ -372,7 +372,7 @@
         </div>
 
         <div class="form-actions">
-          <button mat-raised-button color="primary" type="button" [disabled]="userForm.invalid || isLoading"
+          <button mat-raised-button color="primary" type="button" 
             (click)="saveUser()">
             <mat-icon>save</mat-icon>
             {{ isEditMode ? 'עדכן' : 'הוסף' }}
@@ -467,8 +467,7 @@
                   <mat-icon>edit</mat-icon>
                 </button>
 
-                <button mat-icon-button color="warn" matTooltip="מחק משתמש" (click)="confirmDeleteUser(user)"
-                  [disabled]="user.UserRole === 'Admin'">
+                <button mat-icon-button color="warn" matTooltip="מחק משתמש" (click)="confirmDeleteUser(user)">
                   <mat-icon>delete</mat-icon>
                 </button>
               </div>
@@ -500,4 +499,4 @@
       </div>
     </mat-card-content>
   </mat-card>
-</div>
+</div>  
