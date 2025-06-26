@@ -57,7 +57,7 @@ export interface UserPostModel {
 }
 
 export interface UserUpdateModel {
-  UserId: number;
+  // UserId: number;
   UserName?: string;
   UserEmail?: string;
   UserEncryptedPassword?: string;
@@ -278,7 +278,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
         //   updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
         // }
         const updateData: UserUpdateModel = {
-          UserId: this.currentUserId,
           ...(formValue.UserName && { UserName: formValue.UserName }),
           ...(formValue.UserEmail && { UserEmail: formValue.UserEmail }),
           ...(formValue.UserPhone && { UserPhone: formValue.UserPhone }),
