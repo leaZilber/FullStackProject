@@ -231,31 +231,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
     this.initializeForm();
   }
 
-  // editUser(user: UserModel): void {
-  //   console.log('Editing user:', user); 
-    
-  //   if (!user.UserId) {
-  //     console.error('Cannot edit user without ID:', user);
-  //     this.showSnackBar('לא ניתן לערוך משתמש ללא מזהה', 'error');
-  //     return;
-  //   }
 
-  //   this.isEditMode = true;
-  //   this.showUserForm = true;
-  //   this.currentUserId = user.UserId;
-
-  //   this.userForm.patchValue({
-  //     UserName: user.UserName,
-  //     UserEmail: user.UserEmail,
-  //     UserPhone: user.UserPhone,
-  //     UserAddress: user.UserAddress,
-  //     UserBirth: user.UserBirth,
-  //     UserRole: user.UserRole
-  //   });
-
-  //   this.userForm.get('userEncryptedPassword')?.clearValidators();
-  //   this.userForm.get('userEncryptedPassword')?.updateValueAndValidity();
-  // }
   editUser(user: UserModel): void {
     console.log('Editing user:', user); 
     
@@ -278,32 +254,40 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       UserRole: user.UserRole
     });
   
-    // Fix: Use correct property name (UserEncryptedPassword not userEncryptedPassword)
     this.userForm.get('UserEncryptedPassword')?.clearValidators();
     this.userForm.get('UserEncryptedPassword')?.updateValueAndValidity();
   }
-  
+
   saveUser(): void {
     if (this.userForm.valid) {
       this.isLoading = true;
       const formValue = this.userForm.value;
   
       if (this.isEditMode && this.currentUserId) {
+        // const updateData: UserUpdateModel = {
+        //   UserId: this.currentUserId,
+        //   UserName: formValue.UserName,
+        //   UserEmail: formValue.UserEmail,
+        //   UserPhone: formValue.UserPhone,
+        //   UserAddress: formValue.UserAddress,
+        //   UserBirth: formValue.UserBirth,
+        //   UserRole: formValue.UserRole
+        // };
+  
+        // if (formValue.UserEncryptedPassword) {
+        //   updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
+        // }
         const updateData: UserUpdateModel = {
           UserId: this.currentUserId,
-          UserName: formValue.UserName,
-          UserEmail: formValue.UserEmail,
-          UserPhone: formValue.UserPhone,
-          UserAddress: formValue.UserAddress,
-          UserBirth: formValue.UserBirth,
-          UserRole: formValue.UserRole
+          ...(formValue.UserName && { UserName: formValue.UserName }),
+          ...(formValue.UserEmail && { UserEmail: formValue.UserEmail }),
+          ...(formValue.UserPhone && { UserPhone: formValue.UserPhone }),
+          ...(formValue.UserAddress && { UserAddress: formValue.UserAddress }),
+          ...(formValue.UserBirth && { UserBirth: formValue.UserBirth }),
+          ...(formValue.UserRole && { UserRole: formValue.UserRole }),
+          ...(formValue.UserEncryptedPassword && { UserEncryptedPassword: formValue.UserEncryptedPassword })
         };
-  
-        // Fix: Check the correct property name (UserEncryptedPassword not userEncryptedPassword)
-        if (formValue.UserEncryptedPassword) {
-          updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
-        }
-  
+        
         console.log('Sending update data:', updateData); // Add logging to debug
   
         this.userService.updateUser(updateData).subscribe({
@@ -350,69 +334,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       this.showSnackBar('אנא מלא את כל השדות הנדרשים', 'error');
     }
   }
-  // saveUser(): void {
-  //   if (this.userForm.valid) {
-  //     this.isLoading = true;
-  //     const formValue = this.userForm.value;
-
-  //     if (this.isEditMode && this.currentUserId) {
-  //       const updateData: UserUpdateModel = {
-  //         UserId: this.currentUserId,
-  //         UserName: formValue.UserName,
-  //         UserEmail: formValue.UserEmail,
-  //         UserPhone: formValue.UserPhone,
-  //         UserAddress: formValue.UserAddress,
-  //         UserBirth: formValue.UserBirth,
-  //         UserRole: formValue.UserRole
-  //       };
-
-  //       if (formValue.UserEncryptedPassword) {
-  //         updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
-  //       }
-
-  //       this.userService.updateUser(updateData).subscribe({
-  //         next: () => {
-  //           this.showSnackBar('המשתמש עודכן בהצלחה', 'success');
-  //           this.cancelForm();
-  //           this.loadUsers();
-  //         },
-  //         error: (error) => {
-  //           console.error('שגיאה בעדכון המשתמש:', error);
-  //           this.showSnackBar('שגיאה בעדכון המשתמש', 'error');
-  //           this.isLoading = false;
-  //         }
-  //       });
-  //     }
-  //     else {
-  //       const newUser: RegisterPostModel = new RegisterPostModel(
-  //         undefined, // id
-  //         formValue.UserName, 
-  //         formValue.UserEmail, 
-  //         formValue.UserEncryptedPassword, 
-  //         formValue.UserRole,
-  //         formValue.UserPhone || '',
-  //         formValue.UserAddress || '',
-  //         formValue.UserBirth || new Date(),
-  //         new Date()
-  //       );
-
-  //       this.userService.addUser(newUser).subscribe({
-  //         next: () => {
-  //           this.showSnackBar('המשתמש נוסף בהצלחה', 'success');
-  //           this.cancelForm();
-  //           this.loadUsers();
-  //         },
-  //         error: (error) => {
-  //           console.error('שגיאה בהוספת המשתמש:', error);
-  //           this.showSnackBar('שגיאה בהוספת המשתמש', 'error');
-  //           this.isLoading = false;
-  //         }
-  //       });
-  //     }
-  //   } else {
-  //     this.showSnackBar('אנא מלא את כל השדות הנדרשים', 'error');
-  //   }
-  // }
 
   cancelForm(): void {
     this.showUserForm = false;
