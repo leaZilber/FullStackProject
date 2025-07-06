@@ -60,14 +60,6 @@ namespace FinalProject.API.Controllers
             return Ok(newUser);
         }
 
-        // PUT api/<UserController>/5
-        //[HttpPut("{id}")]
-        ////[Authorize(UserRole = "Admin")]
-        //public async Task<ActionResult> Put([FromBody] User value)
-        //{
-        //    var upUser = await _userService.UpDateAsync(value);
-        //    return Ok(upUser);
-        //}
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] UserUpdateModel value)
         {
@@ -121,26 +113,8 @@ namespace FinalProject.API.Controllers
             return Ok();
         }
 
-        //[HttpGet("busiest-hours")]
-        //public async Task<ActionResult> GetBusiestHours()
-        //{
-        //    var users = await _userService.GetAllUsersAsync();
-
-        //    var result = users
-        //        .GroupBy(u => new { Day = u.UserCreateDate.DayOfWeek, Hour = u.UserCreateDate.Hour })
-        //        .Select(g => new
-        //        {
-        //            Day = g.Key.Day.ToString(), // Sunday, Monday...
-        //            Hour = g.Key.Hour,          // 0–23
-        //            Count = g.Count()
-        //        })
-        //        .OrderBy(r => r.Day)
-        //        .ThenBy(r => r.Hour)
-        //        .ToList();
-
-        //    return Ok(result);
-        //}
-
+      
+      
 
         [HttpGet("users-over-time")]
         public async Task<ActionResult<IEnumerable<UserStatsPerDay>>> GetUsersOverTime()

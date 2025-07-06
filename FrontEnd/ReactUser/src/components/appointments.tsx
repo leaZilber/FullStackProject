@@ -90,25 +90,20 @@ const getStatusColor = (status: string) => {
   }
 };
 
-// פונקציה לקבלת ה-userId מהקונטקסט או מה-localStorage
 const getCurrentUserId = (): number | null => {
-  // אופציה 1: מ-localStorage (אם שמרת את זה בהתחברות)
   const storedUserId = localStorage.getItem("userId");
   if (storedUserId) {
     return parseInt(storedUserId, 10);
   }
 
-  // אופציה 2: מ-sessionStorage
   const sessionUserId = sessionStorage.getItem("userId");
   if (sessionUserId) {
     return parseInt(sessionUserId, 10);
   }
 
-  // אופציה 3: מ-JWT token
   const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   if (token) {
     try {
-      // פענח את ה-JWT token לקבלת ה-userId
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.userId || payload.sub || payload.id;
     } catch (error) {
@@ -131,7 +126,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
     type: "success" as "success" | "error",
   });
 
-  // קבלת ה-userId בעת טעינת הקומפוננטה
   useEffect(() => {
     const userId = propUserId || getCurrentUserId();
     if (userId) {
@@ -196,7 +190,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
 
   const handleConfirmArrival = async (appointment: Appointment) => {
     try {
-      // API call to update arrival confirmation - adjust the endpoint as needed
       const response = await fetch(`https://fullstackproject-5070.onrender.com/api/Turn/${appointment.turnId}/ConfirmArrival`, {
         method: 'PUT',
         headers: {
@@ -212,7 +205,6 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Update local state
       setAppointments(prev => prev.map(app => 
         app.turnId === appointment.turnId 
           ? { ...app, arrivalConfirmation: true }
@@ -231,10 +223,7 @@ export default function Appointments({ userId: propUserId }: AppointmentsProps =
     
     setSendingEmail(true);
     try {
-      // כאן תוכל להוסיף את הקריאה ל-API לשליחת תזכורת
-      // await sendEmailReminder(selectedAppointment.turnId);
-      
-      // הדמיה של שליחת מייל
+
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       showNotification("תזכורת נשלחה בהצלחה!", "success");

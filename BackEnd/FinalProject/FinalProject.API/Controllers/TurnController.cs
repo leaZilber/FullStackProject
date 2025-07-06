@@ -45,38 +45,7 @@ namespace FinalProject.API.Controllers
         }
         //    }
         [HttpPost]
-        //public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)
-        //{
-        //    if (newTurn == null)
-        //    {
-        //        return BadRequest("❌ נתוני התור חסרים.");
-        //    }
-
-        //    using (var context = new DataContext())
-        //    {
-        //        // בדיקה האם הרופא קיים (רשות, לא חובה)
-        //        var doctorExists = context.doctorList.Any(d => d.DoctorName == newTurn.DoctorName);
-        //        if (!doctorExists)
-        //        {
-        //            return NotFound("❌ לא נמצא רופא עם השם הנתון.");
-        //        }
-
-        //        var turn = new Turn
-        //        (
-        //           newTurn.UserId,
-        //           newTurn.DoctorName,
-        //           newTurn.DateTurn,
-        //           newTurn.TurnLocate,
-        //           newTurn.Hour,
-        //           newTurn.ArrivalConfirmation
-        //        );
-
-        //        context.turnList.Add(turn);
-        //        await context.SaveChangesAsync();
-
-        //        return Ok("✅ התור נוסף בהצלחה!");
-        //    }
-        //}
+   
         public async Task<IActionResult> Post([FromBody] TurnDTO newTurn)
         {
             if (newTurn == null)

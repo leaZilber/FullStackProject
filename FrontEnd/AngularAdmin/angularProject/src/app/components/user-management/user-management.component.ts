@@ -57,7 +57,7 @@ export interface UserPostModel {
 }
 
 export interface UserUpdateModel {
-  // UserId: number;
+  UserId: number;
   UserName?: string;
   UserEmail?: string;
   UserEncryptedPassword?: string;
@@ -264,19 +264,6 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
       const formValue = this.userForm.value;
   
       if (this.isEditMode && this.currentUserId) {
-        // const updateData: UserUpdateModel = {
-        //   UserId: this.currentUserId,
-        //   UserName: formValue.UserName,
-        //   UserEmail: formValue.UserEmail,
-        //   UserPhone: formValue.UserPhone,
-        //   UserAddress: formValue.UserAddress,
-        //   UserBirth: formValue.UserBirth,
-        //   UserRole: formValue.UserRole
-        // };
-  
-        // if (formValue.UserEncryptedPassword) {
-        //   updateData.UserEncryptedPassword = formValue.UserEncryptedPassword;
-        // }
         const updateData: UserUpdateModel = {
           ...(formValue.UserName && { UserName: formValue.UserName }),
           ...(formValue.UserEmail && { UserEmail: formValue.UserEmail }),
@@ -287,7 +274,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
           ...(formValue.UserEncryptedPassword && { UserEncryptedPassword: formValue.UserEncryptedPassword })
         };
         
-        console.log('Sending update data:', updateData); // Add logging to debug
+        console.log('Sending update data:', updateData);
   
         this.userService.updateUser(updateData).subscribe({
           next: () => {
@@ -343,7 +330,7 @@ export class UserManagementComponent implements OnInit, AfterViewInit {
   }
 
   confirmDeleteUser(user: UserModel): void {
-    console.log('Attempting to delete user:', user); // הוסף לוג לבדיקה
+    console.log('Attempting to delete user:', user);
     
     if (!user.UserId) {
       console.error('Cannot delete user without ID:', user);
