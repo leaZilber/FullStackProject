@@ -456,10 +456,9 @@ const MedicalHistory = () => {
   const endIndex = startIndex + recordsPerPage
   const currentRecords = medicalRecords.slice(startIndex, endIndex)
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value)
-  }
-
+  const handlePageChange = (_: unknown, value: number) => {
+    setCurrentPage(value);
+  };
   if (loading) {
     return (
       <Box
