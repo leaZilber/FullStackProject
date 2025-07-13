@@ -95,8 +95,6 @@ const RegisterComp = () => {
         setRegisterError('');
         setRegisterSuccess('');
         setLoading(true);
-        console.log('Form data submitted:', data);
-
         const requestPayload = {
             UserName: data.UserName,
             UserEmail: data.UserEmail,
@@ -107,7 +105,6 @@ const RegisterComp = () => {
             UserBirth: data.UserBirth
         };
 
-        console.log('Request payload:', requestPayload);
 
         try {
             const response = await axios.post("https://fullstackproject-5070.onrender.com/api/User", requestPayload, {
@@ -117,10 +114,6 @@ const RegisterComp = () => {
                 timeout: 20000,
             });
 
-            console.log('Full response:', response);
-            console.log('Response status:', response.status);
-            console.log('Response data:', response.data);
-
             if (response.status === 200 || response.status === 201) {
                 if (response.data.token) {
                     sessionStorage.setItem("token", response.data.token);
@@ -129,7 +122,6 @@ const RegisterComp = () => {
                     sessionStorage.setItem("userId", response.data.userId);
                 }
 
-                console.log("Registration successful", response.data);
                 setRegisterSuccess("נרשמת בהצלחה!");
 
                 setTimeout(() => {

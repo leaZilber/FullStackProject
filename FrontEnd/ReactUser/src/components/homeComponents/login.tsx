@@ -97,13 +97,11 @@ export const LoginComp = () => {
     setLoginError("");
     setLoading(true);
     try {
-      console.log("Sending login request with data:", data);
       const response = await axios.post("https://fullstackproject-5070.onrender.com/api/Auth/login", {
         UserName: data.UserName,
         UserEncryptedPassword: data.UserEncryptedPassword
       });
 
-      console.log("Login response:", response.data);
       if (response.status === 200 && response.data) {
         sessionStorage.setItem("token", response.data.token);
         if (response.data.userName) {
@@ -131,7 +129,6 @@ export const LoginComp = () => {
 
       if (axios.isAxiosError(error)) {
         if (error.response) {
-          console.log("Error response:", error.response.data);
           switch (error.response.status) {
             case 401:
               setLoginError("שם משתמש או סיסמה שגויים");
