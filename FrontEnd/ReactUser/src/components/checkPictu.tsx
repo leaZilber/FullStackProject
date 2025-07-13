@@ -150,8 +150,21 @@ const saveTestResualt = async (testResult: TestResualt): Promise<TestResualt> =>
         console.error('Parsed error:', errorJson);
         
         // טיפול מותאם לשגיאות validation
+        // if (errorJson.errors) {
+        //   const validationErrors = [];
+        //   for (const [field, messages] of Object.entries(errorJson.errors)) {
+        //     if (Array.isArray(messages)) {
+        //       validationErrors.push(`${field}: ${messages.join(', ')}`);
+        //     }
+        //   }
+        //   if (validationErrors.length > 0) {
+        //     errorMessage = `Validation errors: ${validationErrors.join('; ')}`;
+        //   }
+        // } else {
+        //   errorMessage = errorJson.error || errorJson.message || errorJson.title || errorMessage;
+        // }
         if (errorJson.errors) {
-          const validationErrors = [];
+          const validationErrors: string[] = [];
           for (const [field, messages] of Object.entries(errorJson.errors)) {
             if (Array.isArray(messages)) {
               validationErrors.push(`${field}: ${messages.join(', ')}`);
@@ -238,11 +251,14 @@ const AlertBox = ({ type, children }: { type: 'success' | 'error' | 'warning' | 
   );
 };
 
+// const ObjectDetectionDisplay = ({ detectedObjects, imageUrl }: { detectedObjects: DetectedObject[], imageUrl: string }) => {
+//   if (!detectedObjects || detectedObjects.length === 0) {
+//     return null;
+//   }
 const ObjectDetectionDisplay = ({ detectedObjects, imageUrl }: { detectedObjects: DetectedObject[], imageUrl: string }) => {
   if (!detectedObjects || detectedObjects.length === 0) {
     return null;
   }
-
   return (
     <div className="mt-6">
       <h3 className="text-lg font-semibold mb-4" style={{ color: theme.textPrimary }}>
@@ -256,7 +272,7 @@ const ObjectDetectionDisplay = ({ detectedObjects, imageUrl }: { detectedObjects
             alt="תמונה עם זיהוי אובייקטים"
             className="w-full rounded-lg shadow-md"
           />
-          {detectedObjects.map((obj, index) => (
+          {detectedObjects?.map((obj, index) => (
             obj.coordinates && (
               <div
                 key={index}
@@ -278,7 +294,7 @@ const ObjectDetectionDisplay = ({ detectedObjects, imageUrl }: { detectedObjects
         
         <div>
           <div className="space-y-3">
-            {detectedObjects.map((obj, index) => (
+            {detectedObjects?.map((obj, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between p-3 rounded-lg border"
