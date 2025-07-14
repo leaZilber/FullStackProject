@@ -354,7 +354,7 @@ export default function CheckPicture() {
   useEffect(() => {
     const userIdFromToken = getUserIdFromToken()
 
-    const token = sessionStorage.getItem("token")
+    // const token = sessionStorage.getItem("token")
     setUserId(userIdFromToken)
     setIsLoggedIn(userIdFromToken !== -1)
   }, [])
