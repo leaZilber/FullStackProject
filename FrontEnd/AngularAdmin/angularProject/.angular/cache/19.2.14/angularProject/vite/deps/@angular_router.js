@@ -5649,8 +5649,6 @@ function withDebugTracing() {
         const router = inject(Router);
         return () => router.events.subscribe((e) => {
           console.group?.(`Router Event: ${e.constructor.name}`);
-          console.log(stringifyEvent(e));
-          console.log(e);
           console.groupEnd?.();
         });
       }

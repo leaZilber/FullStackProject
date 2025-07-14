@@ -18370,7 +18370,6 @@ var Console = class _Console {
   log(message) {
     console.log(message);
   }
-  // Note: for reporting errors use `DOM.logError()` as it is platform specific
   warn(message) {
     console.warn(message);
   }
